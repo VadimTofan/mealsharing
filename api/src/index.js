@@ -5,7 +5,7 @@ import {
   getLastMeal,
   getMeals,
   getPastMeals,
-} from './db.js'
+} from './database_client.js'
 
 const app = express()
 
