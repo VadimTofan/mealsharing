@@ -1,31 +1,56 @@
-import "dotenv/config";
-import express from "express";
-import cors from "cors";
-import bodyParser from "body-parser";
-import knex from "./database_client.js";
-import nestedRouter from "./routers/nested.js";
+import express from 'express'
+import {
+  getFirstMeal,
+  getFutureMeals,
+  getLastMeal,
+  getMeals,
+  getPastMeals,
+} from './db.js'
 
-const app = express();
-app.use(cors());
-app.use(bodyParser.json());
+const app = express()
 
-const apiRouter = express.Router();
+app.get('/', (request, response) => {
+  response.send('Welcome to Meal Sharing')
+})
 
-// You can delete this route once you add your own routes
-apiRouter.get("/", async (req, res) => {
-  const SHOW_TABLES_QUERY =
-    process.env.DB_CLIENT === "pg"
-      ? "SELECT * FROM pg_catalog.pg_tables;"
-      : "SHOW TABLES;";
-  const tables = await knex.raw(SHOW_TABLES_QUERY);
-  res.json({ tables });
-});
+app.get('/all-meals', async (request, response) => {
+  const meals = await getMeals('meals')
 
-// This nested router example can also be replaced with your own sub-router
-apiRouter.use("/nested", nestedRouter);
+  response.send(meals)
+})
 
-app.use("/api", apiRouter);
+app.get('/future-meals', async (request, response) => {
+  const meals = await getFutureMeals()
 
-app.listen(process.env.PORT, () => {
-  console.log(`API listening on port ${process.env.PORT}`);
-});
+  response.send(meals)
+})
+
+app.get('/past-meals', async (request, response) => {
+  const meals = await getPastMeals()
+
+  response.send(meals)
+})
+
+app.get('/first-meal', async (request, response) => {
+  const meal = await getFirstMeal()
+
+  if (!meal || Object.keys(meal).length === 0)
+    return response.send('There are no meals for your request!')
+
+  response.send(meal)
+})
+
+app.get('/last-meal', async (request, response) => {
+  const meal = await getLastMeal()
+
+  if (!meal || Object.keys(meal).length === 0)
+    return response.send('There are no meals for your request!')
+
+  response.send(meal)
+})
+
+const port = 8000
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`)
+})

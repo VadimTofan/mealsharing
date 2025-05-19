@@ -1,6 +1,9 @@
-import knex from "knex";
+import dotenv from 'dotenv'
+import knex from 'knex'
 
-const connection = knex({
+dotenv.config()
+
+const dbClient = knex({
   client: process.env.DB_CLIENT,
   connection: {
     host: process.env.DB_HOST,
@@ -8,9 +11,29 @@ const connection = knex({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE_NAME,
-    ssl:
-      process.env.DB_USE_SSL === "true" ? { rejectUnauthorized: false } : false,
   },
-});
+})
 
-export default connection;
+export async function getMeals() {
+  return dbClient.select('*').from('meal')
+}
+
+export async function getFutureMeals() {
+  const now = new Date().toISOString()
+
+  return dbClient.select('*').from('meal').where('when', '>', now)
+}
+
+export async function getPastMeals() {
+  const now = new Date().toISOString()
+
+  return dbClient.select('*').from('meal').where('when', '<', now)
+}
+
+export async function getFirstMeal() {
+  return dbClient.select('*').from('meal').orderBy('id').first()
+}
+
+export async function getLastMeal() {
+  return dbClient.select('*').from('meal').orderBy('id', 'desc').first()
+}
