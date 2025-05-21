@@ -37,3 +37,7 @@ export async function getFirstMeal() {
 export async function getLastMeal() {
   return dbClient.select('*').from('meal').orderBy('id', 'desc').first()
 }
+
+export async function getReservations() {
+  return dbClient.select('*').from('reservations')
+}

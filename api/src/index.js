@@ -14,7 +14,7 @@ app.get('/', (request, response) => {
 })
 
 app.get('/all-meals', async (request, response) => {
-  const meals = await getMeals('meals')
+  const meals = await getMeals()
 
   response.send(meals)
 })
