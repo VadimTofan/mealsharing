@@ -66,8 +66,8 @@ export async function getReservationById(id) {
   return dbClient.select('*').from('reservation').where('id', id)
 }
 
-export async function updateReservationById(id, meal) {
-  return dbClient('reservation').where('id', id).update(meal)
+export async function updateReservationById(id, reservation) {
+  return dbClient('reservation').where('id', id).update(reservation)
 }
 
 export async function deleteReservationById(id) {
