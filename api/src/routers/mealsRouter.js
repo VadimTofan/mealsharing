@@ -13,71 +13,78 @@ mealsRouter.get("/api/meals", async (req, res) => {
 });
 
 mealsRouter.post("/api/meals", async (req, res) => {
-  const importMeal = req.body;
-  const mealError = mealImportTroubleShooter(importMeal)
+  const meal = req.body;
+  const mealError = validateMealData(meal)
 
   if (mealError) return res.status(400).send({ error: mealError})
 
-  await addMeal(mealCreator(importMeal))
+  await addMeal(createMealObject(meal))
 
   res.status(201).json({ message: "Meal added successfully." });
 });
 
 mealsRouter.get("/api/meals/:id", async (req, res) => {
   const id = Number(req.params.id);
+  if (!id) return res.status(400).send({ error: `Id is mandatory`})
+
   const meal = await getMealById(id);
 
-  if (!meal.length) return res.status(404).send({ error: `There is no meal with such ID` });
+  if (!meal) return res.status(404).send({ error: `There is no meal with such ID` });
 
   res.send(meal);
 });
 
 mealsRouter.put("/api/meals/:id", async (req, res) => {
   const id = Number(req.params.id);
-  const importMeal = req.body;
+  const meal = req.body;
 
-  if (!id || !importMeal) return res.status(400).send({ error: `Id and body is mandatory`});
+  if (!id) return res.status(400).send({ error: `Id is mandatory`});
 
-  const mealError = mealImportTroubleShooter(importMeal)
+  const mealError = validateMealData(meal)
 
   if (mealError) return res.status(400).send({ error: mealError})
+
+  const newMeal = createMealObject(meal)
  
-  await updateMealById(id, mealCreator(importMeal));
+  await updateMealById(id, createMealObject(newMeal));
 
   res.status(201).send({ message: "Meal updated successfully." });
 });
 
 mealsRouter.delete("/api/meals/:id", async (req, res) => {
   const id = Number(req.params.id);
-  const deleted = await deleteMealById(id);
 
-  if (deleted) return res.send({ message: "Meal deleted successfully." });
+  if (!id) return res.status(400).send({ error: `Id is mandatory`})
+
+  const isDeleted = await deleteMealById(id);
+
+  if (isDeleted) return res.send({ message: "Meal deleted successfully." });
   
   res.status(404).send({ error: "Meal not found." });
 });
 
 
-const mealImportTroubleShooter = (importMeal) => {
-  if (!importMeal) return `Meal data is required.`
+const validateMealData = (meal) => {
+  if (!meal) return `Meal data is required.`
 
-  if (!importMeal.title ||
-    !importMeal.description ||
-    !importMeal.location ||
-    !importMeal.when ||
-    !importMeal.max_reservations ||
-    !importMeal.price ||
-    !importMeal.created_date) return `All fields are required.`
+  if (!meal.title ||
+    !meal.description ||
+    !meal.location ||
+    !meal.when ||
+    !meal.max_reservations ||
+    !meal.price ||
+    !meal.created_date) return `All fields are required.`
 }
 
-const mealCreator = (importMeal) =>{
+const createMealObject = (meal) =>{
   const createMeal = {
-    title: importMeal.title,
-    description: importMeal.description,
-    location: importMeal.location,
-    when: importMeal.when,
-    max_reservations: importMeal.max_reservations,
-    price: importMeal.price,
-    created_date: importMeal.created_date
+    title: meal.title,
+    description: meal.description,
+    location: meal.location,
+    when: meal.when,
+    max_reservations: meal.max_reservations,
+    price: meal.price,
+    created_date: meal.created_date
   };
 
   return createMeal;

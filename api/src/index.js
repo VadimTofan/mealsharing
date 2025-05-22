@@ -30,16 +30,16 @@ app.get('/past-meals', async (request, response) => {
 app.get('/first-meal', async (request, response) => {
   const meal = await getFirstMeal()
 
-  if (!meal || Object.keys(meal).length === 0)
+  if (!meal)
     return response.send('There are no meals for your request!')
-
+ 
   response.send(meal)
 })
 
 app.get('/last-meal', async (request, response) => {
   const meal = await getLastMeal()
-
-  if (!meal || Object.keys(meal).length === 0)
+  console.log(meal)
+  if (!meal)
     return response.send('There are no meals for your request!')
 
   response.send(meal)

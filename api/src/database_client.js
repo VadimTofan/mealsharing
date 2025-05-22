@@ -36,6 +36,7 @@ export async function getFirstMeal() {
 
 export async function getLastMeal() {
   return dbClient.select('*').from('meal').orderBy('id', 'desc').first()
+
 }
 
 export async function addMeal(meal) {
@@ -43,7 +44,9 @@ export async function addMeal(meal) {
 }
 
 export async function getMealById(id) {
-  return dbClient.select('*').from('meal').where('id', id)
+  const meals = await dbClient.select('*').from('meal').where('id', id);
+  
+  return meals[0];
 }
 
 export async function updateMealById(id, meal) {

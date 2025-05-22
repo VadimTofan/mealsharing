@@ -12,18 +12,20 @@ reservationsRouter.get("/api/reservations", async (req, res) => {
 });
 
 reservationsRouter.post("/api/reservations", async (req, res) => {
-    const importReservation = req.body;
-    const reservationError = reservationImportTroubleShooter(importReservation);
+    const reservation = req.body;
+    const reservationError = reservationDataValidator(reservation);
 
     if (reservationError) return res.status(400).send({ error: reservationError});
 
-    await addReservation(reservationCreator(importReservation))
+    await addReservation(createReservationObject(reservation))
     
     res.status(201).json({ message: "Reservation added successfully." });
   });
 
 reservationsRouter.get("/api/reservations/:id", async (req, res) => {
   const id = Number(req.params.id);
+  if (!id) return res.status(400).send({ error: `Id is mandatory`});
+
   const reservation = await getReservationById(id);
 
   if (!reservation.length) return res.status(404).send({ error: `There is no reservation with such ID` });
@@ -33,48 +35,50 @@ reservationsRouter.get("/api/reservations/:id", async (req, res) => {
 
 reservationsRouter.put("/api/reservations/:id", async (req, res) => {
   const id = Number(req.params.id);
-  const importReservation = req.body;
+  const reservation = req.body;
 
-  if (!id || !importReservation) return res.status(400).send({ error: `Id and body is mandatory`});
+  if (!id) return res.status(400).send({ error: `Id is mandatory`});
 
-  const reservationError = reservationImportTroubleShooter(importReservation)
+  const reservationError = reservationDataValidator(reservation)
 
   if (reservationError) return res.status(400).send({ error: reservationError})
  
-  await updateReservationById(id, reservationCreator(importReservation));
+  await updateReservationById(id, createReservationObject(reservation));
 
   res.status(201).json({ message: "Reservation updated successfully." });
 });
 
 reservationsRouter.delete("/api/reservations/:id", async (req, res) => {
   const id = Number(req.params.id);
-  const deleted = await deleteReservationById(id);
+  if (!id) return res.status(400).send({ error: `Id is mandatory`});
 
-  if (deleted) return res.send({ message: "Reservation deleted successfully." });
+  const isDeleted = await deleteReservationById(id);
+
+  if (isDeleted) return res.send({ message: "Reservation deleted successfully." });
 
   res.status(404).json({ error: "Reservation not found." });
 });
 
-const reservationImportTroubleShooter = (importReservation) => {
-    if (!importReservation) return `Reservation Information is required.`
+const reservationDataValidator = (reservation) => {
+    if (!reservation) return `Reservation Information is required.`
   
-    if (!importReservation.number_of_guests ||
-      !importReservation.meal_id ||
-      !importReservation.created_date ||
-      !importReservation.contact_phonenumber ||
-      !importReservation.contact_name ||
-      !importReservation.contact_email) return `All fields are required.`
+    if (!reservation.number_of_guests ||
+      !reservation.meal_id ||
+      !reservation.created_date ||
+      !reservation.contact_phonenumber ||
+      !reservation.contact_name ||
+      !reservation.contact_email) return `All fields are required.`
   }
   
-  const reservationCreator = (importReservation) =>{
+  const createReservationObject = (reservation) =>{
 
     const createReservation = {
-        number_of_guests: importReservation.number_of_guests,
-        meal_id: importReservation.meal_id,
-        created_date: `${importReservation.created_date}`,
-        contact_phonenumber: importReservation.contact_phonenumber,
-        contact_name: importReservation.contact_name,
-        contact_email: importReservation.contact_email,
+        number_of_guests: reservation.number_of_guests,
+        meal_id: reservation.meal_id,
+        created_date: `${reservation.created_date}`,
+        contact_phonenumber: reservation.contact_phonenumber,
+        contact_name: reservation.contact_name,
+        contact_email: reservation.contact_email,
     };
 
     return createReservation;
