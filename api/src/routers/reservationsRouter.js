@@ -5,7 +5,7 @@ import {getReservations,
     updateReservationById, 
     deleteReservationById} from '../database_client.js';
 
-const reservationsRouter = express.Router();
+export const reservationsRouter = express.Router();
 
 reservationsRouter.get("/api/reservations", async (req, res) => {
   res.send(await getReservations())
@@ -83,6 +83,3 @@ const reservationDataValidator = (reservation) => {
 
     return createReservation;
   };
-  
-
-export default reservationsRouter;

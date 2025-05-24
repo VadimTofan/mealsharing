@@ -6,8 +6,8 @@ import {
   getMeals,
   getPastMeals,
 } from './database_client.js'
-import mealsRouter from './routers/mealsRouter.js'
-import reservationsRouter from './routers/reservationsRouter.js'
+import {mealsRouter} from './routers/mealsRouter.js'
+import {reservationsRouter} from './routers/reservationsRouter.js'
 
 const app = express()
 app.use(express.json())
@@ -45,8 +45,8 @@ app.get('/last-meal', async (request, response) => {
   response.send(meal)
 })
 
-app.use(mealsRouter)
-app.use(reservationsRouter)
+app.use(mealsRouter);
+app.use(reservationsRouter);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {

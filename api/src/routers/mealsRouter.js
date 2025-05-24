@@ -6,7 +6,7 @@ import {getMeals,
    deleteMealById} from '../database_client.js';
 
 
-const mealsRouter = express.Router();
+export const mealsRouter = express.Router();
 
 mealsRouter.get("/api/meals", async (req, res) => {
   res.send(await getMeals())
@@ -89,5 +89,3 @@ const createMealObject = (meal) =>{
 
   return createMeal;
 };
-
-export default mealsRouter;
