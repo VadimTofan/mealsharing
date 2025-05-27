@@ -14,20 +14,33 @@ const dbClient = knex({
   },
 })
 
-export async function getMeals() {
-  return dbClient.select('*').from('meal')
+export async function getMeals(operator, amount) {
+  if (!operator && !amount) return dbClient.select('*').from('meal')
+  if (operator && amount) return dbClient('meal').where('price', operator, amount)
 }
 
-export async function getFutureMeals() {
+export async function getFutureMeals(date) {
+  dbClient.select('*').from('meal').where('when', '>', date)
+
   const now = new Date().toISOString()
 
   return dbClient.select('*').from('meal').where('when', '>', now)
 }
 
-export async function getPastMeals() {
+export async function getPastMeals(date) {
+  if (date) return dbClient.select('*').from('meal').where('when', '<', date)
+
   const now = new Date().toISOString()
 
   return dbClient.select('*').from('meal').where('when', '<', now)
+}
+
+export async function getMealsByLimit(limit) {
+  return dbClient('meal').select('*').limit(limit);
+}
+
+export async function getMealsSorted(sortKey, sortDir) {
+  return dbClient.select("*").from("meal").orderBy(sortKey, sortDir)
 }
 
 export async function getFirstMeal() {
@@ -57,6 +70,21 @@ export async function deleteMealById(id) {
   return dbClient('meal').where('id', id).del();
 }
 
+export async function getMealsForReservation() {
+  return dbClient('meal')
+  .leftJoin('reservation', 'meal.id', 'reservation.meal_id')
+  .select('meal.*')
+  .sum({ total_guests: 'reservation.number_of_guests' })
+  .groupBy('meal.id')
+  .havingRaw('SUM(reservation.number_of_guests) < meal.max_reservations OR SUM(reservation.number_of_guests) IS NULL');
+}
+
+export async function getMealsByTitle(title) {
+  return dbClient('meal')
+    .select('*')
+    .where('title', 'like', `${title}%`);
+}
+
 export async function getReservations() {
   return dbClient.select('*').from('reservation')
 }
@@ -75,4 +103,24 @@ export async function updateReservationById(id, reservation) {
 
 export async function deleteReservationById(id) {
   return dbClient('reservation').where('id', id).del();
+}
+
+export async function getReviews() {
+  return dbClient.select('*').from('review')
+}
+
+export async function addReview(meal) {
+  return dbClient('review').insert(meal);
+}
+
+export async function getReviewById(id) {
+  return dbClient.select('*').from('review').where('id', id)
+}
+
+export async function updateReviewById(id, reservation) {
+  return dbClient('review').where('id', id).update(reservation)
+}
+
+export async function deleteReviewById(id) {
+  return dbClient('review').where('id', id).del();
 }
