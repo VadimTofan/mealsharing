@@ -109,8 +109,8 @@ export async function getReviews() {
   return dbClient.select('*').from('review')
 }
 
-export async function addReview(meal) {
-  return dbClient('review').insert(meal);
+export async function addReview(review) {
+  return dbClient('review').insert(review);
 }
 
 export async function getReviewById(id) {
