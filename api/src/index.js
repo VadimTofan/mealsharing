@@ -1,13 +1,8 @@
 import express from 'express'
-import {
-  getFirstMeal,
-  getFutureMeals,
-  getLastMeal,
-  getMeals,
-  getPastMeals,
-} from './database_client.js'
+import * as db from './database/database_client.js'
 import {mealsRouter} from './routers/mealsRouter.js'
 import {reservationsRouter} from './routers/reservationsRouter.js'
+import {reviewsRouter} from './routers/reviewsRouter.js'
 
 const app = express()
 app.use(express.json())
@@ -16,19 +11,19 @@ app.get('/', (request, response) => {
 })
 
 app.get('/all-meals', async (request, response) => {
-  response.send(await getMeals())
+  response.send(await db.getMeals())
 })
 
 app.get('/future-meals', async (request, response) => {
-  response.send(await getFutureMeals())
+  response.send(await db.getFutureMeals())
 })
 
 app.get('/past-meals', async (request, response) => {
-  response.send(await getPastMeals())
+  response.send(await db.getPastMeals())
 })
 
 app.get('/first-meal', async (request, response) => {
-  const meal = await getFirstMeal()
+  const meal = await db.getFirstMeal()
 
   if (!meal)
     return response.send('There are no meals for your request!')
@@ -37,7 +32,7 @@ app.get('/first-meal', async (request, response) => {
 })
 
 app.get('/last-meal', async (request, response) => {
-  const meal = await getLastMeal()
+  const meal = await db.getLastMeal()
   console.log(meal)
   if (!meal)
     return response.send('There are no meals for your request!')
@@ -47,6 +42,7 @@ app.get('/last-meal', async (request, response) => {
 
 app.use(mealsRouter);
 app.use(reservationsRouter);
+app.use(reviewsRouter);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
