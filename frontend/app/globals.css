@@ -5,7 +5,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #bdbdbd65;
     --foreground: #ededed;
   }
 }
@@ -39,4 +39,14 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout main {
+  flex: 1;
 }
