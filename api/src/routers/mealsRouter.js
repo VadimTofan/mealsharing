@@ -1,82 +1,108 @@
 import express from "express";
-import {getMeals,
-   addMeal, 
-   getMealById, 
-   updateMealById, 
-   deleteMealById} from '../database_client.js';
-
+import * as db from "../database/database_client.js";
 
 export const mealsRouter = express.Router();
 
-mealsRouter.get("/api/meals", async (req, res) => {
-  res.send(await getMeals())
+mealsRouter.get("/api/meals", async (request, response) => {
+  const maxPrice = request.query.maxPrice;
+  const minPrice = request.query.minPrice;
+  const availableReservations = request.query.availableReservations;
+  const title = request.query.title;
+  const dateAfter = request.query.dateAfter;
+  const dateBefore = request.query.dateBefore;
+  const limit = request.query.limit;
+  const sort = request.query.sortKey;
+  const safeSort = ["when", "max_reservations", "price"];
+  const safeDirection = ["asc", "desc"];
+  let sortBy = "id";
+  let directBy = "asc";
+
+  console.log(sort);
+
+  if (maxPrice) return response.send(await db.getMeals("<", maxPrice));
+  if (minPrice) return response.send(await db.getMeals(">", minPrice));
+  if (availableReservations && availableReservations !== "true") return response.status(404).send({ error: `Can't find such dishes` });
+  if (availableReservations === "true") return response.send(await db.getMealsForReservation());
+  if (title) return response.send(await db.getMealsByTitle(title));
+  if (dateAfter) return response.send(await db.getFutureMeals(dateAfter));
+  if (dateBefore) return response.send(await db.getPastMeals(dateBefore));
+  if (limit) return response.send(await db.getMealsByLimit(limit));
+  if (sort) {
+    for (let i = 0; i < safeSort.length; i++) {
+      if (sort.includes(safeSort[i])) {
+        sortBy = safeSort[i] || "id";
+        break;
+      }
+    }
+    for (let i = 0; i < safeDirection.length; i++) {
+      if (sort.includes(safeDirection[i])) {
+        directBy = safeDirection[i] || "asc";
+        break;
+      }
+    }
+    return response.send(await db.getMealsSorted(sortBy, directBy));
+  }
+  response.send(await db.getMeals());
 });
 
-mealsRouter.post("/api/meals", async (req, res) => {
-  const meal = req.body;
-  const mealError = validateMealData(meal)
+mealsRouter.post("/api/meals", async (request, response) => {
+  const meal = request.body;
+  const mealError = validateMealData(meal);
 
-  if (mealError) return res.status(400).send({ error: mealError})
+  if (mealError) return response.status(400).send({ error: mealError });
 
-  await addMeal(createMealObject(meal))
+  await db.addMeal(createMealObject(meal));
 
-  res.status(201).json({ message: "Meal added successfully." });
+  response.status(201).json({ message: "Meal added successfully." });
 });
 
-mealsRouter.get("/api/meals/:id", async (req, res) => {
-  const id = Number(req.params.id);
-  if (!id) return res.status(400).send({ error: `Id is mandatory`})
+mealsRouter.get("/api/meals/:id", async (request, response) => {
+  const id = Number(request.params.id);
+  if (!id) return response.status(400).send({ error: `Id is mandatory` });
 
-  const meal = await getMealById(id);
+  const meal = await db.getMealById(id);
 
-  if (!meal) return res.status(404).send({ error: `There is no meal with such ID` });
+  if (!meal) return response.status(404).send({ error: `There is no meal with such ID` });
 
-  res.send(meal);
+  response.send(meal);
 });
 
-mealsRouter.put("/api/meals/:id", async (req, res) => {
-  const id = Number(req.params.id);
-  const meal = req.body;
+mealsRouter.put("/api/meals/:id", async (request, response) => {
+  const id = Number(request.params.id);
+  const meal = request.body;
 
-  if (!id) return res.status(400).send({ error: `Id is mandatory`});
+  if (!id) return response.status(400).send({ error: `Id is mandatory` });
 
-  const mealError = validateMealData(meal)
+  const mealError = validateMealData(meal);
 
-  if (mealError) return res.status(400).send({ error: mealError})
+  if (mealError) return response.status(400).send({ error: mealError });
 
-  const newMeal = createMealObject(meal)
- 
-  await updateMealById(id, createMealObject(newMeal));
+  const newMeal = createMealObject(meal);
 
-  res.status(201).send({ message: "Meal updated successfully." });
+  await db.updateMealById(id, createMealObject(newMeal));
+
+  response.status(201).send({ message: "Meal updated successfully." });
 });
 
-mealsRouter.delete("/api/meals/:id", async (req, res) => {
-  const id = Number(req.params.id);
+mealsRouter.delete("/api/meals/:id", async (request, response) => {
+  const id = Number(request.params.id);
 
-  if (!id) return res.status(400).send({ error: `Id is mandatory`})
+  if (!id) return response.status(400).send({ error: `Id is mandatory` });
 
-  const isDeleted = await deleteMealById(id);
+  const isDeleted = await db.deleteMealById(id);
 
-  if (isDeleted) return res.send({ message: "Meal deleted successfully." });
-  
-  res.status(404).send({ error: "Meal not found." });
+  if (isDeleted) return response.send({ message: "Meal deleted successfully." });
+
+  response.status(404).send({ error: "Meal not found." });
 });
-
 
 const validateMealData = (meal) => {
-  if (!meal) return `Meal data is required.`
+  if (!meal) return `Meal data is required.`;
 
-  if (!meal.title ||
-    !meal.description ||
-    !meal.location ||
-    !meal.when ||
-    !meal.max_reservations ||
-    !meal.price ||
-    !meal.created_date) return `All fields are required.`
-}
+  if (!meal.title || !meal.description || !meal.location || !meal.when || !meal.max_reservations || !meal.price || !meal.created_date) return `All fields are required.`;
+};
 
-const createMealObject = (meal) =>{
+const createMealObject = (meal) => {
   const createMeal = {
     title: meal.title,
     description: meal.description,
@@ -84,7 +110,7 @@ const createMealObject = (meal) =>{
     when: meal.when,
     max_reservations: meal.max_reservations,
     price: meal.price,
-    created_date: meal.created_date
+    created_date: meal.created_date,
   };
 
   return createMeal;
