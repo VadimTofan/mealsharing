@@ -1,7 +1,9 @@
+import MealsList from "../HomePage/MealList.jsx";
+
 export default function Main() {
   return (
     <div>
-      <h1>Welcome to Meal Sharing!</h1>
+      <MealsList />
     </div>
   );
 }
