@@ -9,7 +9,7 @@ export default function MealsList() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3001/last-meal");
+        const response = await fetch("http://localhost:8001/all-meals");
         if (!response.ok) {
           throw new Error("Failed to fetch meals");
         }
