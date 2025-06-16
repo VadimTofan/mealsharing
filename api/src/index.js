@@ -1,44 +1,49 @@
-import express from 'express'
-import * as db from './database/database_client.js'
-import {mealsRouter} from './routers/mealsRouter.js'
-import {reservationsRouter} from './routers/reservationsRouter.js'
-import {reviewsRouter} from './routers/reviewsRouter.js'
+import express from "express";
+import * as db from "./database/database_client.js";
+import { mealsRouter } from "./routers/mealsRouter.js";
+import { reservationsRouter } from "./routers/reservationsRouter.js";
+import { reviewsRouter } from "./routers/reviewsRouter.js";
 
-const app = express()
-app.use(express.json())
-app.get('/', (request, response) => {
-  response.send('Welcome to Meal Sharing')
-})
+import cors from "cors";
 
-app.get('/all-meals', async (request, response) => {
-  response.send(await db.getMeals())
-})
+const app = express();
 
-app.get('/future-meals', async (request, response) => {
-  response.send(await db.getFutureMeals())
-})
+// Had to use ChatGPT for this one, would never understand what's wrong!
+app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors());
 
-app.get('/past-meals', async (request, response) => {
-  response.send(await db.getPastMeals())
-})
+app.use(express.json());
+app.get("/", (request, response) => {
+  response.send("Welcome to Meal Sharing");
+});
 
-app.get('/first-meal', async (request, response) => {
-  const meal = await db.getFirstMeal()
+app.get("/all-meals", async (request, response) => {
+  response.send(await db.getMeals());
+});
 
-  if (!meal)
-    return response.send('There are no meals for your request!')
- 
-  response.send(meal)
-})
+app.get("/future-meals", async (request, response) => {
+  response.send(await db.getFutureMeals());
+});
 
-app.get('/last-meal', async (request, response) => {
-  const meal = await db.getLastMeal()
-  console.log(meal)
-  if (!meal)
-    return response.send('There are no meals for your request!')
+app.get("/past-meals", async (request, response) => {
+  response.send(await db.getPastMeals());
+});
 
-  response.send(meal)
-})
+app.get("/first-meal", async (request, response) => {
+  const meal = await db.getFirstMeal();
+
+  if (!meal) return response.send("There are no meals for your request!");
+
+  response.send(meal);
+});
+
+app.get("/last-meal", async (request, response) => {
+  const meal = await db.getLastMeal();
+  console.log(meal);
+  if (!meal) return response.send("There are no meals for your request!");
+
+  response.send(meal);
+});
 
 app.use(mealsRouter);
 app.use(reservationsRouter);
@@ -46,5 +51,5 @@ app.use(reviewsRouter);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`)
-})
+  console.log(`Server is running on http://localhost:${port}`);
+});
