@@ -1,0 +1,1 @@
+.meal{border:1px solid #000;border-radius:8px;padding:1.5rem;margin:1rem 0;background:#66b2ff;box-shadow:0 2px 8px rgba(0,0,0,0.05);max-width:400px}.meal:hover{scale:1.01}.meal__title{margin:0 0 0.5rem 0;font-size:1.5rem;color:#333}.meal__description{margin:0 0 0.5rem 0;color:#555}.meal__location,.meal__maxReservations,.meal__price{margin:0.25rem 0;color:#666;font-size:1rem}
