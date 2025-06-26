@@ -32,7 +32,7 @@ export default function MealsList() {
     if (meals) return <Meal key={meals.id} meal={meals} />;
     return <li className={styles.meals__item}>No meals found.</li>;
   };
-  console.log(meals);
+
   return (
     <div className={styles.meals}>
       <h2 className={styles.meals__heading}>Available Meals</h2>
