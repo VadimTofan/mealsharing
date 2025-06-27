@@ -10,7 +10,7 @@ export default function MealsList() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8001/all-meals");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_DB_ACCESS}/all-meals`);
         if (!response.ok) {
           throw new Error("Failed to fetch meals");
         }
