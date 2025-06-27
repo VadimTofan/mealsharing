@@ -1,6 +1,7 @@
 "use client";
 import styles from "./MealList.module.css";
 import { useEffect, useState } from "react";
+import Meal from "./components/meal.jsx";
 
 export default function MealsList() {
   const [meals, setMeals] = useState(null);
@@ -27,19 +28,8 @@ export default function MealsList() {
   if (meals === null) return <div className={styles.meals__loading}>Loading...</div>;
 
   const handleMeals = () => {
-    if (meals && meals.length > 1)
-      return meals.map((meal) => (
-        <li key={meal.id} className={styles.meals__item}>
-          {meal.title}
-        </li>
-      ));
-
-    if (meals)
-      return (
-        <li key={meals.id} className={styles.meals__item}>
-          {meals.title}
-        </li>
-      );
+    if (meals && meals.length > 1) return meals.map((meal) => <Meal key={meal.id} meal={meal} />);
+    if (meals) return <Meal key={meals.id} meal={meals} />;
     return <li className={styles.meals__item}>No meals found.</li>;
   };
 
