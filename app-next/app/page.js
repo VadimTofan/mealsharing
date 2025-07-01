@@ -1,7 +1,10 @@
-import HomePage from "@/components/HomePage/HomePage";
+import "./globals.css";
+import Main from "./components/main/main.jsx";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <HomePage />
+    <>
+      <Main />
+    </>
   );
 }
