@@ -27,7 +27,7 @@ export default function MealsList() {
 
   if (meals === null) return <div className={styles.meals__loading}>Loading...</div>;
 
-  const handleMeals = () => {
+  const renderMeals = () => {
     if (meals && meals.length > 1) return meals.map((meal) => <Meal key={meal.id} meal={meal} />);
     if (meals) return <Meal key={meals.id} meal={meals} />;
     return <li className={styles.meals__item}>No meals found.</li>;
@@ -36,7 +36,7 @@ export default function MealsList() {
   return (
     <div className={styles.meals}>
       <h2 className={styles.meals__heading}>Available Meals</h2>
-      <ul className={styles.meals__list}>{handleMeals()}</ul>
+      <ul className={styles.meals__list}>{renderMeals()}</ul>
     </div>
   );
 }
