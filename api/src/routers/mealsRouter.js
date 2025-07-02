@@ -3,6 +3,37 @@ import * as db from "../database/database_client.js";
 
 export const mealsRouter = express.Router();
 
+mealsRouter.get("/api/selectedmeal/:id", async (request, response) => {
+  const id = request.params.id;
+
+  if (!id) {
+    return response.status(400).send({ error: "Id is mandatory" });
+  }
+
+  try {
+    const meal = await db.getMealDetailsWithAvailabilityById(id);
+
+    if (!meal) return response.status(404).send({ error: `There is no meal with such ID` });
+
+    response.send(meal);
+  } catch (error) {
+    console.error(error);
+    response.status(500).send({ error: "Something went wrong" });
+  }
+});
+
+mealsRouter.get("/api/top-meals", async (req, res) => {
+  try {
+    const meals = await db.getTopMeals();
+
+    if (meals.length === 1) return res.send(meals[0]);
+    res.send(meals);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 mealsRouter.get("/api/meals", async (request, response) => {
   const maxPrice = request.query.maxPrice;
   const minPrice = request.query.minPrice;
@@ -16,8 +47,6 @@ mealsRouter.get("/api/meals", async (request, response) => {
   const safeDirection = ["asc", "desc"];
   let sortBy = "id";
   let directBy = "asc";
-
-  console.log(sort);
 
   if (maxPrice) return response.send(await db.getMeals("<", maxPrice));
   if (minPrice) return response.send(await db.getMeals(">", minPrice));

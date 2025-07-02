@@ -1,0 +1,33 @@
+.meal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #000;
+  border-radius: 8px;
+  padding: 1.5rem;
+  background: #66b2ff;
+  box-shadow: 0 2px 8px #000;
+  max-width: 400px;
+
+  cursor: pointer;
+
+  &:hover {
+    scale: 1.01;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    color: #333;
+  }
+
+  &__description {
+    color: #252020;
+  }
+
+  &__location,
+  &__maxReservations,
+  &__price {
+    color: #252020;
+    font-size: 1rem;
+  }
+}

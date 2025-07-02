@@ -1,0 +1,37 @@
+.header {
+    background: linear-gradient(to right, #002147, #66b2ff, #002147);
+    padding: 1rem 15rem;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    &__logo {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        text-align: center;
+    }
+
+    &__logoImage {
+        width: 50px;
+        height: auto;
+    }
+
+    &__title {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    &__navigation {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    &__link {
+        font-size: 1rem;
+        font-weight: 600;
+        list-style: none;
+    }
+}

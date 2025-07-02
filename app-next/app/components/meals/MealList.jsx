@@ -1,5 +1,7 @@
 "use client";
+
 import styles from "./MealList.module.css";
+
 import { useEffect, useState } from "react";
 import Meal from "./components/meal.jsx";
 
@@ -34,7 +36,7 @@ export default function MealsList() {
   };
 
   return (
-    <div className={styles.meals}>
+    <div className={`${styles.meals} contentcard`}>
       <h2 className={styles.meals__heading}>Available Meals</h2>
       <ul className={styles.meals__list}>{renderMeals()}</ul>
     </div>

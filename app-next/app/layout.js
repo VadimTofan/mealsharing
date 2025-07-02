@@ -1,7 +1,7 @@
-import Header from "./components/header-footer/Header.jsx";
-import Footer from "./components/header-footer/footer.jsx";
-
 import "./globals.css";
+
+import Header from "./components/header-footer/header/header.jsx";
+import Footer from "./components/header-footer/footer/footer.jsx";
 
 export default function RootLayout({ children }) {
   return (
@@ -17,7 +17,7 @@ export function Layout({ children }) {
   return (
     <div className="layout">
       <Header />
-      {children}
+      <div className="databox">{children}</div>
       <Footer />
     </div>
   );

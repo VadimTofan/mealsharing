@@ -1,23 +1,27 @@
 .meals {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 24px;
-  background-color: #f9fafb;
-  border-radius: 16px;
-  box-shadow: 0 4px 10px #000;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  &__welcome {
+    max-width: 50%;
+  }
+
+  &__description {
+    font-size: 20px;
+  }
 
   &__heading {
-    font-size: 1.8rem;
     font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
-    color: #333;
+    text-align: start;
+    color: #252020;
+    padding-bottom: 15px;
   }
 
   &__list {
+    display: flex;
+    flex-direction: column;
     list-style: none;
-    padding: 0;
-    display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 16px;
   }
@@ -29,7 +33,7 @@
     border-radius: 12px;
     text-align: center;
     font-size: 1.1rem;
-    color: #222;
+    color: #252020;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 
     &:hover {

@@ -5,9 +5,13 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #ededed;
-    --foreground: #ededed;
+    --background: #e3f2f3;
+    --foreground: #d1d1fc;
   }
+}
+
+p {
+  color: #000;
 }
 
 html,
@@ -35,12 +39,6 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
-
 .layout {
   min-height: 100vh;
   display: flex;
@@ -50,4 +48,15 @@ a {
 
 .layout main {
   flex: 1;
+}
+
+.databox {
+  padding: 5rem 15rem;
+}
+
+.contentcard {
+  padding: 3rem;
+  background-color: #f9fafb;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px #000;
 }
