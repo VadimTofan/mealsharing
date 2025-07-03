@@ -21,6 +21,10 @@ body {
 }
 
 body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
@@ -39,19 +43,10 @@ a {
   text-decoration: none;
 }
 
-.layout {
-  min-height: 100vh;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-}
-
-.layout main {
-  flex: 1;
-}
-
 .databox {
+  flex: 1;
   padding: 5rem 15rem;
+  justify-self: center;
 }
 
 .contentcard {
