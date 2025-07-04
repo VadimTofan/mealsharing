@@ -1,16 +1,13 @@
 .contentcard {
   display: flex;
   flex-direction: column;
-  /* stack items vertically on mobile */
   align-items: stretch;
-  /* stretch to full width */
+  flex-wrap: wrap;
   background-color: #ffffff;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   padding: 1.5rem;
-  /* slightly less padding for mobile */
   gap: 1.5rem;
-  /* smaller gap for mobile */
 }
 
 .meal {

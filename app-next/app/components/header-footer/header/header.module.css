@@ -1,4 +1,5 @@
 .header {
+  display: flex;
   background: linear-gradient(to right, #002147, #66b2ff, #002147);
   padding: 1rem 3rem;
   color: #ffffff;
@@ -6,7 +7,6 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  flex-wrap: wrap;
   text-align: center;
 }
 
@@ -43,6 +43,7 @@
 .header__list {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 3rem;
   padding-bottom: 2rem;
 }
@@ -88,10 +89,6 @@
 
 @media (min-width: 1024px) {
   .header {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    text-align: left;
     padding: 1rem 15rem;
   }
   .header__navigation {
@@ -104,6 +101,7 @@
     flex-direction: row;
     gap: 1.5rem;
     width: auto;
+    padding-bottom: 0;
     margin-top: 0;
   }
   .header__link {
