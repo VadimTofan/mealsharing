@@ -1,17 +1,23 @@
 .header {
+  position: relative;
+  display: -webkit-flex;
   display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  gap: 1rem;
   background: linear-gradient(to right, #002147, #66b2ff, #002147);
   padding: 1rem 3rem;
   color: #ffffff;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
   text-align: center;
 
   &__logo {
+    display: -webkit-flex;
     display: flex;
+    -webkit-align-items: center;
     align-items: center;
     gap: 1rem;
     justify-content: center;
@@ -30,18 +36,22 @@
 
   &__navigation {
     display: none;
+    -webkit-flex-direction: column;
     flex-direction: column;
     gap: 1rem;
     width: 100%;
     margin-top: 1rem;
-
+    -webkit-overflow-scrolling: touch;
     &.open {
+      display: -webkit-flex;
       display: flex;
     }
   }
 
   &__list {
+    display: -webkit-flex;
     display: flex;
+    -webkit-flex-direction: column;
     flex-direction: column;
     justify-content: center;
     gap: 3rem;
@@ -55,7 +65,9 @@
   }
 
   &__burger {
+    display: -webkit-flex;
     display: flex;
+    -webkit-flex-direction: column;
     flex-direction: column;
     justify-content: space-between;
     width: 25px;
@@ -65,6 +77,7 @@
     cursor: pointer;
     padding: 0;
     z-index: 2001;
+    min-width: 25px;
 
     span {
       display: block;
@@ -93,13 +106,16 @@
     padding: 1rem 15rem;
 
     &__navigation {
+      display: -webkit-flex;
       display: flex;
       width: auto;
       margin-top: 0;
     }
 
     &__list {
+      display: -webkit-flex;
       display: flex;
+      -webkit-flex-direction: row;
       flex-direction: row;
       gap: 1.5rem;
       width: auto;
