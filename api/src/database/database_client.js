@@ -102,18 +102,27 @@ export async function getMealDetailsWithAvailabilityById(mealId) {
 }
 
 export async function getTopMeals() {
-  const query = dbClient("meal")
-    .select("meal.id", "meal.title", "meal.description", "meal.location", dbClient.raw('meal."when"'), "meal.max_reservations", "meal.price", "meal.created_date")
-    .avg("review.stars as average_stars")
-    .sum("reservation.number_of_guests as reserved_guests")
+  const meals = await dbClient("meal")
+    .select(
+      "meal.id",
+      "meal.title",
+      "meal.description",
+      "meal.location",
+      dbClient.raw('meal."when"'),
+      "meal.max_reservations",
+      "meal.price",
+      "meal.created_date",
+      dbClient.raw("COALESCE(AVG(review.stars), 0) as average_stars"),
+      dbClient.raw("COALESCE(SUM(reservation.number_of_guests), 0) as reserved_guests"),
+      dbClient.raw("(meal.max_reservations - COALESCE(SUM(reservation.number_of_guests), 0)) > 0 as is_available")
+    )
     .leftJoin("review", "review.meal_id", "meal.id")
     .leftJoin("reservation", "reservation.meal_id", "meal.id")
     .groupBy("meal.id")
-    .havingRaw("meal.max_reservations - COALESCE(SUM(reservation.number_of_guests), 0) > 0")
     .orderBy("average_stars", "desc")
     .limit(3);
 
-  return query;
+  return meals;
 }
 
 export async function getMealsByTitle(title) {
