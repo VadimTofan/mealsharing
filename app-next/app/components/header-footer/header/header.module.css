@@ -23,6 +23,7 @@
 }
 
 .header__title {
+  display: none;
   font-size: 1.5rem;
   font-weight: 600;
 }
@@ -108,6 +109,9 @@
     font-size: 1.5rem;
     font-weight: 600;
     list-style: none;
+  }
+  .header__title {
+    display: block;
   }
   .header .burger {
     display: none;
