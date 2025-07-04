@@ -8,9 +8,18 @@ import cors from "cors";
 
 const app = express();
 
+const allowedOrigins = ["http://localhost:3000", "https://mealsharing-vadim.netlify.app"];
+
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://your-netlify-site.netlify.app"],
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.indexOf(origin) === -1) {
+        return callback(new Error("CORS policy: Origin not allowed"), false);
+      }
+      return callback(null, true);
+    },
     credentials: true,
   })
 );
