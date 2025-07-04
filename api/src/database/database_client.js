@@ -102,28 +102,23 @@ export async function getMealDetailsWithAvailabilityById(mealId) {
 }
 
 export async function getTopMeals() {
-  const meals = await dbClient
-    .from(function () {
-      this.select(
-        "meal.id",
-        "meal.title",
-        "meal.description",
-        "meal.location",
-        dbClient.raw('meal."when"'),
-        "meal.max_reservations",
-        "meal.price",
-        "meal.created_date",
-        dbClient.raw("COALESCE(AVG(review.stars), 0) as average_stars"),
-        dbClient.raw("COALESCE(SUM(reservation.number_of_guests), 0) as reserved_guests"),
-        dbClient.raw("(meal.max_reservations - COALESCE(SUM(reservation.number_of_guests), 0)) > 0 as is_available")
-      )
-        .from("meal")
-        .leftJoin("review", "review.meal_id", "meal.id")
-        .leftJoin("reservation", "reservation.meal_id", "meal.id")
-        .groupBy("meal.id")
-        .as("meal_summary");
-    })
-    .where("is_available", true)
+  const meals = await dbClient("meal")
+    .leftJoin("review", "review.meal_id", "meal.id")
+    .leftJoin("reservation", "reservation.meal_id", "meal.id")
+    .groupBy("meal.id")
+    .havingRaw("meal.max_reservations - COALESCE(SUM(reservation.number_of_guests), 0) > 0")
+    .select(
+      "meal.id",
+      "meal.title",
+      "meal.description",
+      "meal.location",
+      dbClient.raw('meal."when"'),
+      "meal.max_reservations",
+      "meal.price",
+      "meal.created_date",
+      dbClient.raw("AVG(review.stars) AS average_stars"),
+      dbClient.raw("COALESCE(SUM(reservation.number_of_guests), 0) AS reserved_guests")
+    )
     .orderBy("average_stars", "desc")
     .limit(3);
 
