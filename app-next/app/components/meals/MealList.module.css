@@ -7,9 +7,11 @@
 }
 
 .meals__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   list-style: none;
   padding: 0;
-  display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 16px;
 }
@@ -22,7 +24,7 @@
   text-align: center;
   font-size: 1.1rem;
   color: #252020;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .meals__item:hover {

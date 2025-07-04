@@ -60,7 +60,6 @@ function MealCard({ meal, completeAction, refreshReviews, reviewsKey }) {
           <h2 className={styles.meal__title}>{meal.title}</h2>
           <p className={styles.meal__text}>{meal.description}</p>
           <p className={styles.meal__text}>Location: {meal.location}</p>
-          <p className={styles.meal__text}>Max Reservations: {meal.max_reservations}</p>
           <p className={styles.meal__text}>Reservations Left: {availableReservations}</p>
           <p className={styles.meal__text}>Price: {meal.price}</p>
         </div>
