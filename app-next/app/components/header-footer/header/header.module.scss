@@ -43,6 +43,7 @@
     display: flex;
     flex-direction: column;
     gap: 3rem;
+    padding-bottom: 2rem;
   }
 
   &__link {
@@ -51,7 +52,7 @@
     list-style: none;
   }
 
-  .burger {
+  &__burger {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -61,7 +62,7 @@
     border: none;
     cursor: pointer;
     padding: 0;
-    z-index: 1001;
+    z-index: 2001;
 
     span {
       display: block;
@@ -117,7 +118,7 @@
       display: block;
     }
 
-    .burger {
+    &__burger {
       display: none;
     }
   }

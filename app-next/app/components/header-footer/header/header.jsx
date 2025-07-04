@@ -15,10 +15,10 @@ export default function Header() {
     <header className={styles.header}>
       <Logo />
 
-      <button className={styles.burger} onClick={toggleMenu} aria-label="Toggle menu" aria-expanded={menuOpen}>
-        <span className={menuOpen ? styles.burgerLineOpen : styles.burgerLine}></span>
-        <span className={menuOpen ? styles.burgerLineOpen : styles.burgerLine}></span>
-        <span className={menuOpen ? styles.burgerLineOpen : styles.burgerLine}></span>
+      <button className={styles.header__burger} onClick={toggleMenu} aria-label="Toggle menu" aria-expanded={menuOpen}>
+        <span className={menuOpen ? styles.header__burgerLineOpen : styles.burgerLine}></span>
+        <span className={menuOpen ? styles.header__burgerLineOpen : styles.burgerLine}></span>
+        <span className={menuOpen ? styles.header__burgerLineOpen : styles.burgerLine}></span>
       </button>
       <nav className={`${styles.header__navigation} ${menuOpen ? styles.open : ""}`}>
         <ul className={styles.header__list}>
