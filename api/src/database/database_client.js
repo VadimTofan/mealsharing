@@ -103,7 +103,7 @@ export async function getMealDetailsWithAvailabilityById(mealId) {
 
 export async function getTopMeals() {
   const query = dbClient("meal")
-    .select("meal.id", "meal.title", "meal.description", "meal.location", "meal.when", "meal.max_reservations", "meal.price", "meal.created_date")
+    .select("meal.id", "meal.title", "meal.description", "meal.location", dbClient.raw('meal."when"'), "meal.max_reservations", "meal.price", "meal.created_date")
     .avg("review.stars as average_stars")
     .sum("reservation.number_of_guests as reserved_guests")
     .leftJoin("review", "review.meal_id", "meal.id")
