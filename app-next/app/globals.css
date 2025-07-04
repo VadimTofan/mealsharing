@@ -56,7 +56,7 @@ a {
   box-shadow: 0 4px 10px #000;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1085px) {
   .databox {
     padding: 5rem 15rem;
   }
