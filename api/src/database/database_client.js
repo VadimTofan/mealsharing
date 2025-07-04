@@ -101,6 +101,21 @@ export async function getMealDetailsWithAvailabilityById(mealId) {
   return meals[0];
 }
 
+// export async function getTopMeals() {
+//   const query = dbClient("meal")
+//     .select("meal.id", "meal.title", "meal.description", "meal.location", "meal.when", "meal.max_reservations", "meal.price", "meal.created_date")
+//     .avg("review.stars as average_stars")
+//     .sum("reservation.number_of_guests as reserved_guests")
+//     .leftJoin("review", "review.meal_id", "meal.id")
+//     .leftJoin("reservation", "reservation.meal_id", "meal.id")
+//     .groupBy("meal.id")
+//     .havingRaw("meal.max_reservations - IFNULL(SUM(reservation.number_of_guests), 0) > 0")
+//     .orderBy("average_stars", "desc")
+//     .limit(3);
+
+//   return query;
+// }
+
 export async function getTopMeals() {
   const query = dbClient("meal")
     .select("meal.id", "meal.title", "meal.description", "meal.location", "meal.when", "meal.max_reservations", "meal.price", "meal.created_date")
@@ -109,7 +124,7 @@ export async function getTopMeals() {
     .leftJoin("review", "review.meal_id", "meal.id")
     .leftJoin("reservation", "reservation.meal_id", "meal.id")
     .groupBy("meal.id")
-    .havingRaw("meal.max_reservations - IFNULL(SUM(reservation.number_of_guests), 0) > 0")
+    .havingRaw("meal.max_reservations - COALESCE(SUM(reservation.number_of_guests), 0) > 0")
     .orderBy("average_stars", "desc")
     .limit(3);
 
