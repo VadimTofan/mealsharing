@@ -3,24 +3,24 @@ import knex from "knex";
 
 dotenv.config();
 
-// const dbClient = knex({
-//   client: process.env.DB_CLIENT,
-//   connection: {
-//     host: process.env.DB_HOST,
-//     port: process.env.DB_PORT,
-//     user: process.env.DB_USER,
-//     password: process.env.DB_PASSWORD,
-//     database: process.env.DB_NAME,
-//   },
-// });
-
 const dbClient = knex({
-  client: "pg",
+  client: process.env.DB_CLIENT,
   connection: {
-    connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false },
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
   },
 });
+
+// const dbClient = knex({
+//   client: "pg",
+//   connection: {
+//     connectionString: process.env.DATABASE_URL,
+//     ssl: { rejectUnauthorized: false },
+//   },
+// });
 
 export async function getMeals(operator, amount) {
   if (!operator && !amount) return dbClient.select("*").from("meal");
@@ -100,21 +100,6 @@ export async function getMealDetailsWithAvailabilityById(mealId) {
 
   return meals[0];
 }
-
-// export async function getTopMeals() {
-//   const query = dbClient("meal")
-//     .select("meal.id", "meal.title", "meal.description", "meal.location", "meal.when", "meal.max_reservations", "meal.price", "meal.created_date")
-//     .avg("review.stars as average_stars")
-//     .sum("reservation.number_of_guests as reserved_guests")
-//     .leftJoin("review", "review.meal_id", "meal.id")
-//     .leftJoin("reservation", "reservation.meal_id", "meal.id")
-//     .groupBy("meal.id")
-//     .havingRaw("meal.max_reservations - IFNULL(SUM(reservation.number_of_guests), 0) > 0")
-//     .orderBy("average_stars", "desc")
-//     .limit(3);
-
-//   return query;
-// }
 
 export async function getTopMeals() {
   const query = dbClient("meal")

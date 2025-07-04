@@ -48,12 +48,11 @@ function MainMeals() {
       <div className={styles.meals__welcome}>
         <h2 className={styles.meals__heading}>Welcome to Meal Sharing</h2>
         <h3 className={styles.meals__heading}>Eat Good, Meet Cool People, Repeat.</h3>
-        <p className={styles.meals__description}>Looking for tasty home-cooked grub and new friends?</p>
-        <p className={styles.meals__description}>Meal Sharing hooks you up with awesome meals from locals who love to cook.</p>
-        <p className={styles.meals__description}>No boring restaurants here — just real food, real people, and good times.</p>
-        <p className={styles.meals__description}>Reserve your spot, chow down, and drop a review to keep the good vibes going.</p>
-        <p className={styles.meals__description}>Simple, fun, and perfect for anyone who loves food and company.</p>
-        <p className={styles.meals__description}>Jump in and let’s make mealtime social again.</p>
+        <p className={styles.meals__description}>
+          Looking for tasty home-cooked grub and new friends? Meal Sharing hooks you up with awesome meals from locals who love to cook. No boring restaurants here — just real food, real people, and
+          good times. Reserve your spot, chow down, and drop a review to keep the good vibes going. Simple, fun, and perfect for anyone who loves food and company. Jump in and let’s make mealtime
+          social again.
+        </p>
       </div>
       <ul className={styles.meals__list}>{renderMeals()}</ul>
     </div>

@@ -10,10 +10,6 @@
   }
 }
 
-p {
-  color: #000;
-}
-
 html,
 body {
   max-width: 100vw;
@@ -32,6 +28,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+p {
+  color: #000;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -45,13 +45,23 @@ a {
 
 .databox {
   flex: 1;
-  padding: 5rem 15rem;
+  padding: 2rem 1rem;
   justify-self: center;
 }
 
 .contentcard {
-  padding: 3rem;
+  padding: 1.5rem;
   background-color: #f9fafb;
   border-radius: 16px;
   box-shadow: 0 4px 10px #000;
+}
+
+@media (min-width: 1024px) {
+  .databox {
+    padding: 5rem 15rem;
+  }
+
+  .contentcard {
+    padding: 3rem;
+  }
 }
