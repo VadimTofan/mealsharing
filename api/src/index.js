@@ -8,9 +8,12 @@ import cors from "cors";
 
 const app = express();
 
-// Had to use ChatGPT for this one, would never understand what's wrong!
-app.use(cors({ origin: "http://localhost:3000" }));
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://your-netlify-site.netlify.app"],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.get("/", (request, response) => {
