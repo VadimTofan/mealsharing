@@ -25,6 +25,8 @@ function MainMeals() {
           throw new Error("Failed to fetch meals");
         }
         const data = await response.json();
+        console.log(data);
+
         setMeals(data);
       } catch (err) {
         setError(err.message);
@@ -54,7 +56,12 @@ function MainMeals() {
           social again.
         </p>
       </div>
-      <ul className={styles.meals__list}>{renderMeals()}</ul>
+      <ul className={styles.meals__list}>
+        <li>
+          <h2 className={styles.meals__heading}>These are our Top Choices:</h2>
+        </li>
+        {renderMeals()}
+      </ul>
     </div>
   );
 }
