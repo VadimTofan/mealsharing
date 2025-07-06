@@ -115,7 +115,6 @@ export async function getTopMeals() {
       dbClient.raw('meal."when"'),
       "meal.max_reservations",
       "meal.price",
-      "meal.image",
       "meal.created_date",
       dbClient.raw("AVG(review.stars) AS average_stars"),
       dbClient.raw("COALESCE(SUM(reservation.number_of_guests), 0) AS reserved_guests")

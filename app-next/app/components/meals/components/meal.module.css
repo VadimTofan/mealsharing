@@ -9,13 +9,14 @@
   background-position: center;
   background-repeat: no-repeat;
   box-shadow: 0 2px 8px #000;
-  width: 350px;
+  width: 300px;
   cursor: pointer;
 }
 .meal:hover {
   scale: 1.01;
 }
 .meal__title {
+  text-align: center;
   font-size: 1.5rem;
   color: #000;
 }

@@ -25,8 +25,6 @@ function MainMeals() {
           throw new Error("Failed to fetch meals");
         }
         const data = await response.json();
-        console.log(data);
-
         setMeals(data);
       } catch (err) {
         setError(err.message);
@@ -42,9 +40,10 @@ function MainMeals() {
   const renderMeals = () => {
     if (meals && meals.length > 1) return meals.map((meal) => <Meal key={meal.id} meal={meal} />);
     if (meals) return <Meal key={meals.id} meal={meals} />;
+
     return <li className={styles.meals__item}>No meals found.</li>;
   };
-
+    console.log(meals)
   return (
     <div className={`${styles.meals} contentcard`}>
       <div className={styles.meals__welcome}>
