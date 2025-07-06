@@ -5,7 +5,6 @@
   color: #252020;
   padding-bottom: 15px;
 }
-
 .meals__list {
   display: flex;
   flex-wrap: wrap;
@@ -15,7 +14,6 @@
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 16px;
 }
-
 .meals__item {
   background-color: #ffffff;
   border: 1px solid #e5e7eb;
@@ -24,14 +22,12 @@
   text-align: center;
   font-size: 1.1rem;
   color: #252020;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 .meals__item:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 12px #000;
 }
-
 .meals__loading {
   text-align: center;
   font-size: 1.4rem;
@@ -39,7 +35,6 @@
   padding: 40px 0;
   animation: pulse 1.5s infinite;
 }
-
 .meals__error {
   text-align: center;
   font-size: 1.4rem;
@@ -57,4 +52,4 @@
   100% {
     opacity: 0.4;
   }
-}
+}/*# sourceMappingURL=MealList.module.css.map */

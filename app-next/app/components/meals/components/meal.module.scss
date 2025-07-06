@@ -5,7 +5,9 @@
   border: 1px solid #000;
   border-radius: 8px;
   padding: 1rem;
-  background: #66b2ff;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   box-shadow: 0 2px 8px #000;
   width: 350px;
 
@@ -17,17 +19,17 @@
 
   &__title {
     font-size: 1.5rem;
-    color: #333;
+    color: #000;
   }
 
   &__description {
-    color: #252020;
+    color: #fff;
   }
 
   &__location,
   &__maxReservations,
   &__price {
-    color: #252020;
+    color: #fff;
     font-size: 1rem;
   }
 }

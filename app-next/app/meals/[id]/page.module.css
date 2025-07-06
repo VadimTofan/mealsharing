@@ -15,20 +15,17 @@
   gap: 0.75rem;
   color: #333;
 }
-
 .meal__title {
   font-size: 1.5rem;
   font-weight: 700;
   color: #222;
   padding-bottom: 0.5rem;
 }
-
 .meal__text {
   font-size: 1rem;
   color: #555;
   line-height: 1.5;
 }
-
 .meal__res {
   display: flex;
   flex-direction: column;
@@ -47,4 +44,4 @@
   .meal__title {
     font-size: 2rem;
   }
-}
+}/*# sourceMappingURL=page.module.css.map */
