@@ -50,8 +50,7 @@ a {
 }
 
 .contentcard {
-  padding: 1.5rem;
-  background-color: #f9fafb;
+  background: transparent;
   border-radius: 16px;
   box-shadow: 0 4px 10px #000;
 }

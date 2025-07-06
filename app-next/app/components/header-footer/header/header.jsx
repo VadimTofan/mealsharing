@@ -43,9 +43,6 @@ function Logo() {
       <Link href="/">
         <img src="/images/hyf.svg" alt="Logo" className={styles.header__logoImage} />
       </Link>
-      <Link href="/">
-        <span className={styles.header__title}>Meal Sharing App - HYF</span>
-      </Link>
     </div>
   );
 }

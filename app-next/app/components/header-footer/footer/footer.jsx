@@ -46,7 +46,7 @@ function SocialMedia({ img, link, name }) {
   return (
     <li>
       <a className={styles.footer__link} href={link} target="_blank">
-        <img src={img} alt={name} style={{ width: "20px", marginRight: "8px", verticalAlign: "middle" }} />
+        <img src={img} alt={name} className={styles.footer__image} />
         {name}
       </a>
     </li>

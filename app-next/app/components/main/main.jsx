@@ -4,10 +4,12 @@ import styles from "./page.module.css";
 
 import { useEffect, useState } from "react";
 import Meal from "../meals/components/meal";
+import SwipeBar from "./swipebar";
 
 export default function Main() {
   return (
-    <div>
+    <div className={styles.databox}>
+      <SwipeBar />
       <MainMeals />
     </div>
   );
@@ -43,7 +45,7 @@ function MainMeals() {
 
     return <li className={styles.meals__item}>No meals found.</li>;
   };
-    console.log(meals)
+  console.log(meals);
   return (
     <div className={`${styles.meals} contentcard`}>
       <div className={styles.meals__welcome}>
