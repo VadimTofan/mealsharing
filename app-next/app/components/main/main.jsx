@@ -7,8 +7,19 @@ import Meal from "../meals/components/meal";
 import SwipeBar from "./swipebar";
 
 export default function Main() {
+  const [showCarrot, setShowCarrot] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setShowCarrot(window.scrollY > 400);
+    };
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <div className={styles.databox}>
+      <div className={`${styles.carrot} ${showCarrot ? styles.carrot__show : ""}`} />
       <SwipeBar />
       <MainMeals />
     </div>
@@ -45,7 +56,6 @@ function MainMeals() {
 
     return <li className={styles.meals__item}>No meals found.</li>;
   };
-  console.log(meals);
   return (
     <div className={`${styles.meals} contentcard`}>
       <div className={styles.meals__welcome}>
@@ -56,13 +66,9 @@ function MainMeals() {
           good times. Reserve your spot, chow down, and drop a review to keep the good vibes going. Simple, fun, and perfect for anyone who loves food and company. Jump in and let’s make mealtime
           social again.
         </p>
+        <h2 className={styles.meals__heading}>Check some of our top choices:</h2>
       </div>
-      <ul className={styles.meals__list}>
-        <li>
-          <h2 className={styles.meals__heading}>These are our Top Choices:</h2>
-        </li>
-        {renderMeals()}
-      </ul>
+      <ul className={styles.meals__list}>{renderMeals()}</ul>
     </div>
   );
 }

@@ -13,9 +13,6 @@ export default function HomePage() {
         </video>
       </div>
       <Main />
-      <div className={styles.outro}>
-        <Image src="/images/cuttingboard.webp" alt="Cutting board" className={styles.bgimage} width={500} height={300} />
-      </div>
     </>
   );
 }

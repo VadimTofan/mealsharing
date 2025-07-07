@@ -20,12 +20,8 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-
-  color: var(--foreground);
-  background: var(--background);
+  background-image: url("/images/anthracite.jpg");
   font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 p {
