@@ -55,7 +55,7 @@ function MealCard({ meal, completeAction, refreshReviews, reviewsKey }) {
 
   return (
     <div className={`${styles.contentcard} contentcard`}>
-      <div>
+      <div className={styles.meal__box}>
         <div className={styles.meal}>
           <h2 className={styles.meal__title}>{meal.title}</h2>
           <p className={styles.meal__text}>{meal.description}</p>
@@ -68,7 +68,7 @@ function MealCard({ meal, completeAction, refreshReviews, reviewsKey }) {
           <Review id={meal.id} refreshReviews={refreshReviews} />
         </div>
       </div>
-      <div>
+      <div className={styles.reviews__box}>
         <Reviews id={meal.id} key={reviewsKey} />
       </div>
     </div>

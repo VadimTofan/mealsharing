@@ -4,7 +4,7 @@ import Header from "./components/header-footer/header/header.jsx";
 import Footer from "./components/header-footer/footer/footer.jsx";
 
 export const metadata = {
-  title: "Meal-Sharing APP",
+  title: "Meal-sharing APP",
   description: "This is a Meal-Sharing APP HYF DK",
 };
 

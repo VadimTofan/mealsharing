@@ -1,18 +1,30 @@
 "use client";
 
-import { useState } from "react";
 import styles from "./header.module.css";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   function toggleMenu() {
     setMenuOpen((prev) => !prev);
   }
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${isScrolled ? styles.scrolled : ""}`}>
       <Logo />
 
       <button className={styles.header__burger} onClick={toggleMenu} aria-label="Toggle menu" aria-expanded={menuOpen}>

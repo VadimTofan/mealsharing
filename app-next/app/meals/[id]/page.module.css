@@ -2,7 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  background-color: #ffffff;
+  background-image: url("/images/tomato.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   padding: 1.5rem;
@@ -13,19 +16,27 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  color: #333;
 }
+
 .meal__title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #222;
+  color: #fff;
+  -webkit-text-stroke: 0.5px #000;
   padding-bottom: 0.5rem;
 }
+
+.meal__box {
+  width: 100%;
+}
+
 .meal__text {
   font-size: 1rem;
-  color: #555;
+  color: #fff;
   line-height: 1.5;
+  text-align: justify;
 }
+
 .meal__res {
   display: flex;
   flex-direction: column;
@@ -41,7 +52,19 @@
     padding: 2rem;
     gap: 2rem;
   }
+  .meal {
+    max-width: 60%;
+  }
   .meal__title {
     font-size: 2rem;
   }
-}/*# sourceMappingURL=page.module.css.map */
+  .meal__box {
+    max-width: 60%;
+  }
+  .meal__res {
+    max-width: 60%;
+  }
+  .reviews__box {
+    width: 35%;
+  }
+}

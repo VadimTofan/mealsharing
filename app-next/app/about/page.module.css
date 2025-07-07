@@ -2,7 +2,42 @@
   display: flex;
   flex-direction: column;
   gap: 25px;
+  background-image: url("/images/wood.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 1rem;
 }
+
 .about__title {
-  color: #000;
-}/*# sourceMappingURL=page.module.css.map */
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #fff;
+  -webkit-text-stroke: 0.5px #000;
+}
+
+.about__text {
+  font-size: 1rem;
+  font-weight: 900;
+  color: #fff;
+  text-align: justify;
+  -webkit-text-stroke: 0.1px #000;
+}
+
+@media (min-width: 1085px) {
+  .about {
+    gap: 25px;
+  }
+  .about__title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #fff;
+    -webkit-text-stroke: 0.5px #000;
+  }
+  .about__text {
+    font-size: 1rem;
+    font-weight: 900;
+    color: #fff;
+    text-align: justify;
+    -webkit-text-stroke: 0.1px #000;
+  }
+}

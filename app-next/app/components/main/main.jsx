@@ -3,7 +3,7 @@
 import styles from "./page.module.css";
 
 import { useEffect, useState } from "react";
-import Meal from "../meals/components/meal";
+import Meal from "../../meals/meallist/components/meal";
 import SwipeBar from "./swipebar";
 
 export default function Main() {
@@ -11,7 +11,7 @@ export default function Main() {
 
   useEffect(() => {
     const onScroll = () => {
-      setShowCarrot(window.scrollY > 400);
+      setShowCarrot(window.scrollY > 350);
     };
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);

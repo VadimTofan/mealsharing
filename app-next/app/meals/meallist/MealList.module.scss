@@ -1,9 +1,10 @@
 .meals {
   &__heading {
-    font-size: 1.8rem;
-    font-weight: bold;
+    font-size: 2rem;
+    font-weight: 900;
     text-align: center;
-    color: #252020;
+    color: #fff;
+    -webkit-text-stroke: 0.5px #000;
     padding-bottom: 15px;
   }
 

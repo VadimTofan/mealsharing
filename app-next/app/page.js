@@ -2,8 +2,6 @@ import styles from "./components/main/page.module.css";
 
 import Main from "./components/main/main.jsx";
 
-import Image from "next/image";
-
 export default function HomePage() {
   return (
     <>

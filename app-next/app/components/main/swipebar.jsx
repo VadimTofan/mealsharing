@@ -54,7 +54,7 @@ export default function SwipeBar() {
         <div className={styles.swipebar__wrapper} ref={wrapperRef}>
           {slides.map((slide, idx) => (
             <div className={styles.swipebar__slide} key={idx}>
-              <h1 dangerouslySetInnerHTML={{ __html: slide.title }} />
+              <h2 dangerouslySetInnerHTML={{ __html: slide.title }} />
               <div className={styles.swipebar__buttons}>
                 <Link href="/meals" className={styles.swipebar__button}>
                   Reserve a meal now!

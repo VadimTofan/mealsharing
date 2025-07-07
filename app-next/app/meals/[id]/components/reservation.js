@@ -75,7 +75,7 @@ function ReservationForm({ availableSlots, data, completeAction, closeForm }) {
       completeAction();
       setTimeout(() => {
         closeForm();
-      }, 1000);
+      }, 100000);
     } else {
       setReservationStatus(`Reservation failed: ${result.error}`);
     }
@@ -86,38 +86,42 @@ function ReservationForm({ availableSlots, data, completeAction, closeForm }) {
   return (
     <div>
       <h2 className={styles.modal__title}>Reserve This Meal</h2>
-      <form className={styles.modal__form} onSubmit={handleSubmit}>
-        <label className={styles.modal__label}>
-          Full Name:
-          <input className={styles.modal__text} type="text" name="fullName" placeholder="Your Full Name" minLength="4" required />
-        </label>
-        <label className={styles.modal__label}>
-          Reservation:
-          {availableReservations === 0 ? (
-            <p className={styles.modal__status}>Sold out!</p>
-          ) : (
-            <select name="guests" required>
-              {[...Array(availableReservations)].map((_, i) => (
-                <option key={i + 1} value={i + 1}>
-                  {i + 1} {i + 1 === 1 ? "guest" : "guests"}
-                </option>
-              ))}
-            </select>
-          )}
-        </label>
-        <label className={styles.modal__label}>
-          E-mail:
-          <input className={styles.modal__text} type="email" name="email" placeholder="example@gmail.com" minLength="4" required />
-        </label>
-        <label className={styles.modal__label}>
-          Phone Number:
-          <input className={styles.modal__text} type="text" name="phone" placeholder="+45 12345678" minLength="8" required />
-        </label>
-        <button className={styles.modal__button} type="submit">
-          Submit
-        </button>
-      </form>
-      {reservationStatus && <div className={styles.modal__status}>{reservationStatus}</div>}
+      {reservationStatus === "Reservation successful!" ? (
+        <div className={styles.modal__status}>{reservationStatus}</div>
+      ) : (
+        <form className={styles.modal__form} onSubmit={handleSubmit}>
+          <label className={styles.modal__label}>
+            Full Name:
+            <input className={styles.modal__text} type="text" name="fullName" placeholder="Your Full Name" minLength="4" required />
+          </label>
+          <label className={styles.modal__label}>
+            Reservation:
+            {availableReservations === 0 ? (
+              <p className={styles.modal__status}>Sold out!</p>
+            ) : (
+              <select name="guests" required>
+                {[...Array(availableReservations)].map((_, i) => (
+                  <option key={i + 1} value={i + 1}>
+                    {i + 1} {i + 1 === 1 ? "guest" : "guests"}
+                  </option>
+                ))}
+              </select>
+            )}
+          </label>
+          <label className={styles.modal__label}>
+            E-mail:
+            <input className={styles.modal__text} type="email" name="email" placeholder="example@gmail.com" minLength="4" required />
+          </label>
+          <label className={styles.modal__label}>
+            Phone Number:
+            <input className={styles.modal__text} type="text" name="phone" placeholder="+45 12345678" minLength="8" required />
+          </label>
+          <button className={styles.modal__button} type="submit">
+            Submit
+          </button>
+        </form>
+      )}
+      {reservationStatus && reservationStatus !== "Reservation successful!" && <div className={styles.modal__status}>{reservationStatus}</div>}
     </div>
   );
 }

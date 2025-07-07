@@ -1,5 +1,5 @@
-import MealsList from "../components/meals/MealList";
+import MealsList from "./meallist/MealList";
 
 export default function Meals() {
-  return <MealsList />;
+  return <MealsList add="description" />;
 }

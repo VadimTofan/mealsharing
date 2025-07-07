@@ -5,7 +5,7 @@ import styles from "./MealList.module.css";
 import { useEffect, useState } from "react";
 import Meal from "./components/meal.jsx";
 
-export default function MealsList() {
+export default function MealsList(description) {
   const [meals, setMeals] = useState(null);
   const [error, setError] = useState(null);
 
@@ -30,11 +30,10 @@ export default function MealsList() {
   if (meals === null) return <div className={styles.meals__loading}>Loading...</div>;
 
   const renderMeals = () => {
-    if (meals && meals.length > 1) return meals.map((meal) => <Meal key={meal.id} meal={meal} />);
-    if (meals) return <Meal key={meals.id} meal={meals} />;
+    if (meals && meals.length > 1) return meals.map((meal, index) => <Meal key={meal.id} meal={meal} description={description} index={index} />);
+    if (meals) return <Meal key={meals.id} meal={meals} description={description} />;
     return <li className={styles.meals__item}>No meals found.</li>;
   };
-
   return (
     <div className={`${styles.meals} contentcard`}>
       <h2 className={styles.meals__heading}>Available Meals</h2>
