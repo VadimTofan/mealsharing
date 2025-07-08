@@ -1,0 +1,135 @@
+.meal {
+  border: 1px solid #000;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 2px 8px #000;
+  min-width: 50%;
+  width: 100%;
+  height: 100px;
+  cursor: pointer;
+}
+
+.meal:hover {
+  scale: 1.01;
+}
+
+.meal__header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.meal__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  -webkit-text-stroke: 0.5px #000;
+}
+
+.meal__price {
+  text-align: end;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  -webkit-text-stroke: 0.5px #000;
+}
+
+.meal__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-image: url("/images/brown.jpg");
+  background-position: center;
+  border-radius: 8px;
+  padding: 5px;
+}
+
+.meal__description {
+  text-align: justify;
+  padding: 10px;
+  min-width: 50%;
+  color: #fff;
+}
+
+.meal__about {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.meal__card {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.meal__buttons {
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  gap: 3%;
+}
+
+.meal__button {
+  min-width: 47%;
+  line-height: 35px;
+  font-size: 15px;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+  padding: 0 15px 0 15px;
+  background: transparent;
+  border: 2px solid #fff;
+  cursor: pointer;
+  color: #fff;
+  text-align: center;
+  -webkit-text-stroke: 0.5px #000;
+  border-radius: 6px;
+  transition: all 0.3s ease-out;
+}
+
+.meal__button::before {
+  content: attr(data-hover);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background: #252525;
+  color: #fff;
+  transition: all 0.5s ease-out;
+  transform: translate(-100%, 0);
+}
+
+.meal__button:hover::before {
+  transform: translate(0, 0);
+}
+
+.meal__button:hover {
+  color: #fff;
+  background: #252525;
+  border-color: #252525;
+}
+
+@media (min-width: 768px) {
+  .meal__content {
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 92%;
+  }
+  .meal__header {
+    height: 8%;
+  }
+  .meal__card {
+    padding: 0.5rem;
+    border-radius: 8px;
+    max-width: 25%;
+    height: auto;
+  }
+  .meal__card .meal__header {
+    justify-content: space-between;
+  }
+}

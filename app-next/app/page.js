@@ -1,6 +1,6 @@
-import styles from "./components/main/page.module.css";
+import styles from "@/app/main/page.module.css";
 
-import Main from "./components/main/main.jsx";
+import Main from "@/app/main/main";
 
 export default function HomePage() {
   return (

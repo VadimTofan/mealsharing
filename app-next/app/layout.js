@@ -1,7 +1,7 @@
 import "./globals.css";
 
-import Header from "./components/header-footer/header/header.jsx";
-import Footer from "./components/header-footer/footer/footer.jsx";
+import Header from "./components/header/header.jsx";
+import Footer from "./components/footer/footer.jsx";
 
 export const metadata = {
   title: "Meal-sharing APP",
