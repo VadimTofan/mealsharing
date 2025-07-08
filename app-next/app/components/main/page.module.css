@@ -248,7 +248,10 @@
   .swipebar {
     padding-left: 15rem;
     padding-top: 10rem;
-    max-width: 900px;
+    max-width: 100%;
+  }
+  .swipebar__slide {
+    align-items: start;
   }
   .swipebar__slide h2 {
     font-size: 70px;
@@ -258,6 +261,11 @@
     -webkit-text-stroke: 0.5px #000;
   }
   .swipebar__button {
+    line-height: 58px;
+    font-size: 25px;
+    font-weight: 600;
+  }
+  .swipebar__buttons {
     line-height: 58px;
     font-size: 25px;
     font-weight: 600;

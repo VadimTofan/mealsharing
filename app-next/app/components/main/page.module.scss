@@ -256,9 +256,10 @@
   .swipebar {
     padding-left: 15rem;
     padding-top: 10rem;
-    max-width: 900px;
+    max-width: 100%;
 
     &__slide {
+      align-items: start;
       h2 {
         font-size: 70px;
         text-transform: uppercase;
@@ -269,6 +270,12 @@
     }
 
     &__button {
+      line-height: 58px;
+      font-size: 25px;
+      font-weight: 600;
+    }
+
+    &__buttons {
       line-height: 58px;
       font-size: 25px;
       font-weight: 600;
