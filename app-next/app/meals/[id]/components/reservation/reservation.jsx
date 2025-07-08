@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 
 import { useState } from "react";
 
-import ReservationForm from "./reservationform";
+import ReservationForm from "./reservationForm";
 
 export default function Reservation({ availableSlots, data, completeAction }) {
   const [modalOpen, setModalOpen] = useState(null);
