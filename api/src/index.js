@@ -8,9 +8,7 @@ import cors from "cors";
 
 const app = express();
 
-// Had to use ChatGPT for this one, would never understand what's wrong!
-app.use(cors({ origin: "http://localhost:3000" }));
-app.use(cors());
+app.use(cors({ origin: "*", credentials: true }));
 
 app.use(express.json());
 app.get("/", (request, response) => {
@@ -39,7 +37,6 @@ app.get("/first-meal", async (request, response) => {
 
 app.get("/last-meal", async (request, response) => {
   const meal = await db.getLastMeal();
-  console.log(meal);
   if (!meal) return response.send("There are no meals for your request!");
 
   response.send(meal);
@@ -49,7 +46,7 @@ app.use(mealsRouter);
 app.use(reservationsRouter);
 app.use(reviewsRouter);
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

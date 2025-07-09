@@ -1,0 +1,32 @@
+@media (min-width: 1250px) {
+  .tortilla {
+    position: fixed;
+    right: -3rem;
+    top: 10h;
+    height: 300px;
+    width: 300px;
+    background: url("/images/tortilla.png") no-repeat center/contain;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+  .tortilla__show {
+    opacity: 1;
+  }
+  .beans {
+    position: fixed;
+    left: 0;
+    top: 50vh;
+    height: 300px;
+    width: 300px;
+    background: url("/images/beans.png") no-repeat center/contain;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+  .beans__show {
+    opacity: 1;
+  }
+}

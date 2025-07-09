@@ -5,8 +5,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #ededed;
-    --foreground: #ededed;
+    --background: #e3f2f3;
+    --foreground: #d1d1fc;
   }
 }
 
@@ -17,11 +17,15 @@ body {
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: url("/images/anthracite.jpg");
   font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+}
+
+p {
+  color: #000;
 }
 
 * {
@@ -35,19 +39,24 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
-
-.layout {
-  min-height: 100vh;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-}
-
-.layout main {
+.databox {
   flex: 1;
+  padding: 2rem 1rem;
+  justify-self: center;
+}
+
+.contentcard {
+  background: transparent;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px #000;
+}
+
+@media (min-width: 1085px) {
+  .databox {
+    padding: 5rem 5rem;
+  }
+
+  .contentcard {
+    padding: 3rem;
+  }
 }

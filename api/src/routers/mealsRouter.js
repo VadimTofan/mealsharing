@@ -3,46 +3,81 @@ import * as db from "../database/database_client.js";
 
 export const mealsRouter = express.Router();
 
-mealsRouter.get("/api/meals", async (request, response) => {
-  const maxPrice = request.query.maxPrice;
-  const minPrice = request.query.minPrice;
-  const availableReservations = request.query.availableReservations;
-  const title = request.query.title;
-  const dateAfter = request.query.dateAfter;
-  const dateBefore = request.query.dateBefore;
-  const limit = request.query.limit;
-  const sort = request.query.sortKey;
-  const safeSort = ["when", "max_reservations", "price"];
-  const safeDirection = ["asc", "desc"];
-  let sortBy = "id";
-  let directBy = "asc";
+mealsRouter.get("/api/selectedmeal/:id", async (request, response) => {
+  const id = request.params.id;
 
-  console.log(sort);
-
-  if (maxPrice) return response.send(await db.getMeals("<", maxPrice));
-  if (minPrice) return response.send(await db.getMeals(">", minPrice));
-  if (availableReservations && availableReservations !== "true") return response.status(404).send({ error: `Can't find such dishes` });
-  if (availableReservations === "true") return response.send(await db.getMealsForReservation());
-  if (title) return response.send(await db.getMealsByTitle(title));
-  if (dateAfter) return response.send(await db.getFutureMeals(dateAfter));
-  if (dateBefore) return response.send(await db.getPastMeals(dateBefore));
-  if (limit) return response.send(await db.getMealsByLimit(limit));
-  if (sort) {
-    for (let i = 0; i < safeSort.length; i++) {
-      if (sort.includes(safeSort[i])) {
-        sortBy = safeSort[i] || "id";
-        break;
-      }
-    }
-    for (let i = 0; i < safeDirection.length; i++) {
-      if (sort.includes(safeDirection[i])) {
-        directBy = safeDirection[i] || "asc";
-        break;
-      }
-    }
-    return response.send(await db.getMealsSorted(sortBy, directBy));
+  if (!id) {
+    return response.status(400).send({ error: "Id is mandatory" });
   }
-  response.send(await db.getMeals());
+
+  try {
+    const meal = await db.getMealDetailsWithAvailabilityById(id);
+
+    if (!meal) return response.status(404).send({ error: `There is no meal with such ID` });
+
+    response.send(meal);
+  } catch (error) {
+    console.error(error);
+    response.status(500).send({ error: "Something went wrong" });
+  }
+});
+
+mealsRouter.get("/api/top-meals", async (req, res) => {
+  try {
+    const meals = await db.getTopMeals();
+
+    if (meals.length === 1) return res.send(meals[0]);
+    res.send(meals);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+mealsRouter.get("/api/meals", async (request, response) => {
+  const filter = request.query;
+
+  try {
+    const { maxPrice, minPrice, availableReservations, title, dateAfter, dateBefore, limit, sortKey } = filter;
+
+    let filters = {};
+    let sortBy = "id";
+    let directBy = "asc";
+
+    if (maxPrice) filters.maxPrice = maxPrice;
+    if (minPrice) filters.minPrice = minPrice;
+    if (title) filters.search = title;
+    if (dateAfter) filters.dateAfter = dateAfter;
+    if (dateBefore) filters.dateBefore = dateBefore;
+    if (limit) filters.limit = limit;
+
+    if (availableReservations === "true") {
+      filters.availableReservations = true;
+    }
+
+    const safeSort = ["when", "max_reservations", "price", "id", "title"];
+    const safeDirection = ["asc", "desc"];
+
+    if (sortKey) {
+      const [key, dir] = sortKey.split("_");
+
+      if (safeSort.includes(key)) {
+        sortBy = key;
+      }
+
+      if (safeDirection.includes(dir)) {
+        directBy = dir;
+      }
+    }
+
+    const meals = await db.getMealsFiltered(filters, sortBy, directBy);
+    if (meals.length === 1) return response.send(meals[0]);
+
+    response.send(meals);
+  } catch (error) {
+    console.error("Error in GET /api/meals:", error);
+    response.status(500).send({ error: "Internal server error" });
+  }
 });
 
 mealsRouter.post("/api/meals", async (request, response) => {
