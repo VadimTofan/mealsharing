@@ -11,11 +11,29 @@ reservationsRouter.post("/api/reservations", async (request, response) => {
   const reservation = request.body;
   const reservationError = reservationDataValidator(reservation);
 
-  if (reservationError) return response.status(400).send({ error: reservationError });
+  if (reservationError) {
+    return response.status(400).send({ error: reservationError });
+  }
 
-  await db.addReservation(createReservationObject(reservation));
+  const mealId = reservation.meal_id;
+  const guestsRequested = parseInt(reservation.number_of_guests, 10);
 
-  response.status(201).json({ message: "Reservation added successfully." });
+  try {
+    const meal = await db.getMealDetailsWithAvailabilityById(mealId);
+    if (!meal) {
+      return response.status(404).send({ error: "Meal not found." });
+    }
+
+    if (meal.available_reservations < guestsRequested) {
+      return response.status(400).send({ error: "Not enough available reservations." });
+    }
+    await db.addReservation(createReservationObject(reservation));
+
+    response.status(201).json({ message: "Reservation added successfully." });
+  } catch (error) {
+    console.error(error);
+    response.status(500).send({ error: "Something went wrong." });
+  }
 });
 
 reservationsRouter.get("/api/reservations/:id", async (request, response) => {

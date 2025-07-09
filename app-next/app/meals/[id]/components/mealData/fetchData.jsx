@@ -21,7 +21,6 @@ export default function fetchData(id) {
       setIsLoading(false);
     }
   };
-  console.log(meal);
 
   useEffect(() => {
     fetchMealData();

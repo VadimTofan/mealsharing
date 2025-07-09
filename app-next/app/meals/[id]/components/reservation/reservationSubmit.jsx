@@ -10,7 +10,6 @@ export async function ReservationSubmit(reservationData) {
     const data = await response.json();
     return { success: true, data };
   } catch (err) {
-    console.error("Reservation error:", err.message);
     return { success: false, error: err.message };
   }
 }

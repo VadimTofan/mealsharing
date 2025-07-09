@@ -2,8 +2,6 @@ import styles from "./page.module.css";
 
 import { useRouter } from "next/navigation";
 
-import Reservation from "@/app/meals/[id]/components/reservation/reservation";
-
 export default function Meal({ meal, description }) {
   const router = useRouter();
   const mealNavigate = () => {
@@ -11,6 +9,12 @@ export default function Meal({ meal, description }) {
   };
 
   const formattedPrice = `${parseInt(meal.price)},-`;
+
+  function getReservationClass(reservations) {
+    if (reservations >= 15) return styles.meal__reservation;
+    if (reservations > 5) return styles.meal__reservationTwo;
+    return styles.meal__reservationThree;
+  }
 
   return (
     <div className={description ? styles.meal__card : ""}>
@@ -40,12 +44,13 @@ export default function Meal({ meal, description }) {
                 </div>
                 <div className={styles.meal__locationbox}>
                   <img className={styles.meal__pin} src="/images/pin.png" />
-                  <p className={styles.meal__location}>{meal.location}</p>
+                  <a href={`https://www.google.com/maps?q=${meal.location}`} target="_blank" className={styles.meal__location}>
+                    {meal.location}
+                  </a>
                 </div>
               </div>
-              <p className={styles.meal__reservation}>Availabile: {meal.available_reservations}</p>
+              <p className={getReservationClass(meal.available_reservations)}>Available: {meal.available_reservations}</p>
               <div className={styles.meal__buttons}>
-                <Reservation data={meal} />
                 <button onClick={mealNavigate} className={styles.meal__button}>
                   Read more
                 </button>
