@@ -37,7 +37,6 @@ app.get("/first-meal", async (request, response) => {
 
 app.get("/last-meal", async (request, response) => {
   const meal = await db.getLastMeal();
-  console.log(meal);
   if (!meal) return response.send("There are no meals for your request!");
 
   response.send(meal);

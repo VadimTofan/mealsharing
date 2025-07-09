@@ -15,7 +15,7 @@ export default function Reservation({ availableSlots, data, completeAction }) {
   return (
     <>
       <button className={styles.reservation__button} onClick={() => openForm("reservation")}>
-        Reserve this meal
+        Reserve
       </button>
 
       {modalOpen === "reservation" && (

@@ -13,10 +13,8 @@ export default async function reviewSubmit(reviewData) {
     }
 
     const data = await response.json();
-    console.log("Review success:", data.message);
     return { success: true, data };
   } catch (err) {
-    console.error("Review error:", err.message);
     return { success: false, error: err.message };
   }
 }

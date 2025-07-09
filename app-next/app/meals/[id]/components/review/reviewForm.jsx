@@ -28,7 +28,7 @@ export default function ReviewForm({ id, closeForm, refreshReviews }) {
       refreshReviews();
       setTimeout(() => {
         closeForm();
-      }, 1000);
+      }, 5000);
     } else {
       setReviewStatus(`Review failed: ${result.error}`);
     }

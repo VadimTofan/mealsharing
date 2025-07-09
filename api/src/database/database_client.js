@@ -118,6 +118,58 @@ export async function getMealsByTitle(title) {
   return dbClient("meal").select("*").where("title", "like", `${title}%`);
 }
 
+export async function getMealsFiltered(filters = {}, sortBy = "id", directBy = "asc") {
+  const validSortFields = ["id", "price", "title", "when"];
+  const validDirections = ["asc", "desc"];
+
+  if (!validSortFields.includes(sortBy)) sortBy = "id";
+  if (!validDirections.includes(directBy.toLowerCase())) directBy = "asc";
+
+  const reservationsSubquery = dbClient("reservation").select("meal_id").sum("number_of_guests as total_guests").groupBy("meal_id").as("res_summary");
+
+  const reviewsSubquery = dbClient("review").select("meal_id").avg("stars as avg_stars").groupBy("meal_id").as("rev_summary");
+
+  const query = dbClient("meal")
+    .leftJoin(reservationsSubquery, "meal.id", "res_summary.meal_id")
+    .leftJoin(reviewsSubquery, "meal.id", "rev_summary.meal_id")
+    .select("meal.*", dbClient.raw("COALESCE(rev_summary.avg_stars, 0) as average_stars"), dbClient.raw("meal.max_reservations - COALESCE(res_summary.total_guests, 0) as available_reservations"));
+
+  if (filters.maxPrice) {
+    query.where("meal.price", "<=", filters.maxPrice);
+  }
+
+  if (filters.minPrice) {
+    query.where("meal.price", ">=", filters.minPrice);
+  }
+
+  if (filters.search) {
+    const searchTerm = `%${filters.search}%`;
+    query.where(function () {
+      this.whereILike("meal.title", searchTerm).orWhereILike("meal.description", searchTerm).orWhereILike("meal.location", searchTerm);
+    });
+  }
+
+  if (filters.dateAfter) {
+    query.where("meal.when", ">=", filters.dateAfter);
+  }
+
+  if (filters.dateBefore) {
+    query.where("meal.when", "<=", filters.dateBefore);
+  }
+
+  if (filters.availableReservations) {
+    query.whereRaw("meal.max_reservations - COALESCE(res_summary.total_guests, 0) > 0");
+  }
+
+  query.orderBy(sortBy, directBy);
+
+  if (filters.limit) {
+    query.limit(filters.limit);
+  }
+
+  return query;
+}
+
 export async function getReservations() {
   return dbClient.select("*").from("reservation");
 }

@@ -19,10 +19,8 @@ export default function Reviews({ id }) {
           throw new Error("Review request failed");
         }
         const data = await response.json();
-        console.log("Review success:", data);
         setReviews(data);
       } catch (err) {
-        console.error("Review error:", err.message);
         setError(err.message);
       }
     };

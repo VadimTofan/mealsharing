@@ -84,8 +84,14 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 5rem;
   z-index: 1500;
+  gap: 5rem;
+}
+
+@media (min-width: 760px) {
+  .databox {
+    gap: 10rem;
+  }
 }
 
 .bgvideo {
@@ -189,7 +195,7 @@
   border-color: #252525;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1028px) {
   .bgvideo {
     top: 0;
   }
@@ -225,9 +231,6 @@
     text-align: justify;
     max-width: 90%;
     margin: 1rem 0 0 0;
-  }
-  .databox {
-    gap: 15rem;
   }
   @keyframes pulse {
     0% {

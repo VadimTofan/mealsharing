@@ -24,7 +24,7 @@ export default function SwipeBar() {
 
   const wrapperRef = useRef(null);
 
-  useEffect(() => {
+  const mainSlides = () => {
     const wrapper = wrapperRef.current;
     if (!wrapper) return;
 
@@ -46,6 +46,10 @@ export default function SwipeBar() {
     }, 5000);
 
     return () => clearInterval(interval);
+  };
+
+  useEffect(() => {
+    mainSlides();
   }, []);
 
   return (
