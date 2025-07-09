@@ -1,4 +1,4 @@
-import styles from "./meal.module.css";
+import styles from "./page.module.css";
 
 import { useRouter } from "next/navigation";
 

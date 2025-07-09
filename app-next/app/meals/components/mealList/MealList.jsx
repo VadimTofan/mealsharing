@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./MealList.module.css";
+import styles from "./page.module.css";
 import { useEffect, useState } from "react";
 import Meal from "../meal/meal.jsx";
 
