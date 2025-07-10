@@ -19,14 +19,14 @@
   }
 }
 
-.profile {
+.orders {
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding-top: 3rem;
 }
 
-.profile__title {
+.orders__title {
   font-size: 1.5rem;
   font-weight: 900;
   color: #fff;
@@ -37,7 +37,7 @@
   animation-fill-mode: both;
 }
 
-.profile__list {
+.orders__list {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -47,7 +47,7 @@
   gap: 16px;
 }
 
-.profile__item {
+.orders__item {
   background-color: rgba(0, 0, 0, 0.5);
   padding-top: 95px;
   width: 25%;
@@ -59,12 +59,12 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.profile__item:hover {
+.orders__item:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 12px #000;
 }
 
-.profile__loading {
+.orders__loading {
   text-align: center;
   font-size: 1.4rem;
   color: #666;
@@ -72,14 +72,14 @@
   animation: pulse 1.5s infinite;
 }
 
-.profile__error {
+.orders__error {
   text-align: center;
   font-size: 1.4rem;
   color: #666;
   padding: 40px 0;
 }
 
-.profile__text {
+.orders__text {
   font-size: 1rem;
   font-weight: 900;
   color: #fff;
@@ -92,26 +92,26 @@
 }
 
 @media (min-width: 798px) {
-  .profile {
+  .orders {
     padding: 7rem 0;
   }
 }
 
 @media (min-width: 1600px) {
-  .profile {
+  .orders {
     text-align: center;
     gap: 25px;
     max-width: 900px;
     justify-self: center;
   }
-  .profile__title {
-    font-size: 1.5rem;
+  .orders__title {
+    font-size: 2rem;
     font-weight: 900;
     color: #fff;
     -webkit-text-stroke: 0.5px #000;
   }
-  .profile__text {
-    font-size: 1rem;
+  .orders__text {
+    font-size: 1.5rem;
     font-weight: 900;
     color: #fff;
     text-align: justify;
