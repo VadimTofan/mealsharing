@@ -12,7 +12,7 @@ export default function Orders() {
 
   const { mealIds, error: reservationsError, isLoading: reservationsLoading } = useReservationData(user?.id);
   const ids = mealIds;
-  console.log(user);
+
   const { meals, error: mealsError } = useMealsData(ids);
 
   const mealsValidation = () => {
