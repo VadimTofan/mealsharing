@@ -65,6 +65,7 @@
   font-size: 2rem;
   font-weight: 900;
   color: #fff;
+  background-color: transparent;
   -webkit-text-stroke: 0.5px #000;
   text-transform: uppercase;
   list-style: none;
@@ -73,28 +74,33 @@
   animation-fill-mode: both;
 }
 
-.header__link:nth-child(1) {
-  animation-delay: 0.1s;
-}
-
-.header__link:nth-child(2) {
+.header__button {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #fff;
+  background-color: transparent;
+  -webkit-text-stroke: 0.5px #000;
+  text-transform: uppercase;
+  list-style: none;
+  animation: fadeIn 1s ease-in;
   animation-delay: 0.2s;
-}
-
-.header__link:nth-child(3) {
-  animation-delay: 0.3s;
+  animation-fill-mode: both;
 }
 
 .header__burger {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
   width: 25px;
   height: 20px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   background: none;
   border: none;
   cursor: pointer;
-  z-index: 2001;
+  z-index: 1;
   min-width: 25px;
 }
 
@@ -111,10 +117,81 @@
 }
 
 .header__line {
+  display: block;
+  width: 25px;
   height: 3px;
   background: #fff;
   border-radius: 2px;
   transition: all 0.3s ease;
+  transform-origin: center;
+  z-index: 3;
+  opacity: 1;
+}
+
+.header__profile {
+  position: relative;
+  display: inline-block;
+}
+
+.header__image {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.header__dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  min-width: 120px;
+  z-index: 1000;
+}
+
+.header__signout {
+  background: none;
+  border: none;
+  width: 100%;
+  padding: 10px 16px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.header__signout:hover {
+  background-color: #f0f0f0;
+}
+
+.header__modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.header__modalContent {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.header__cancelButton {
+  margin-top: 1rem;
+  background-color: #ccc;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 @media (min-width: 1085px) {
@@ -143,9 +220,12 @@
     margin-top: 0;
   }
   .header__link {
-    font-size: 2rem;
-    font-weight: 900;
-    list-style: none;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  .header__button {
+    font-size: 1.5rem;
+    font-weight: 700;
   }
   .header__logo {
     padding-left: 10rem;

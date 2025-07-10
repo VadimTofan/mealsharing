@@ -1,11 +1,13 @@
 "use client";
 
 import styles from "./page.module.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { ReservationSubmit } from "./reservationSubmit";
+import { AuthContext } from "@/app/components/header/components/AuthContext";
 
 export default function ReservationForm({ availableSlots, data, completeAction, closeForm }) {
   const [reservationStatus, setReservationStatus] = useState(null);
+  const user = useContext(AuthContext);
   const meal = data;
 
   const handleSubmit = async (e) => {
@@ -19,6 +21,7 @@ export default function ReservationForm({ availableSlots, data, completeAction, 
       contact_phonenumber: formData.get("phone"),
       contact_name: formData.get("fullName"),
       contact_email: formData.get("email"),
+      user: user.user.id,
     };
 
     const result = await ReservationSubmit(reservation);

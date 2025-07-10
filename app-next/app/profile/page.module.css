@@ -19,13 +19,25 @@
   }
 }
 
-.meals {
+.profile {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   padding-top: 3rem;
 }
 
-.meals__list {
+.profile__title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #fff;
+  text-align: center;
+  -webkit-text-stroke: 0.5px #000;
+  animation: fadeIn 1s ease-in;
+  animation-delay: 0.2s;
+  animation-fill-mode: both;
+}
+
+.profile__list {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -35,7 +47,7 @@
   gap: 16px;
 }
 
-.meals__item {
+.profile__item {
   background-color: rgba(0, 0, 0, 0.5);
   padding-top: 95px;
   width: 25%;
@@ -47,12 +59,12 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.meals__item:hover {
+.profile__item:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 12px #000;
 }
 
-.meals__loading {
+.profile__loading {
   text-align: center;
   font-size: 1.4rem;
   color: #666;
@@ -60,60 +72,49 @@
   animation: pulse 1.5s infinite;
 }
 
-.meals__error {
+.profile__error {
   text-align: center;
   font-size: 1.4rem;
   color: #666;
   padding: 40px 0;
 }
 
-.meals__filter {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  padding-bottom: 5px;
+.profile__text {
+  font-size: 1rem;
+  font-weight: 900;
+  color: #fff;
+  padding-top: 1rem;
+  text-align: center;
+  -webkit-text-stroke: 0.1px #000;
   animation: fadeIn 1s ease-in;
   animation-delay: 0.2s;
   animation-fill-mode: both;
 }
 
-.meals__input, .meals__select {
-  padding: 0 1rem;
-  font-size: 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  height: 30px;
-  outline: none;
-  width: 50%;
-  transition: border-color 0.2s ease;
-}
-
-.meals__input:focus, .meals__select:focus {
-  border-color: #333;
-}
-
-.meals__select {
-  cursor: pointer;
-}
-
 @media (min-width: 798px) {
-  .meals {
+  .profile {
     padding: 7rem 0;
-  }
-  .meals__box {
-    display: flex;
-    flex-direction: column;
-  }
-  .meals__filter {
-    justify-content: center;
-  }
-  .meals__input, .meals__select {
-    width: 250px;
   }
 }
 
 @media (min-width: 1600px) {
-  .meals__box {
-    width: 85%;
+  .profile {
+    text-align: center;
+    gap: 25px;
+    max-width: 900px;
+    justify-self: center;
+  }
+  .profile__title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #fff;
+    -webkit-text-stroke: 0.5px #000;
+  }
+  .profile__text {
+    font-size: 1rem;
+    font-weight: 900;
+    color: #fff;
+    text-align: justify;
+    -webkit-text-stroke: 0.1px #000;
   }
 }

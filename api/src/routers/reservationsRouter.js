@@ -47,6 +47,16 @@ reservationsRouter.get("/api/reservations/:id", async (request, response) => {
   response.send(reservation);
 });
 
+reservationsRouter.get("/api/reservationsbyuser/:id", async (request, response) => {
+  const id = request.params.id;
+  if (!id) return response.status(400).send({ error: `Id is mandatory` });
+
+  const reservation = await db.getReservationsByUser(id);
+
+  if (!reservation.length) return response.status(404).send({ error: `You have no reservations` });
+  response.send(reservation);
+});
+
 reservationsRouter.put("/api/reservations/:id", async (request, response) => {
   const id = Number(request.params.id);
   const reservation = request.body;
@@ -88,6 +98,7 @@ const createReservationObject = (reservation) => {
     contact_phonenumber: reservation.contact_phonenumber,
     contact_name: reservation.contact_name,
     contact_email: reservation.contact_email,
+    user: reservation.user,
   };
 
   return createReservation;

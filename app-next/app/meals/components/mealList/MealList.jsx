@@ -1,14 +1,20 @@
 "use client";
 
 import styles from "./page.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "@/app/components/header/components/AuthContext";
 import Meal from "../meal/meal.jsx";
+import useReservationData from "@/app/profile/fetchReservationData";
 
 export default function MealList(description) {
   const [meals, setMeals] = useState(null);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("");
+  const { user } = useContext(AuthContext);
+
+  const userDataRaw = useReservationData(user?.id || null);
+  const userData = userDataRaw.mealIds;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,7 +30,7 @@ export default function MealList(description) {
         }
 
         const data = await response.json();
-        console.log(data);
+
         setMeals(data);
       } catch (err) {
         setError(err.message);
@@ -38,7 +44,7 @@ export default function MealList(description) {
   if (meals === null) return <div className={styles.meals__loading}>Loading...</div>;
 
   const mealsValidation = () => {
-    if (meals && meals.length > 1) return meals.map((meal, index) => <Meal key={meal.id} meal={meal} description={description} index={index} />);
+    if (meals && meals.length > 1) return meals.map((meal, index) => <Meal key={meal.id} meal={meal} description={description} index={index} userdata={userData} />);
     if (meals.length === 0) return <li className={styles.meals__item}>No meals found.</li>;
     if (meals) return <Meal key={meals.id} meal={meals} description={description} />;
   };

@@ -36,6 +36,7 @@ export default function MainMeals() {
 
     return <li className={styles.meals__item}>No meals found.</li>;
   };
+
   return (
     <div className={`${styles.meals} contentcard`}>
       <div className={styles.meals__welcome}>

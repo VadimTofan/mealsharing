@@ -91,11 +91,22 @@ mealsRouter.post("/api/meals", async (request, response) => {
   response.status(201).json({ message: "Meal added successfully." });
 });
 
-mealsRouter.get("/api/meals/:id", async (request, response) => {
-  const id = Number(request.params.id);
-  if (!id) return response.status(400).send({ error: `Id is mandatory` });
+mealsRouter.get("/api/selectedmeals/:ids", async (request, response) => {
+  const ids = request.params.ids;
+  if (!ids) return response.status(400).send({ error: `Ids are mandatory` });
 
-  const meal = await db.getMealById(id);
+  const meals = await db.getMealsByIds(ids);
+
+  if (!meals) return response.status(404).send({ error: `There are no meal with such ID` });
+
+  response.send(meals);
+});
+
+mealsRouter.get("/api/meals/:id", async (request, response) => {
+  const ids = Number(request.query);
+  if (!ids) return response.status(400).send({ error: `No meals here` });
+
+  const meal = await db.getMealByIds(ids);
 
   if (!meal) return response.status(404).send({ error: `There is no meal with such ID` });
 

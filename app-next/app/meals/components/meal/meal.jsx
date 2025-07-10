@@ -2,12 +2,15 @@ import styles from "./page.module.css";
 
 import { useRouter } from "next/navigation";
 
-export default function Meal({ meal, description }) {
+export default function Meal({ meal, description, userdata }) {
   const router = useRouter();
   const mealNavigate = () => {
     router.push(`/meals/${meal.id}`);
   };
-
+  console.log(userdata);
+  console.log(meal.id);
+  const reserved = userdata?.includes(Number(meal.id));
+  console.log(reserved);
   const formattedPrice = `${parseInt(meal.price)},-`;
 
   function getReservationClass(reservations) {
@@ -18,6 +21,7 @@ export default function Meal({ meal, description }) {
 
   return (
     <div className={styles.meal__card}>
+      {reserved && <div className={styles.meal__ribbon} />}
       <div className={styles.meal__header}>
         <h2 className={styles.meal__title}>{meal.title}</h2>
         <h2 className={styles.meal__price}>{formattedPrice}</h2>
@@ -49,7 +53,10 @@ export default function Meal({ meal, description }) {
                   </a>
                 </div>
               </div>
-              <p className={getReservationClass(meal.available_reservations)}>Available: {meal.available_reservations}</p>
+              <div className={styles.meal__locationbox}>
+                <p className={getReservationClass(meal.available_reservations)}>Available: {meal.available_reservations}</p>
+                {reserved && <p className={styles.meal__isReserved}>Reserved by you!</p>}
+              </div>
               <div className={styles.meal__buttons}>
                 <button onClick={mealNavigate} className={styles.meal__button}>
                   Read more

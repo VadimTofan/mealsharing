@@ -78,6 +78,7 @@
   animation: fadeIn 1s ease-in;
   animation-delay: 0.2s;
   animation-fill-mode: both;
+  position: relative;
 }
 
 .meal__card:nth-child(1) {
@@ -90,6 +91,16 @@
 
 .meal__card:nth-child(8) {
   animation-delay: 0.4s;
+}
+
+.meal__ribbon {
+  display: none;
+}
+
+.meal__isReserved {
+  padding: 10px;
+  font-size: 20px;
+  color: #b9f754;
 }
 
 .meal__buttons {
@@ -179,6 +190,7 @@
 
 .meal__locationbox {
   display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -210,6 +222,22 @@
     max-width: 375px;
     padding: 0.5rem;
     height: auto;
+  }
+  .meal__isReserved {
+    display: none;
+  }
+  .meal__ribbon {
+    display: inline;
+    position: absolute;
+    top: 60px;
+    left: 60%;
+    width: 300px;
+    height: 200px;
+    background-image: url("/images/ribbon.png");
+    background-size: cover;
+    transform: rotate(45deg);
+    transform-origin: top right;
+    pointer-events: none;
   }
   .meal__header {
     justify-content: space-between;
