@@ -3,7 +3,7 @@ import styles from "../page.module.css";
 export default function SocialMedias() {
   return (
     <div className={styles.footer__socials}>
-      <h3 className={styles.footer__heading}>Follow us on Social Media</h3>
+      <h3 className={styles.footer__heading}>Follow us on social media:</h3>
       <ul className={styles.footer__links}>
         <SocialMedia img="/images/linkedin.png" link="https://www.linkedin.com/school/hackyourfuture-denmark/" name="LinkedIn" />
         <SocialMedia img="/images/instagram.png" link="https://www.instagram.com/hackyourfuture.dk" name="Instagram" />

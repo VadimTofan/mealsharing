@@ -17,7 +17,7 @@ export default function Meal({ meal, description }) {
   }
 
   return (
-    <div className={description ? styles.meal__card : styles.meal__main}>
+    <div className={styles.meal__card}>
       <div className={styles.meal__header}>
         <h2 className={styles.meal__title}>{meal.title}</h2>
         <h2 className={styles.meal__price}>{formattedPrice}</h2>

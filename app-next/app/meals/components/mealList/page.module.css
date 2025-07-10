@@ -1,3 +1,12 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .meals {
   display: flex;
   justify-content: center;
@@ -51,6 +60,9 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   padding-bottom: 5px;
+  animation: fadeIn 1s ease-in;
+  animation-delay: 0.2s;
+  animation-fill-mode: both;
 }
 
 .meals__input, .meals__select {

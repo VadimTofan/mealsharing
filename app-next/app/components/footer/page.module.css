@@ -1,3 +1,12 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .footer {
   display: flex;
   flex-direction: column;
@@ -5,6 +14,9 @@
   padding: 1rem 1rem;
   background: transparent;
   color: #ffffff;
+  animation: fadeIn 1s ease-in;
+  animation-delay: 0.1s;
+  animation-fill-mode: both;
 }
 
 .footer__socials {
@@ -42,6 +54,29 @@
   display: inline-flex;
   align-items: center;
   transition: color 0.3s ease;
+  animation: fadeIn 1s ease-in;
+  animation-delay: 0.2s;
+  animation-fill-mode: both;
+}
+
+.footer__link:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.footer__link:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.footer__link:nth-child(3) {
+  animation-delay: 0.25s;
+}
+
+.footer__link:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.footer__link:nth-child(5) {
+  animation-delay: 0.35s;
 }
 
 .footer__link:hover {
@@ -54,10 +89,9 @@
   height: auto;
   border-radius: 10px;
   transition: transform 0.3s ease;
-}
-
-.footer__map:hover {
-  transform: scale(1.05);
+  animation: fadeIn 1s ease-in;
+  animation-delay: 0.2s;
+  animation-fill-mode: both;
 }
 
 @media (min-width: 840px) {
@@ -79,5 +113,8 @@
   .footer__map {
     width: 150px;
     margin-top: 0;
+  }
+  .footer__map:hover {
+    transform: scale(1.05);
   }
 }
