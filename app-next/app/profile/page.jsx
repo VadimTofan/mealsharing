@@ -12,13 +12,7 @@ export default function Profile() {
 
   const { mealIds, error: reservationsError, isLoading: reservationsLoading } = useReservationData(user?.id);
   const ids = mealIds;
-  // if (!user) {
-  //   return (
-  //     <div className={`${styles.profile} contentcard`}>
-  //       <p className={styles.profile__text}>You have not logged in yet.</p>;
-  //     </div>
-  //   );
-  // }
+
   const { meals, error: mealsError } = useMealsData(ids);
 
   const mealsValidation = () => {
@@ -34,7 +28,11 @@ export default function Profile() {
       {reservationsError && <p className={styles.profile__error}>Error loading reservations: {reservationsError}</p>}
       {mealsError && <p className={styles.profile__error}>Error loading meals: {mealsError}</p>}
 
-      {meals && meals.length > 0 ? <ul className={styles.profile__list}>{mealsValidation()}</ul> : !reservationsLoading && <p className={styles.profile__text}>You have no reservations yet.</p>}
+      {meals && meals.length > 0 ? (
+        <ul className={styles.profile__list}>{mealsValidation()}</ul>
+      ) : (
+        !reservationsLoading && <p className={styles.profile__text}>{user.name}, you have no reservations yet.</p>
+      )}
     </div>
   );
 }
