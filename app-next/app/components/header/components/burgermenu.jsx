@@ -14,9 +14,9 @@ export default function BurgerMenu() {
   return (
     <>
       <button className={`${styles.header__burger} ${menuOpen ? styles.open : ""}`} onClick={toggleMenu} aria-label="Toggle menu" aria-expanded={menuOpen}>
-        <span></span>
-        <span></span>
-        <span></span>
+        <span className={styles.header__line}></span>
+        <span className={styles.header__line}></span>
+        <span className={styles.header__line}></span>
       </button>
       <nav className={`${styles.header__navigation} ${menuOpen ? styles.open : ""}`}>
         <ul className={styles.header__list}>
