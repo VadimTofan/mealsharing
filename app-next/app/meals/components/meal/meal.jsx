@@ -7,10 +7,9 @@ export default function Meal({ meal, description, userdata }) {
   const mealNavigate = () => {
     router.push(`/meals/${meal.id}`);
   };
-  console.log(userdata);
-  console.log(meal.id);
+
   const reserved = userdata?.includes(Number(meal.id));
-  console.log(reserved);
+
   const formattedPrice = `${parseInt(meal.price)},-`;
 
   function getReservationClass(reservations) {

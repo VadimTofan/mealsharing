@@ -16,23 +16,18 @@ export default function Profile() {
   const { meals, error: mealsError } = useMealsData(ids);
 
   const mealsValidation = () => {
-    if (meals && meals.length > 1) return meals.map((meal, index) => <Meal key={meal.id} meal={meal} description="description" index={index} />);
+    if (meals && meals.length > 0) return meals.map((meal, index) => <Meal key={meal.id} meal={meal} description="description" index={index} />);
     if (meals.length === 0) return <li className={styles.profile__item}>No meals found.</li>;
-    if (meals) return <Meal key={meals.id} meal={meals} description="description" />;
   };
   return (
     <div className={styles.profile}>
-      <h2 className={styles.profile__title}>Your Reservations</h2>
-
+      {user && <h2 className={styles.profile__title}>Your Reservations</h2>}
+      {!user && <p className={styles.profile__text}>You have not logged in yet.</p>}
       {reservationsLoading && <p className={styles.profile__loading}>Loading reservations...</p>}
-      {reservationsError && <p className={styles.profile__error}>Error loading reservations: {reservationsError}</p>}
       {mealsError && <p className={styles.profile__error}>Error loading meals: {mealsError}</p>}
 
-      {meals && meals.length > 0 ? (
-        <ul className={styles.profile__list}>{mealsValidation()}</ul>
-      ) : (
-        !reservationsLoading && <p className={styles.profile__text}>{user.name}, you have no reservations yet.</p>
-      )}
+      {user &&
+        (meals && meals.length > 0 ? <ul className={styles.profile__list}>{mealsValidation()}</ul> : !reservationsLoading && <p className={styles.profile__text}>You have no reservations yet.</p>)}
     </div>
   );
 }
