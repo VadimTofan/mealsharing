@@ -138,6 +138,7 @@
   height: 100%;
   background: transparent;
   color: #fff;
+  pointer-events: none;
   transition: all 0.5s ease-out;
   transform: translate(-100%, 0);
 }
