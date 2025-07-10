@@ -69,9 +69,15 @@
   -webkit-text-stroke: 0.5px #000;
   text-transform: uppercase;
   list-style: none;
+  text-decoration: none;
   animation: fadeIn 1s ease-in;
   animation-delay: 0.2s;
   animation-fill-mode: both;
+}
+
+.header__link.header__current {
+  border-bottom: 3px solid #fff;
+  padding-bottom: 3px;
 }
 
 .header__button {
@@ -222,6 +228,12 @@
   .header__link {
     font-size: 1.5rem;
     font-weight: 700;
+    transition: all 0.5s ease;
+  }
+  .header__link:hover {
+    transform: scale(1.05);
+    border-bottom: 3px solid #fff;
+    padding-bottom: 3px;
   }
   .header__button {
     font-size: 1.5rem;

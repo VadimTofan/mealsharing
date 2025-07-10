@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "@/app/components/header/components/AuthContext";
 import Meal from "../meal/meal.jsx";
-import useReservationData from "@/app/profile/fetchReservationData";
+import useReservationData from "@/app/orders/fetchReservationData";
 
 export default function MealList(description) {
   const [meals, setMeals] = useState(null);

@@ -17,6 +17,7 @@ export default function BurgerMenu() {
 
   const profileMenuRef = useRef(null);
   const pathname = usePathname();
+
   function toggleMenu() {
     setMenuOpen((prev) => !prev);
   }
@@ -61,10 +62,9 @@ export default function BurgerMenu() {
               <Link href="/">Home</Link>
             </li>
           )}
-          <li className={styles.header__link}>
+          <li className={`${styles.header__link} ${pathname === "/meals" ? styles.header__current : ""}`}>
             <Link href="/meals">Meals</Link>
           </li>
-
           {!user ? (
             <li className={styles.header__link}>
               <button className={styles.header__button} onClick={() => setShowLoginModal(true)} style={{ cursor: "pointer", background: "none", border: "none" }}>
@@ -73,8 +73,8 @@ export default function BurgerMenu() {
             </li>
           ) : (
             <>
-              <li className={styles.header__link}>
-                <Link href="/profile">Profile</Link>
+              <li className={`${styles.header__link} ${pathname === "/orders" ? styles.header__current : ""}`}>
+                <Link href="/orders">Orders</Link>
               </li>
 
               {user?.picture && (
