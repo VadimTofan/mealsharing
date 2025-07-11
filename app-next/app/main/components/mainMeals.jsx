@@ -47,7 +47,6 @@ export default function MainMeals() {
           good times. Reserve your spot, chow down, and drop a review to keep the good vibes going. Simple, fun, and perfect for anyone who loves food and company. Jump in and let’s make mealtime
           social again.
         </p>
-        <h2 className={styles.meals__heading}>Check some of our top choices:</h2>
       </div>
       <ul className={styles.meals__list}>{renderMeals()}</ul>
     </div>
