@@ -112,7 +112,7 @@
   display: flex;
   flex-direction: column;
   z-index: 1500;
-  gap: 10rem;
+  gap: 3rem;
 }
 
 .bgvideo {
@@ -221,6 +221,9 @@
 @media (min-width: 1028px) {
   .bgvideo {
     top: 0;
+  }
+  .databox {
+    gap: 5rem;
   }
   .meals {
     border-radius: 0 16px 16px 0;

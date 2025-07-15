@@ -239,6 +239,7 @@
     transform: rotate(45deg);
     transform-origin: top right;
     pointer-events: none;
+    z-index: 1;
   }
   .meal__header {
     justify-content: space-between;

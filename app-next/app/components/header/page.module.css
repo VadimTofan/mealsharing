@@ -16,12 +16,13 @@
   width: 100%;
   z-index: 2000;
   background-color: rgba(0, 0, 0, 0.9);
+  padding: 1rem;
   color: #ffffff;
   text-align: center;
 }
 
 .header__logoImage {
-  width: 75px;
+  width: 45px;
   height: auto;
   transform: rotate(45deg);
   animation: fadeIn 1s ease-in;
@@ -200,7 +201,7 @@
   .header {
     transition: background-color 0.5s ease, box-shadow 0.5s ease;
     background: none;
-    padding: 1rem;
+    padding: 10px;
   }
   .header.scrolled {
     background-color: rgba(0, 0, 0, 0.6);
@@ -246,7 +247,7 @@
     padding-left: 10rem;
   }
   .header__logoImage {
-    width: 100px;
+    width: 50px;
     height: auto;
   }
   .header__title {

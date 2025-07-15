@@ -16,7 +16,7 @@ export default function Orders() {
   const { meals, error: mealsError } = useMealsData(ids);
 
   const mealsValidation = () => {
-    if (meals && meals.length > 0) return meals.map((meal, index) => <Meal key={meal.id} meal={meal} description="description" index={index} />);
+    if (meals && meals.length > 0) return meals.map((meal, index) => <Meal key={meal.id} meal={meal} description="description" index={index} userdata={mealIds} />);
     if (meals.length === 0) return <li className={styles.orders__item}>No meals found.</li>;
   };
   return (

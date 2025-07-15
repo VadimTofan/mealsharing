@@ -101,7 +101,6 @@
   .orders {
     text-align: center;
     gap: 25px;
-    max-width: 900px;
     justify-self: center;
   }
   .orders__title {
