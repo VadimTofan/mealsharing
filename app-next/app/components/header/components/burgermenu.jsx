@@ -18,6 +18,11 @@ export default function BurgerMenu() {
   const profileMenuRef = useRef(null);
   const pathname = usePathname();
 
+  function handleNavClick() {
+    setMenuOpen(false);
+    setShowProfileMenu(false);
+  }
+
   function toggleMenu() {
     setMenuOpen((prev) => !prev);
   }
@@ -59,11 +64,15 @@ export default function BurgerMenu() {
         <ul className={styles.header__list}>
           {pathname !== "/" && (
             <li className={styles.header__link}>
-              <Link href="/">Home</Link>
+              <Link href="/" onClick={handleNavClick}>
+                Home
+              </Link>
             </li>
           )}
           <li className={`${styles.header__link} ${pathname === "/meals" ? styles.header__current : ""}`}>
-            <Link href="/meals">Meals</Link>
+            <Link href="/meals" onClick={handleNavClick}>
+              Meals
+            </Link>
           </li>
           {!user ? (
             <li className={styles.header__link}>
@@ -74,7 +83,9 @@ export default function BurgerMenu() {
           ) : (
             <>
               <li className={`${styles.header__link} ${pathname === "/orders" ? styles.header__current : ""}`}>
-                <Link href="/orders">Orders</Link>
+                <Link href="/orders" onClick={handleNavClick}>
+                  Orders
+                </Link>
               </li>
 
               {user?.picture && (

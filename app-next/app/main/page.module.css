@@ -81,7 +81,9 @@
   border: 1px solid #e5e7eb;
   font-size: 1.1rem;
   color: #252020;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .meals__item:hover {

@@ -1,24 +1,31 @@
 "use client";
-
 import styles from "./page.module.css";
 import { useContext } from "react";
 import { AuthContext } from "@/app/components/header/components/AuthContext";
-import useReservationData from "./fetchReservationData";
-import useMealsData from "./fetchMealData";
+import useReservationData from "./components/fetchReservationData";
+import useMealsData from "./components/fetchMealData";
 import Meal from "@/app/meals/components/meal/meal";
 
 export default function Orders() {
   const { user } = useContext(AuthContext);
-
-  const { mealIds, error: reservationsError, isLoading: reservationsLoading } = useReservationData(user?.id);
-  const ids = mealIds;
-
+  const { mealIds, isLoading: reservationsLoading, refreshReservations } = useReservationData(user?.id);
+  const ids = mealIds?.map((meal) => meal.meal_id) || [];
   const { meals, error: mealsError } = useMealsData(ids);
 
-  const mealsValidation = () => {
-    if (meals && meals.length > 0) return meals.map((meal, index) => <Meal key={meal.id} meal={meal} description="description" index={index} userdata={mealIds} />);
-    if (meals.length === 0) return <li className={styles.orders__item}>No meals found.</li>;
+  const handleReservationCancelled = () => {
+    refreshReservations().then(() => {
+      if (!meals.length) {
+        window.location.reload();
+      }
+    });
   };
+
+  const mealsValidation = () => {
+    if (meals && meals.length > 0)
+      return meals.map((meal, index) => <Meal key={meal.id} meal={meal} description="description" index={index} userdata={ids} onReservationCancel={handleReservationCancelled} />);
+    if (meals?.length === 0) return <li className={styles.orders__item}>No meals found.</li>;
+  };
+
   return (
     <div className={styles.orders}>
       {user && <h2 className={styles.orders__title}>Your Reservations</h2>}

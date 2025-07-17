@@ -222,8 +222,9 @@ export async function getReservationById(id) {
 }
 
 export async function getReservationsByUser(id) {
-  const rows = await dbClient.select("meal_id").from("reservation").where("user", id);
-  return rows.map((row) => row.meal_id);
+  const rows = await dbClient.select("id", "meal_id").from("reservation").where("user", id);
+
+  return rows;
 }
 
 export async function updateReservationById(id, reservation) {

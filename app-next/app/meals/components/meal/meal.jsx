@@ -1,9 +1,14 @@
 import styles from "./page.module.css";
 
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
-export default function Meal({ meal, description, userdata }) {
+import CancelReservation from "@/app/orders/components/cancelReservation";
+
+export default function Meal({ meal, description, userdata, onReservationCancel }) {
   const router = useRouter();
+
+  const pathname = usePathname();
+
   const mealNavigate = () => {
     router.push(`/meals/${meal.id}`);
   };
@@ -56,11 +61,15 @@ export default function Meal({ meal, description, userdata }) {
                 <p className={getReservationClass(meal.available_reservations)}>Available: {meal.available_reservations}</p>
                 {reserved && <p className={styles.meal__isReserved}>Reserved by you!</p>}
               </div>
-              <div className={styles.meal__buttons}>
-                <button onClick={mealNavigate} className={styles.meal__button}>
-                  Read more
-                </button>
-              </div>
+              {pathname === "/orders" ? (
+                <CancelReservation mealId={meal.id} onCancelSuccess={onReservationCancel} />
+              ) : (
+                <div className={styles.meal__buttons}>
+                  <button onClick={mealNavigate} className={styles.meal__button}>
+                    Read more
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         )}
