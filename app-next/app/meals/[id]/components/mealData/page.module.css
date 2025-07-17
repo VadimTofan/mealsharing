@@ -72,16 +72,16 @@
     padding: 2rem;
     gap: 2rem;
   }
-  .meal {
-    max-width: 60%;
-  }
   .meal__title {
     font-size: 2rem;
   }
   .meal__box {
-    max-width: 60%;
+    width: 50%;
   }
   .meal__res {
-    max-width: 60%;
+    max-width: 50%;
+  }
+  .reviews__box {
+    min-width: 50%;
   }
 }
