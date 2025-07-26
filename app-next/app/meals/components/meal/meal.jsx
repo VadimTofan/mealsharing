@@ -4,7 +4,7 @@ import { useRouter, usePathname } from "next/navigation";
 
 import CancelReservation from "@/app/orders/components/cancelReservation";
 
-export default function Meal({ meal, description, userdata, onReservationCancel }) {
+export default function Meal({ meal, description, userdata }) {
   const router = useRouter();
 
   const pathname = usePathname();
@@ -62,7 +62,7 @@ export default function Meal({ meal, description, userdata, onReservationCancel 
                 {reserved && <p className={styles.meal__isReserved}>Reserved by you!</p>}
               </div>
               {pathname === "/orders" ? (
-                <CancelReservation mealId={meal.id} onCancelSuccess={onReservationCancel} />
+                <CancelReservation mealId={meal.id} />
               ) : (
                 <div className={styles.meal__buttons}>
                   <button onClick={mealNavigate} className={styles.meal__button}>

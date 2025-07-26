@@ -8,21 +8,12 @@ import Meal from "@/app/meals/components/meal/meal";
 
 export default function Orders() {
   const { user } = useContext(AuthContext);
-  const { mealIds, isLoading: reservationsLoading, refreshReservations } = useReservationData(user?.id);
+  const { mealIds, isLoading: reservationsLoading } = useReservationData(user?.id);
   const ids = mealIds?.map((meal) => meal.meal_id) || [];
   const { meals, error: mealsError } = useMealsData(ids);
 
-  const handleReservationCancelled = () => {
-    refreshReservations().then(() => {
-      if (!meals.length) {
-        window.location.reload();
-      }
-    });
-  };
-
   const mealsValidation = () => {
-    if (meals && meals.length > 0)
-      return meals.map((meal, index) => <Meal key={meal.id} meal={meal} description="description" index={index} userdata={ids} onReservationCancel={handleReservationCancelled} />);
+    if (meals && meals.length > 0) return meals.map((meal, index) => <Meal key={meal.id} meal={meal} description="description" index={index} userdata={ids} />);
     if (meals?.length === 0) return <li className={styles.orders__item}>No meals found.</li>;
   };
 

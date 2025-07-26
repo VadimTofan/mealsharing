@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "@/app/components/header/components/AuthContext";
 import useReservationData from "./fetchReservationData";
 
-export default function CancelReservation({ mealId, onCancelSuccess }) {
+export default function CancelReservation({ mealId }) {
   const { user } = useContext(AuthContext);
   const { mealIds, refreshReservations } = useReservationData(user?.id);
 
@@ -44,7 +44,7 @@ export default function CancelReservation({ mealId, onCancelSuccess }) {
         setStatusType("");
 
         setTimeout(() => {
-          if (onCancelSuccess) onCancelSuccess();
+          window.location.reload();
         }, 50);
       }, 2000);
     } catch (err) {
