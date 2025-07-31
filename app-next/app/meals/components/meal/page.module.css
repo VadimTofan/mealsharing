@@ -225,7 +225,9 @@
     max-width: 375px;
     padding: 0.5rem;
     height: auto;
-    transition: height 0.3s ease, opacity 0.3s ease;
+    transition:
+      height 0.3s ease,
+      opacity 0.3s ease;
   }
   .meal__isReserved {
     display: none;

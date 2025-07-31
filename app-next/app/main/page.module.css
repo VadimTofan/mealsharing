@@ -81,9 +81,7 @@
   border: 1px solid #e5e7eb;
   font-size: 1.1rem;
   color: #252020;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .meals__item:hover {
@@ -232,7 +230,7 @@
     flex-direction: row;
     justify-content: space-around;
     position: relative;
-    margin-left: -5rem;
+    margin-left: -1rem;
     width: 80%;
   }
   .meals__welcome {
@@ -255,9 +253,6 @@
     max-width: 90%;
     margin: 1rem 0 0 0;
   }
-}
-
-@media (min-width: 1024px) {
   .swipebar {
     padding-left: 15rem;
     padding-top: 10rem;
@@ -297,5 +292,11 @@
   }
   .carrot__show {
     opacity: 1;
+  }
+}
+
+@media (min-width: 1086px) {
+  .meals {
+    margin-left: -5rem;
   }
 }
