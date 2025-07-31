@@ -228,7 +228,7 @@
   .header__link {
     font-size: 1.5rem;
     font-weight: 700;
-    transition: all 0.5s ease;
+    transition: all 0.1s ease;
   }
   .header__link.header__current {
     border-bottom: 3px solid #fff;
