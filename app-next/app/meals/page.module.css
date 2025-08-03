@@ -1,8 +1,8 @@
-@media (min-width: 1250px) {
+@media (min-width: 1088px) {
   .tortilla {
     position: fixed;
     right: -3rem;
-    top: 10h;
+    top: 10vh;
     height: 300px;
     width: 300px;
     background: url("/images/tortilla.png") no-repeat center/contain;

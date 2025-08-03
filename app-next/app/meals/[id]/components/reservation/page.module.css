@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.6);
-  z-index: 1000;
+  z-index: 2000;
   color: #333;
   padding: 1rem;
 }
@@ -17,7 +17,7 @@
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
   position: relative;
   width: 100%;
-  max-width: 100%;
+  max-width: 90%;
   animation: fadeIn 0.3s ease-out;
   box-sizing: border-box;
 }
@@ -37,8 +37,7 @@
 }
 
 .modal__title {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.2rem;
   margin-bottom: 1rem;
   text-align: center;
 }
@@ -77,6 +76,7 @@
   padding: 1rem;
   margin-top: 1rem;
   border-radius: 8px;
+  font-size: 15px;
   text-align: center;
   font-weight: bold;
 }
@@ -175,5 +175,8 @@
   }
   .modal__rating {
     font-size: 2rem;
+  }
+  .modal__status {
+    font-size: 1.2rem;
   }
 }

@@ -24,7 +24,7 @@
   flex-direction: column;
   gap: 1rem;
   padding: 15px;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .meals__welcome {
@@ -112,7 +112,7 @@
   display: flex;
   flex-direction: column;
   z-index: 1500;
-  gap: 10rem;
+  gap: 3rem;
 }
 
 .bgvideo {
@@ -120,7 +120,7 @@
   top: 4rem;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 120vh;
   object-fit: cover;
   z-index: -1;
 }
@@ -222,12 +222,15 @@
   .bgvideo {
     top: 0;
   }
+  .databox {
+    gap: 5rem;
+  }
   .meals {
     border-radius: 0 16px 16px 0;
     flex-direction: row;
     justify-content: space-around;
     position: relative;
-    margin-left: -5rem;
+    margin-left: -1rem;
     width: 80%;
   }
   .meals__welcome {
@@ -239,7 +242,7 @@
   .meals__heading {
     font-size: 2rem;
     font-weight: 900;
-    text-align: center;
+    text-align: left;
     margin: 0.5rem 0 0 0;
     padding-bottom: 15px;
   }
@@ -250,9 +253,6 @@
     max-width: 90%;
     margin: 1rem 0 0 0;
   }
-}
-
-@media (min-width: 1024px) {
   .swipebar {
     padding-left: 15rem;
     padding-top: 10rem;
@@ -292,5 +292,11 @@
   }
   .carrot__show {
     opacity: 1;
+  }
+}
+
+@media (min-width: 1086px) {
+  .meals {
+    margin-left: -5rem;
   }
 }

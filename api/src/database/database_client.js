@@ -58,6 +58,40 @@ export async function getMealById(id) {
   return meals[0];
 }
 
+export async function getMealsByIds(ids) {
+  if (!ids || ids.length === 0) return [];
+
+  const idsStr = Array.isArray(ids) ? ids.join(",") : ids;
+
+  const sql = `
+    SELECT
+      meal.*,
+      COALESCE(rev_summary.avg_stars, 0) AS average_stars,
+      meal.max_reservations - COALESCE(res_summary.total_guests, 0) AS available_reservations,
+      res_summary.user_id
+    FROM meal
+    LEFT JOIN (
+      SELECT
+        meal_id,
+        SUM(number_of_guests) AS total_guests,
+        MIN(user) AS user_id
+      FROM reservation
+      GROUP BY meal_id
+    ) AS res_summary ON meal.id = res_summary.meal_id
+    LEFT JOIN (
+      SELECT
+        meal_id,
+        AVG(stars) AS avg_stars
+      FROM review
+      GROUP BY meal_id
+    ) AS rev_summary ON meal.id = rev_summary.meal_id
+    WHERE meal.id IN (${idsStr});
+  `;
+
+  const result = await dbClient.raw(sql);
+  return result.rows || result;
+}
+
 export async function updateMealById(id, meal) {
   return dbClient("meal").where("id", id).update(meal);
 }
@@ -125,14 +159,19 @@ export async function getMealsFiltered(filters = {}, sortBy = "id", directBy = "
   if (!validSortFields.includes(sortBy)) sortBy = "id";
   if (!validDirections.includes(directBy.toLowerCase())) directBy = "asc";
 
-  const reservationsSubquery = dbClient("reservation").select("meal_id").sum("number_of_guests as total_guests").groupBy("meal_id").as("res_summary");
+  const reservationsSubquery = dbClient("reservation").select("meal_id").sum("number_of_guests as total_guests").min("user as user_id").groupBy("meal_id").as("res_summary");
 
   const reviewsSubquery = dbClient("review").select("meal_id").avg("stars as avg_stars").groupBy("meal_id").as("rev_summary");
 
   const query = dbClient("meal")
     .leftJoin(reservationsSubquery, "meal.id", "res_summary.meal_id")
     .leftJoin(reviewsSubquery, "meal.id", "rev_summary.meal_id")
-    .select("meal.*", dbClient.raw("COALESCE(rev_summary.avg_stars, 0) as average_stars"), dbClient.raw("meal.max_reservations - COALESCE(res_summary.total_guests, 0) as available_reservations"));
+    .select(
+      "meal.*",
+      dbClient.raw("COALESCE(rev_summary.avg_stars, 0) as average_stars"),
+      dbClient.raw("meal.max_reservations - COALESCE(res_summary.total_guests, 0) as available_reservations"),
+      "res_summary.user_id"
+    );
 
   if (filters.maxPrice) {
     query.where("meal.price", "<=", filters.maxPrice);
@@ -180,6 +219,12 @@ export async function addReservation(meal) {
 
 export async function getReservationById(id) {
   return dbClient.select("*").from("reservation").where("id", id);
+}
+
+export async function getReservationsByUser(id) {
+  const rows = await dbClient.select("id", "meal_id").from("reservation").where("user", id);
+
+  return rows;
 }
 
 export async function updateReservationById(id, reservation) {

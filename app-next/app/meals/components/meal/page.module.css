@@ -51,6 +51,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  position: relative;
   background-position: center;
   border-radius: 8px;
   padding: 5px;
@@ -78,6 +79,7 @@
   animation: fadeIn 1s ease-in;
   animation-delay: 0.2s;
   animation-fill-mode: both;
+  position: relative;
 }
 
 .meal__card:nth-child(1) {
@@ -92,6 +94,16 @@
   animation-delay: 0.4s;
 }
 
+.meal__ribbon {
+  display: none;
+}
+
+.meal__isReserved {
+  padding: 10px;
+  font-size: 20px;
+  color: #b9f754;
+}
+
 .meal__buttons {
   display: flex;
   flex-direction: column;
@@ -104,8 +116,7 @@
   line-height: 35px;
   font-size: 15px;
   font-weight: 600;
-  position: relative;
-  display: inline-block;
+  z-index: 0;
   padding: 0 15px 0 15px;
   background-color: rgba(0, 0, 0, 0.5);
   border: 2px solid #fff;
@@ -127,6 +138,7 @@
   height: 100%;
   background: transparent;
   color: #fff;
+  pointer-events: none;
   transition: all 0.5s ease-out;
   transform: translate(-100%, 0);
 }
@@ -179,6 +191,7 @@
 
 .meal__locationbox {
   display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -207,9 +220,31 @@
     gap: 3%;
   }
   .meal__card {
+    position: relative;
+    z-index: 1;
     max-width: 375px;
     padding: 0.5rem;
     height: auto;
+    transition:
+      height 0.3s ease,
+      opacity 0.3s ease;
+  }
+  .meal__isReserved {
+    display: none;
+  }
+  .meal__ribbon {
+    display: inline;
+    position: absolute;
+    top: 60px;
+    left: 60%;
+    width: 300px;
+    height: 200px;
+    background-image: url("/images/ribbon.png");
+    background-size: cover;
+    transform: rotate(45deg);
+    transform-origin: top right;
+    pointer-events: none;
+    z-index: 1;
   }
   .meal__header {
     justify-content: space-between;

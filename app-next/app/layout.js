@@ -2,6 +2,8 @@ import "./globals.css";
 
 import Header from "./components/header/header.jsx";
 import Footer from "./components/footer/footer.jsx";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { AuthProvider } from "@/app/components/header/components/AuthContext";
 
 export const metadata = {
   title: "Meal-sharing APP",
@@ -12,9 +14,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Header />
-        <div className="databox">{children}</div>
-        <Footer />
+        <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
+          <AuthProvider>
+            <Header />
+            <div className="databox">{children}</div>
+            <Footer />
+          </AuthProvider>
+        </GoogleOAuthProvider>
       </body>
     </html>
   );

@@ -7,6 +7,18 @@
   }
 }
 
+@keyframes pulse {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
 .meals {
   display: flex;
   justify-content: center;
@@ -84,18 +96,6 @@
   cursor: pointer;
 }
 
-@keyframes pulse {
-  0% {
-    opacity: 0.4;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.4;
-  }
-}
-
 @media (min-width: 798px) {
   .meals {
     padding: 7rem 0;
@@ -113,9 +113,6 @@
 }
 
 @media (min-width: 1600px) {
-  .meals {
-    padding: 7rem 0;
-  }
   .meals__box {
     width: 85%;
   }
