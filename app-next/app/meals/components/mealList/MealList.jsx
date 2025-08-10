@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "@/app/components/header/components/AuthContext";
 import Meal from "../meal/meal.jsx";
-import useReservationData from "@/app/orders/fetchReservationData";
+import useReservationData from "@/app/orders/components/fetchReservationData";
 
 export default function MealList(description) {
   const [meals, setMeals] = useState(null);
@@ -13,8 +13,8 @@ export default function MealList(description) {
   const [sortOption, setSortOption] = useState("");
   const { user } = useContext(AuthContext);
 
-  const userDataRaw = useReservationData(user?.id || null);
-  const userData = userDataRaw.mealIds;
+  const { mealIds } = useReservationData(user?.id);
+  const userData = mealIds?.map((meal) => meal.meal_id) || [];
 
   useEffect(() => {
     const fetchData = async () => {

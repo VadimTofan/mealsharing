@@ -7,7 +7,7 @@ export default function useMealsData(ids) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!ids || ids.length === 0) return;
+    if (!ids || !ids.length) return;
 
     const fetchData = async () => {
       try {

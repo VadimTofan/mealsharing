@@ -9,7 +9,7 @@ export default function SocialMedias() {
         <SocialMedia img="/images/instagram.png" link="https://www.instagram.com/hackyourfuture.dk" name="Instagram" />
         <SocialMedia img="/images/facebook.png" link="https://www.facebook.com/hackyourfuturedenmark" name="Facebook" />
         <SocialMedia img="/images/youtube.png" link="https://www.youtube.com/@hackyourfuturedenmark8032" name="YouTube" />
-        <SocialMedia img="/images/github.png" link="https://github.com/hackyourfuture-cph" name="GitHub" />
+        <SocialMedia img="/images/github.gif" link="https://github.com/hackyourfuture-cph" name="GitHub" />
       </ul>
     </div>
   );

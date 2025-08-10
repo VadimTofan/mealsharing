@@ -17,6 +17,7 @@ export default function MealCard({ meal, completeAction, refreshReviews, reviews
           <p className={styles.meal__text}>Reservations Left: {availableReservations}</p>
           <p className={styles.meal__text}>Price: {meal.price}</p>
         </div>
+
         <div className={styles.meal__res}>
           <Reservation availableSlots={availableReservations} data={meal} completeAction={completeAction} />
           <Review id={meal.id} refreshReviews={refreshReviews} />
