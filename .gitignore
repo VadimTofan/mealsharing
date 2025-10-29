@@ -1,5 +1,7 @@
 node_modules
 .env
-Dockerfile
 *.module.scss
 *.min.css
+.next
+.env*
+*.module.css.map
