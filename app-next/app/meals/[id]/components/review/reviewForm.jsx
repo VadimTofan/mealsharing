@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 
 import { useState } from "react";
 
-import reviewSubmit from "./reviewSubmit";
+import reviewSubmit from "./ReviewSubmit";
 
 export default function ReviewForm({ id, closeForm, refreshReviews }) {
   const [reviewStatus, setReviewStatus] = useState(null);

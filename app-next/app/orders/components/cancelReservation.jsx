@@ -2,7 +2,7 @@
 import styles from "../page.module.css";
 import { useContext, useState } from "react";
 import { AuthContext } from "@/app/components/header/components/AuthContext";
-import useReservationData from "./fetchReservationData";
+import useReservationData from "./FetchReservationData";
 
 export default function CancelReservation({ mealId }) {
   const { user } = useContext(AuthContext);

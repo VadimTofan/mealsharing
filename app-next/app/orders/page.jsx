@@ -2,9 +2,9 @@
 import styles from "./page.module.css";
 import { useContext } from "react";
 import { AuthContext } from "@/app/components/header/components/AuthContext";
-import useReservationData from "./components/fetchReservationData";
-import useMealsData from "./components/fetchMealData";
-import Meal from "@/app/meals/components/meal/meal";
+import useReservationData from "./components/FetchReservationData";
+import useMealsData from "./components/FetchMealData";
+import Meal from "@/app/meals/components/meal/Meal";
 
 export default function Orders() {
   const { user } = useContext(AuthContext);

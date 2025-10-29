@@ -1,7 +1,7 @@
 import "./globals.css";
 
-import Header from "./components/header/header.jsx";
-import Footer from "./components/footer/footer.jsx";
+import Header from "./components/header/Header.jsx";
+import Footer from "./components/footer/Footer.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { AuthProvider } from "@/app/components/header/components/AuthContext";
 

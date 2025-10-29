@@ -2,7 +2,7 @@
 
 import styles from "./page.module.css";
 import { useState, useContext } from "react";
-import { ReservationSubmit } from "./reservationSubmit";
+import { ReservationSubmit } from "./ReservationSubmit";
 import { AuthContext } from "@/app/components/header/components/AuthContext";
 
 export default function ReservationForm({ availableSlots, data, completeAction, closeForm }) {

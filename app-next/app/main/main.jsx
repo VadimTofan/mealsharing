@@ -4,8 +4,8 @@ import styles from "./page.module.css";
 
 import { useEffect, useState } from "react";
 
-import SwipeBar from "./components/swipebar";
-import MainMeals from "./components/mainMeals";
+import SwipeBar from "./components/SwipeBar";
+import MainMeals from "./components/MainMeals";
 
 export default function Main() {
   const [showCarrot, setShowCarrot] = useState(false);

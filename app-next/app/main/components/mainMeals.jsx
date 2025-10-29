@@ -4,7 +4,7 @@ import styles from "../page.module.css";
 
 import { useState, useEffect } from "react";
 
-import Meal from "@/app/meals/components/meal/meal";
+import Meal from "@/app/meals/components/meal/Meal";
 
 export default function MainMeals() {
   const [meals, setMeals] = useState(null);

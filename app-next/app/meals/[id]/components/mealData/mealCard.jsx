@@ -1,8 +1,8 @@
 import styles from "./page.module.css";
 
-import Review from "../review/review";
-import Reviews from "../review/reviews";
-import Reservation from "../reservation/reservation";
+import Review from "../review/Review";
+import Reviews from "../review/Reviews";
+import Reservation from "../reservation/Reservation";
 
 export default function MealCard({ meal, completeAction, refreshReviews, reviewsKey }) {
   const availableReservations = meal.max_reservations - meal.total_guests;

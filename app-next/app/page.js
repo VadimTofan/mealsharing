@@ -1,6 +1,6 @@
 import styles from "@/app/main/page.module.css";
 
-import Main from "@/app/main/main";
+import Main from "@/app/main/Main";
 
 export default function HomePage() {
   return (

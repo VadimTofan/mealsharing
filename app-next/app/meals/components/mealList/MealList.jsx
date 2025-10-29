@@ -3,8 +3,8 @@
 import styles from "./page.module.css";
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "@/app/components/header/components/AuthContext";
-import Meal from "../meal/meal.jsx";
-import useReservationData from "@/app/orders/components/fetchReservationData";
+import Meal from "../meal/Meal.jsx";
+import useReservationData from "@/app/orders/components/FetchReservationData";
 
 export default function MealList(description) {
   const [meals, setMeals] = useState(null);

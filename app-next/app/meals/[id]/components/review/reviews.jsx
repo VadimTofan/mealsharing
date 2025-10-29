@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 
 import { useState, useEffect } from "react";
 
-import ReviewRender from "./reviewRender";
+import ReviewRender from "./ReviewRender";
 
 export default function Reviews({ id }) {
   const [reviews, setReviews] = useState(null);

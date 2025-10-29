@@ -3,7 +3,7 @@
 import styles from "./page.module.css";
 
 import { useState } from "react";
-import ReviewForm from "./reviewForm";
+import ReviewForm from "./ReviewForm";
 
 export default function Review({ id, refreshReviews }) {
   const [modalOpen, setModalOpen] = useState(null);
