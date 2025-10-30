@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./page.module.css";
+import styles from "./page.module.scss";
 import { useState, useContext } from "react";
 import { ReservationSubmit } from "./ReservationSubmit";
 import { AuthContext } from "@/app/components/header/components/AuthContext";

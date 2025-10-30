@@ -1,4 +1,4 @@
-import styles from "./page.module.css";
+import styles from "./page.module.scss";
 
 import Review from "../review/Review";
 import Reviews from "../review/Reviews";

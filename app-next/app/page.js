@@ -1,4 +1,4 @@
-import styles from "@/app/main/page.module.css";
+import styles from "@/app/main/page.module.scss";
 
 import Main from "@/app/main/Main";
 

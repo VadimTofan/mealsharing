@@ -1,0 +1,259 @@
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.meal {
+  width: 100%;
+  height: 100px;
+  min-width: 50%;
+  border: 1px solid #000;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #000;
+  cursor: pointer;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  &:hover {
+    scale: 1.01;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    -webkit-text-stroke: 0.5px #000;
+  }
+
+  &__price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: end;
+    color: #fff;
+    -webkit-text-stroke: 0.5px #000;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+    padding: 5px;
+    border-radius: 8px;
+    background-position: center;
+  }
+
+  &__description {
+    min-width: 50%;
+    padding: 10px;
+    font-size: 18px;
+    text-align: justify;
+    color: #fff;
+  }
+
+  &__about {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  &__card {
+    position: relative;
+    padding: 5px;
+    background-color: rgb(0 0 0 / 50%);
+    border-radius: 8px;
+    animation: fade-in 1s ease-in;
+    animation-delay: 0.2s;
+    animation-fill-mode: both;
+
+    &:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    &:nth-child(4) {
+      animation-delay: 0.2s;
+    }
+
+    &:nth-child(8) {
+      animation-delay: 0.4s;
+    }
+  }
+
+  &__ribbon {
+    display: none;
+  }
+
+  &__isReserved {
+    padding: 10px;
+    font-size: 20px;
+    color: #b9f754;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+  }
+
+  &__button {
+    z-index: 0;
+    min-width: 100%;
+    padding: 0 15px;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 35px;
+    text-align: center;
+    color: #fff;
+    background-color: rgb(0 0 0 / 50%);
+    border: 2px solid #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+    -webkit-text-stroke: 0.5px #000;
+
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      color: #fff;
+      background: transparent;
+      transition: all 0.5s ease-out;
+      content: attr(data-hover);
+      pointer-events: none;
+      transform: translate(-100%, 0);
+    }
+
+    &:hover::before {
+      transform: translate(0, 0);
+    }
+
+    &:hover {
+      color: #fff;
+      background: #252525;
+      border-color: #252525;
+    }
+  }
+
+  &__stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    gap: 10px;
+  }
+
+  &__reservation {
+    padding: 10px;
+    font-size: 20px;
+    color: #fff;
+
+    &Two {
+      padding: 10px;
+      font-size: 20px;
+      color: #e3f09b;
+    }
+
+    &Three {
+      padding: 10px;
+      font-size: 20px;
+      color: #f75454;
+    }
+  }
+
+  &__star {
+    font-size: 1.5rem;
+    color: lightgray;
+    transition: color 0.2s ease;
+  }
+
+  &__selected {
+    color: gold;
+  }
+
+  &__locationbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__location {
+    font-size: 20px;
+    color: #fff;
+  }
+
+  &__pin {
+    width: 25px;
+  }
+}
+
+@media (width >= 768px) {
+  .meal {
+    &__content {
+      flex-direction: column;
+      justify-content: flex-start;
+      height: 92%;
+    }
+
+    &__buttons {
+      display: flex;
+      flex-direction: row;
+      gap: 3%;
+      text-align: left;
+    }
+
+    &__card {
+      position: relative;
+      z-index: 1;
+      height: auto;
+      max-width: 375px;
+      padding: 0.5rem;
+      transition:
+        height 0.3s ease,
+        opacity 0.3s ease;
+    }
+
+    &__isReserved {
+      display: none;
+    }
+
+    &__ribbon {
+      display: inline;
+      position: absolute;
+      top: 60px;
+      left: 60%;
+      z-index: 1;
+      width: 300px;
+      height: 200px;
+      background-image: url("/images/ribbon.png");
+      background-size: cover;
+      pointer-events: none;
+      transform: rotate(45deg);
+      transform-origin: top right;
+    }
+
+    &__header {
+      justify-content: space-between;
+      height: 8%;
+      padding: 5px;
+    }
+  }
+}

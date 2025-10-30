@@ -1,0 +1,263 @@
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  z-index: 2000;
+  width: 100%;
+  padding: 1rem 20px;
+  text-align: center;
+  color: #fff;
+  background-color: rgb(0 0 0 / 90%);
+
+  &__logoImage {
+    width: 45px;
+    height: auto;
+    animation: fade-in 1s ease-in;
+    animation-delay: 0.2s;
+    animation-fill-mode: both;
+    transform: rotate(45deg);
+  }
+
+  &__title {
+    display: none;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  &__navigation {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 2000;
+    width: 100%;
+    padding: 1rem;
+    background-color: rgb(0 0 0 / 90%);
+    gap: 1rem;
+
+    &.open {
+      display: flex;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    padding-bottom: 2rem;
+  }
+
+  &__link,
+  &__button {
+    font-size: 2rem;
+    font-weight: 900;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: transparent;
+    animation: fade-in 1s ease-in;
+    animation-delay: 0.2s;
+    animation-fill-mode: both;
+    list-style: none;
+    -webkit-text-stroke: 0.5px #000;
+
+    &:hover {
+      color: #4fc3f7;
+    }
+  }
+
+  &__burger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+    width: 25px;
+    height: 20px;
+    min-width: 25px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    appearance: none;
+
+    &.open {
+      span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      span:nth-child(2) {
+        opacity: 0;
+      }
+
+      span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+      }
+    }
+  }
+
+  &__line {
+    display: block;
+    z-index: 3;
+    width: 25px;
+    height: 3px;
+    background: #fff;
+    border-radius: 2px;
+    opacity: 1;
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+
+  &__profile {
+    display: inline-block;
+    position: relative;
+    padding-bottom: 10px;
+  }
+
+  &__image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: 40px;
+    left: -65px;
+    z-index: 1000;
+    min-width: 120px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+  }
+
+  &__signout {
+    width: 150px;
+    padding: 10px 16px;
+    text-align: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+
+  &__modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(0 0 0 / 50%);
+
+    &Content {
+      padding: 2rem;
+      text-align: center;
+      background-color: #fff;
+      border-radius: 12px;
+    }
+
+    &__cancelButton {
+      padding: 0.5rem 1rem;
+      background-color: #ccc;
+      border: none;
+      border-radius: 8px;
+      opacity: 1;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+  }
+
+  @media (width >= 1085px) {
+    padding: 10px;
+    background: none;
+    transition:
+      background-color 0.5s ease,
+      box-shadow 0.5s ease;
+
+    &.scrolled {
+      background-color: rgb(0 0 0 / 60%);
+      box-shadow: 0 2px 6px #000;
+    }
+
+    &__profile {
+      padding-bottom: 0;
+    }
+
+    &__navigation {
+      display: flex;
+      position: relative;
+      width: auto;
+      background: none;
+      padding-right: 10rem;
+    }
+
+    &__list {
+      display: flex;
+      flex-direction: row;
+      gap: 1.5rem;
+      margin-top: 0;
+      padding-bottom: 0;
+      width: auto;
+    }
+
+    &__link {
+      font-size: 1.5rem;
+      font-weight: 700;
+      transition: all 0.1s ease;
+
+      &.header__current {
+        border-bottom: 3px solid #fff;
+        padding-bottom: 3px;
+      }
+
+      &:hover {
+        border-bottom: 3px solid #fff;
+        padding-bottom: 3px;
+        transform: scale(1.05);
+      }
+    }
+
+    &__button {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    &__logo {
+      padding-left: 10rem;
+    }
+
+    &__logoImage {
+      width: 50px;
+      height: auto;
+    }
+
+    &__title {
+      display: block;
+    }
+
+    &__burger {
+      display: none;
+    }
+  }
+}

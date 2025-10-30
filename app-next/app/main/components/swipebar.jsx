@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "@/app/main/page.module.css";
+import styles from "@/app/main/page.module.scss";
 
 import { useRef, useEffect } from "react";
 

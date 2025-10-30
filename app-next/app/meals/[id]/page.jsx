@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./components/mealData/page.module.css";
+import styles from "./components/mealData/page.module.scss";
 
 import React, { useState } from "react";
 

@@ -1,5 +1,5 @@
 "use client";
-import styles from "../page.module.css";
+import styles from "../page.module.scss";
 import { useContext, useState } from "react";
 import { AuthContext } from "@/app/components/header/components/AuthContext";
 import useReservationData from "./FetchReservationData";

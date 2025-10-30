@@ -1,0 +1,191 @@
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 2000;
+  padding: 1rem;
+  color: #333;
+  background-color: rgb(0 0 0 / 60%);
+  inset: 0;
+
+  &__content {
+    position: relative;
+    width: 100%;
+    max-width: 90%;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgb(0 0 0 / 40%);
+    animation: fade-in 0.3s ease-out;
+  }
+
+  &__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #000;
+    }
+  }
+
+  &__title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__label {
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    color: #333;
+  }
+
+  &__description {
+    min-height: 50px;
+    resize: vertical;
+  }
+
+  &__text,
+  &__description {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      border-color: #07c;
+      outline: none;
+    }
+  }
+
+  &__status {
+    padding: 1rem;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+    margin-top: 1rem;
+
+    &.success {
+      color: #155724;
+      background-color: #d4edda;
+      border: 1px solid #c3e6cb;
+    }
+
+    &.error {
+      color: #721c24;
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+    }
+  }
+
+  &__rating {
+    display: flex;
+    font-size: 1.75rem;
+    cursor: pointer;
+  }
+
+  &__star {
+    color: lightgray;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: orange;
+    }
+  }
+
+  &__selected {
+    color: gold;
+  }
+
+  &__button {
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(to right, #07c, #005fa3);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition:
+      background 0.3s ease,
+      transform 0.1s ease;
+
+    &:hover {
+      background: linear-gradient(to right, #005fa3, #07c);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reservation__button {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+@media (width >= 768px) {
+  .modal {
+    &__content {
+      max-width: 500px;
+      padding: 2rem;
+    }
+
+    &__title {
+      font-size: 1.75rem;
+    }
+
+    &__rating {
+      font-size: 2rem;
+    }
+
+    &__status {
+      font-size: 1.2rem;
+    }
+  }
+}

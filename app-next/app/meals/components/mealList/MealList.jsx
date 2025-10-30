@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./page.module.css";
+import styles from "./page.module.scss";
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "@/app/components/header/components/AuthContext";
 import Meal from "../meal/Meal.jsx";
