@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
-export default function fetchData(id) {
+export default function FetchData(id) {
   const [meal, setMeal] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchMealData = async () => {
+  const fetchMealData = useCallback(async () => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_DB_ACCESS}/api/selectedmeal/${id}`);
       if (!response.ok) {
@@ -20,11 +20,11 @@ export default function fetchData(id) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchMealData();
-  }, [id]);
+  }, [fetchMealData]);
 
   return { meal, error, isLoading, refreshMeal: fetchMealData };
 }

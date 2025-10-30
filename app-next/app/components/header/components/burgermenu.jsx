@@ -110,7 +110,7 @@ export default function BurgerMenu() {
         <div className={styles.header__modal}>
           <div className={styles.header__modalContent}>
             <h2 style={{ marginBottom: "1rem" }}>Sign in with Google</h2>
-            <GoogleLogin onSuccess={handleLoginSuccess} onError={() => console.log("Login Failed")} />
+            <GoogleLogin onSuccess={handleLoginSuccess} onError={() => console.warn("Login Failed")} />
             <button onClick={() => setShowLoginModal(false)} className={styles.header__cancelButton}>
               Cancel
             </button>

@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --ext .js,.jsx"
   },
   "dependencies": {
     "@fontsource/montserrat": "^5.2.6",
@@ -20,6 +20,8 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "eslint": "^9.38.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-next": "15.3.3",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
