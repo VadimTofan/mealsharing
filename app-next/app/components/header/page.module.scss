@@ -62,15 +62,15 @@
 
   &__link,
   &__button {
-    cursor: pointer;
-    background: none;
-    border: none;
     font-size: 2rem;
     font-weight: 900;
     text-decoration: none;
     text-transform: uppercase;
     color: #fff;
+    background: none;
     background-color: transparent;
+    border: none;
+    cursor: pointer;
     animation: fade-in 1s ease-in;
     animation-delay: 0.2s;
     animation-fill-mode: both;
