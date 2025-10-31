@@ -12,35 +12,38 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const storedToken = localStorage.getItem("google_jwt_token");
     if (storedToken) {
-      setToken(storedToken);
       try {
         const decoded = jwtDecode(storedToken);
+        setToken(storedToken);
         setUser({
           id: decoded.sub,
           name: decoded.name,
           picture: decoded.picture,
         });
-      } catch (e) {
-        setUser(null);
+      } catch (error) {
+        console.error("Invalid token in localStorage:", error);
+        localStorage.removeItem("google_jwt_token");
       }
     }
   }, []);
 
   useEffect(() => {
-    if (token) {
-      localStorage.setItem("google_jwt_token", token);
-      try {
-        const decoded = jwtDecode(token);
-        setUser({
-          id: decoded.sub,
-          name: decoded.name,
-          picture: decoded.picture,
-        });
-      } catch (e) {
-        setUser(null);
-      }
-    } else {
+    if (!token) {
       localStorage.removeItem("google_jwt_token");
+      setUser(null);
+      return;
+    }
+
+    try {
+      localStorage.setItem("google_jwt_token", token);
+      const decoded = jwtDecode(token);
+      setUser({
+        id: decoded.sub,
+        name: decoded.name,
+        picture: decoded.picture,
+      });
+    } catch (error) {
+      console.error("Failed to decode token:", error);
       setUser(null);
     }
   }, [token]);

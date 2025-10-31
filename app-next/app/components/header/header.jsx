@@ -23,7 +23,7 @@ export default function Header() {
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ""}`}>
       <div className={styles.header__logo}>
         <Link href="/">
-          <img src="/images/mainlogo.png" alt="Logo" className={styles.header__logoImage} />
+          <img src="/images/mainlogo.png" alt="Mealsharing Logo" className={styles.header__logoImage} />
         </Link>
       </div>
       <BurgerMenu />

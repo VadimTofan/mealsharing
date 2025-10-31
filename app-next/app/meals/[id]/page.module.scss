@@ -1,0 +1,33 @@
+@keyframes pulse {
+  0% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.4;
+  }
+}
+
+.meals {
+  &__error {
+    margin: 1rem 0;
+    padding: 1rem;
+    font-size: 1.2rem;
+    text-align: center;
+    color: #b00020;
+    background: #ffeaea;
+    border-radius: 8px;
+  }
+
+  &__loading {
+    padding: 1rem;
+    font-size: 1.2rem;
+    text-align: center;
+    color: #07c;
+    animation: pulse 1.5s infinite;
+  }
+}

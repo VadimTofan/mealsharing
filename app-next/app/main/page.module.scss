@@ -178,6 +178,11 @@
     }
   }
 
+  &__line {
+    display: block;
+    line-height: 1.2;
+  }
+
   &__buttons {
     margin-top: 1rem;
     text-align: left;

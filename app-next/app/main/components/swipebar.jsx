@@ -1,39 +1,25 @@
 "use client";
 
 import styles from "@/app/main/page.module.scss";
-
 import { useRef, useEffect } from "react";
-
 import Link from "next/link";
 
 export default function SwipeBar() {
-  const slides = [
-    {
-      title: "Eat Good!<br/>Not Less.",
-    },
-    {
-      title: "We’re Real.<br/>Not Machines.",
-    },
-    {
-      title: "Real Food.<br/>Easy Choice.",
-    },
-    {
-      title: "You Are<br/>What You Eat.",
-    },
-  ];
+  const slides = [{ title: ["Eat Good!", "Not Less."] }, { title: ["We’re Real.", "Not Machines."] }, { title: ["Real Food.", "Easy Choice."] }, { title: ["You Are", "What You Eat."] }];
 
   const wrapperRef = useRef(null);
 
-  const mainSlides = () => {
+  useEffect(() => {
     const wrapper = wrapperRef.current;
     if (!wrapper) return;
 
-    let currentIndex = 0;
     const slideEls = wrapper.querySelectorAll(`.${styles.swipebar__slide}`);
     if (!slideEls.length) return;
-    const slideWidth = slideEls[0].offsetWidth;
+
+    let currentIndex = 0;
 
     const scrollToSlide = (idx) => {
+      const slideWidth = slideEls[0].offsetWidth;
       wrapper.scrollTo({
         left: idx * slideWidth,
         behavior: "smooth",
@@ -45,11 +31,13 @@ export default function SwipeBar() {
       scrollToSlide(currentIndex);
     }, 5000);
 
-    return () => clearInterval(interval);
-  };
+    const handleResize = () => scrollToSlide(currentIndex);
+    window.addEventListener("resize", handleResize);
 
-  useEffect(() => {
-    mainSlides();
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (
@@ -58,7 +46,13 @@ export default function SwipeBar() {
         <div className={styles.swipebar__wrapper} ref={wrapperRef}>
           {slides.map((slide, idx) => (
             <div className={styles.swipebar__slide} key={idx}>
-              <h2 dangerouslySetInnerHTML={{ __html: slide.title }} />
+              <h2 className={styles.swipebar__heading}>
+                {slide.title.map((line, i) => (
+                  <span key={i} className={styles.swipebar__line}>
+                    {line}
+                  </span>
+                ))}
+              </h2>
               <div className={styles.swipebar__buttons}>
                 <Link href="/meals" className={styles.swipebar__button}>
                   Reserve a meal now!

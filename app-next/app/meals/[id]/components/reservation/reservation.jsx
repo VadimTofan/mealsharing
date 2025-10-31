@@ -19,7 +19,7 @@ export default function Reservation({ availableSlots, data, completeAction }) {
       </button>
 
       {modalOpen === "reservation" && (
-        <div className={styles.modal} id="reservation" style={{ display: "flex" }}>
+        <div className={styles.modal} id="reservation">
           <div className={styles.modal__content}>
             <span className={styles.modal__close} onClick={closeForm}>
               &times;

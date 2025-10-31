@@ -2,12 +2,13 @@
 
 import { useState, useEffect, useCallback } from "react";
 
-export default function FetchData(id) {
+export default function FetchMeal(id) {
   const [meal, setMeal] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchMealData = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_DB_ACCESS}/api/selectedmeal/${id}`);
       if (!response.ok) {
@@ -23,8 +24,9 @@ export default function FetchData(id) {
   }, [id]);
 
   useEffect(() => {
+    if (!id) return;
     fetchMealData();
-  }, [fetchMealData]);
+  }, [fetchMealData, id]);
 
   return { meal, error, isLoading, refreshMeal: fetchMealData };
 }
