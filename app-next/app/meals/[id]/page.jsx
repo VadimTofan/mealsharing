@@ -4,8 +4,8 @@ import styles from "./page.module.scss";
 
 import React, { useState } from "react";
 
-import fetchData from "./components/MealData/FetchData";
-import MealCard from "./components/MealData/MealCard";
+import fetchData from "./components/mealdata/FetchData";
+import MealCard from "./components/mealdata/MealCard";
 
 export default function MealsId({ params }) {
   const { id } = React.use(params);

@@ -3,7 +3,7 @@
 import styles from "./page.module.scss";
 import { useEffect, useState } from "react";
 
-import SwipeBar from "./components/SwipeBar";
+import SwipeBar from "./components/Swipebar";
 import MainMeals from "./components/MainMeals";
 
 export default function Main() {

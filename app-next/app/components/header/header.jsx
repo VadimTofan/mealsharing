@@ -5,7 +5,7 @@ import styles from "./page.module.scss";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-import BurgerMenu from "./components/BurgerMenu";
+import BurgerMenu from "./components/Burgermenu";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);

@@ -2,7 +2,7 @@ import styles from "./page.module.scss";
 
 import { useRouter, usePathname } from "next/navigation";
 
-import CancelReservation from "@/app/orders/components/cancelReservation";
+import CancelReservation from "@/app/orders/components/CancelReservation";
 
 export default function Meal({ meal, description, userdata }) {
   const router = useRouter();
