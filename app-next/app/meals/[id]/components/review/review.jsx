@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import styles from "./page.module.scss";
+import styles from './page.module.scss';
 
-import { useState } from "react";
-import ReviewForm from "./ReviewForm";
+import { useState } from 'react';
+import { ReviewForm } from './ReviewForm';
 
-export default function Review({ id, refreshReviews }) {
-  const [modalOpen, setModalOpen] = useState(null);
+export function Review({ id, refreshReviews }) {
+  const [state, setState] = useState(null);
 
-  const openForm = (formName) => setModalOpen(formName);
-  const closeForm = () => setModalOpen(null);
+  const openForm = (formName) => setState(formName);
+  const closeForm = () => setState(null);
 
   return (
     <>
-      <button className={styles.review__button} onClick={() => openForm("review")}>
+      <button className={styles.review__button} onClick={() => openForm('review')}>
         Add review
       </button>
 
-      {modalOpen === "review" && (
-        <div className={styles.modal} id="review" style={{ display: "flex" }}>
+      {state === 'review' && (
+        <div className={styles.modal} id="review" style={{ display: 'flex' }}>
           <div className={styles.modal__content}>
             <span className={styles.modal__close} onClick={closeForm}>
               &times;

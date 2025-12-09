@@ -1,24 +1,31 @@
-"use client";
+'use client';
 
-import styles from "./page.module.scss";
+import React, { useState } from 'react';
 
-import React, { useState } from "react";
-
-import fetchData from "./components/mealdata/FetchData";
-import MealCard from "./components/mealdata/MealCard";
+import { FetchMeal } from './components/mealdata/FetchData';
+import { MealCard } from './components/mealdata/MealCard';
+import { Loading } from '@/app/components/loading/Loading';
+import { Error } from '@/app/components/error/Error';
 
 export default function MealsId({ params }) {
   const { id } = React.use(params);
-  const { meal, error, isLoading, refreshMeal } = fetchData(id);
+  const { meal, error, isLoading, refreshMeal } = FetchMeal(id);
 
-  const [reviewsKey, setReviewsKey] = useState(0);
+  const [reviews, setReviews] = useState(0);
 
   const refreshReviews = () => {
-    setReviewsKey((prev) => prev + 1);
+    setReviews((prev) => prev + 1);
   };
 
-  if (isLoading) return <div className={styles.meals__loading}>Loading...</div>;
-  if (error) return <div className={styles.meals__error}>Error: {error}</div>;
+  if (isLoading) return <Loading />;
+  if (error) return <Error error={error} />;
 
-  return <MealCard meal={meal} completeAction={refreshMeal} refreshReviews={refreshReviews} reviewsKey={reviewsKey} />;
+  return (
+    <MealCard
+      meal={meal}
+      refreshMeals={refreshMeal}
+      refreshReviews={refreshReviews}
+      reviews={reviews}
+    />
+  );
 }

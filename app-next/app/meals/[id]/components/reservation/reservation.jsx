@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import styles from "./page.module.scss";
+import styles from '../review/page.module.scss';
 
-import { useState } from "react";
+import { useState } from 'react';
 
-import ReservationForm from "./ReservationForm";
+import ReservationForm from './ReservationForm';
 
-export default function Reservation({ availableSlots, data, completeAction }) {
+export function Reservation({ availableSlots, data, completeAction }) {
   const [modalOpen, setModalOpen] = useState(null);
 
   const openForm = (formName) => setModalOpen(formName);
@@ -14,17 +14,22 @@ export default function Reservation({ availableSlots, data, completeAction }) {
 
   return (
     <>
-      <button className={styles.reservation__button} onClick={() => openForm("reservation")}>
+      <button className={styles.modal__button} onClick={() => openForm('reservation')}>
         Reserve
       </button>
 
-      {modalOpen === "reservation" && (
+      {modalOpen === 'reservation' && (
         <div className={styles.modal} id="reservation">
           <div className={styles.modal__content}>
             <span className={styles.modal__close} onClick={closeForm}>
               &times;
             </span>
-            <ReservationForm availableSlots={availableSlots} data={data} completeAction={completeAction} closeForm={closeForm} />
+            <ReservationForm
+              availableSlots={availableSlots}
+              data={data}
+              completeAction={completeAction}
+              closeForm={closeForm}
+            />
           </div>
         </div>
       )}

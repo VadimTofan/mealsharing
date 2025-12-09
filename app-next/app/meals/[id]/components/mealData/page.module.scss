@@ -1,3 +1,6 @@
+@use 'styles/colors';
+@use 'styles/mixins';
+
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -10,85 +13,70 @@
 
 .contentcard {
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  background-color: rgb(0 0 0 / 50%);
-  border-radius: 16px;
+  flex-direction: column-reverse;
+  background-color: colors.$background-secondary;
+  border-radius: 1.6rem;
   animation: fade-in 1s ease-in;
   animation-delay: 0.1s;
   animation-fill-mode: both;
   gap: 1.5rem;
-  margin-top: 10rem;
+  margin-block: 7rem;
+
+  @include mixins.tablet {
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+    align-items: baseline;
+    padding: 2rem;
+    gap: 2rem;
+    margin-block: 10rem;
+  }
 }
 
 .meal {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 2rem;
 
   &__title {
-    font-size: 1.5rem;
+    font-size: 3rem;
     font-weight: 700;
-    color: #fff;
+    text-align: center;
     padding-bottom: 0.5rem;
-    -webkit-text-stroke: 0.5px #000;
+
+    @include mixins.tablet {
+      font-size: 4rem;
+    }
   }
 
   &__box {
-    width: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
     padding: 1.5rem;
+    gap: 2rem;
     animation: fade-in 1s ease-in;
     animation-delay: 0.2s;
     animation-fill-mode: both;
   }
 
   &__text {
-    font-size: 1rem;
+    font-size: 1.8rem;
     line-height: 1.5;
     text-align: justify;
-    color: #fff;
+    hyphens: auto;
   }
 
   &__res {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    padding-top: 20px;
+    padding-top: 2rem;
   }
 }
 
 .reviews__box {
-  z-index: -1;
+  flex: 1;
   animation: fade-in 1s ease-in;
   animation-delay: 0.4s;
   animation-fill-mode: both;
-  padding-bottom: 1rem;
-}
-
-@media (width >= 768px) {
-  .contentcard {
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: baseline;
-    padding: 2rem;
-    gap: 2rem;
-  }
-
-  .meal {
-    &__title {
-      font-size: 2rem;
-    }
-
-    &__box {
-      width: 50%;
-    }
-
-    &__res {
-      max-width: 50%;
-    }
-  }
-
-  .reviews__box {
-    min-width: 50%;
-  }
 }

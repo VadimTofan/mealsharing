@@ -1,13 +1,13 @@
-import "./globals.scss";
+import './globals.scss';
 
-import Header from "./components/header/Header.jsx";
-import Footer from "./components/footer/Footer.jsx";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import { AuthProvider } from "@/app/components/header/components/AuthContext";
+import { Header } from './components/header/Header.jsx';
+import { Footer } from './components/footer/Footer.jsx';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { AuthProvider } from '@/app/components/header/components/AuthContext';
 
 export const metadata = {
-  title: "Meal-sharing APP",
-  description: "This is a Meal-Sharing APP HYF DK",
+  title: 'Meal-sharing APP',
+  description: 'This is a Meal-Sharing APP HYF DK',
 };
 
 export default function RootLayout({ children }) {

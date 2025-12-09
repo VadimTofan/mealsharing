@@ -1,12 +1,14 @@
-"use client";
+'use client';
 
-import styles from "./page.module.scss";
+import styles from './page.module.scss';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-import ReviewRender from "./ReviewRender";
+import { ReviewRender } from './ReviewRender';
+import { Error } from '@/app/components/error/Error';
+import { Loading } from '@/app/components/loading/Loading';
 
-export default function Reviews({ id }) {
+export function Reviews({ id }) {
   const [reviews, setReviews] = useState(null);
   const [error, setError] = useState(null);
 
@@ -14,10 +16,8 @@ export default function Reviews({ id }) {
     const fetchData = async () => {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_DB_ACCESS}/api/reviews/${id}`);
+        if (!response.ok) throw new Error('Review request failed');
 
-        if (!response.ok) {
-          throw new Error("Review request failed");
-        }
         const data = await response.json();
         setReviews(data);
       } catch (err) {
@@ -27,12 +27,13 @@ export default function Reviews({ id }) {
     fetchData();
   }, [id]);
 
-  if (error) return <div className={styles.meals__error}>Error: {error}</div>;
+  if (error) return <Error error={error} />;
 
-  if (reviews === null) return <div className={styles.meals__loading}>Loading...</div>;
+  if (!reviews) return <Loading />;
 
   const reviewVaildation = () => {
-    if (reviews && reviews.length > 1) return reviews.map((review) => <ReviewRender key={review.id} review={review} />);
+    if (reviews && reviews.length > 1)
+      return reviews.map((review) => <ReviewRender key={review.id} review={review} />);
     if (reviews) return <ReviewRender key={reviews.id} review={reviews} />;
     return <li className={styles.meals__item}>No meals found.</li>;
   };

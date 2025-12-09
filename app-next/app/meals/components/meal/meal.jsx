@@ -1,10 +1,10 @@
-import styles from "./page.module.scss";
+import styles from './page.module.scss';
 
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname } from 'next/navigation';
 
-import CancelReservation from "@/app/orders/components/CancelReservation";
+import CancelReservation from '@/app/orders/components/CancelReservation';
 
-export default function Meal({ meal, description, userdata }) {
+export function Meal({ meal, description, userdata }) {
   const router = useRouter();
 
   const pathname = usePathname();
@@ -45,23 +45,32 @@ export default function Meal({ meal, description, userdata }) {
               <div className={styles.meal__stats}>
                 <div className={styles.meal__stars}>
                   {Array.from({ length: 5 }, (_, i) => i + 1).map((star) => (
-                    <span key={star} className={`${styles.meal__star} ${star <= meal.average_stars ? styles.meal__selected : ""}`}>
+                    <span
+                      key={star}
+                      className={`${styles.meal__star} ${star <= meal.average_stars ? styles.meal__selected : ''}`}
+                    >
                       ★
                     </span>
                   ))}
                 </div>
                 <div className={styles.meal__locationbox}>
                   <img className={styles.meal__pin} src="/images/pin.png" />
-                  <a href={`https://www.google.com/maps?q=${meal.location}`} target="_blank" className={styles.meal__location}>
+                  <a
+                    href={`https://www.google.com/maps?q=${meal.location}`}
+                    target="_blank"
+                    className={styles.meal__location}
+                  >
                     {meal.location}
                   </a>
                 </div>
               </div>
               <div className={styles.meal__locationbox}>
-                <p className={getReservationClass(meal.available_reservations)}>Available: {meal.available_reservations}</p>
+                <p className={getReservationClass(meal.available_reservations)}>
+                  Available: {meal.available_reservations}
+                </p>
                 {reserved && <p className={styles.meal__isReserved}>Reserved by you!</p>}
               </div>
-              {pathname === "/orders" ? (
+              {pathname === '/orders' ? (
                 <CancelReservation mealId={meal.id} />
               ) : (
                 <div className={styles.meal__buttons}>

@@ -1,0 +1,37 @@
+@use 'styles/mixins';
+@use 'styles/colors';
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.6;
+  }
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 53rem;
+
+  @include mixins.laptop {
+    height: 20rem;
+  }
+
+  &__text {
+    padding: 1rem;
+    font-size: clamp(1.5rem, 2.5vw, 3rem);
+    text-align: center;
+    color: colors.$error;
+    background-color: colors.$error-secondary;
+    border-radius: 10px;
+    animation: pulse 1s infinite ease-in-out;
+  }
+}

@@ -1,16 +1,5 @@
-@keyframes pulse {
-  0% {
-    opacity: 0.4;
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0.4;
-  }
-}
+@use 'styles/mixins';
+@use 'styles/colors';
 
 @keyframes fade-in {
   from {
@@ -22,132 +11,37 @@
   }
 }
 
-.meals {
-  display: flex;
-  flex-direction: column;
-  padding: 15px;
-  background-color: rgb(0 0 0 / 50%);
-  gap: 1rem;
-
-  &__welcome {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
-  &__description {
-    max-width: 100%;
-    margin: 1rem 0 0;
-    font-size: 1rem;
-    font-weight: 900;
-    text-align: justify;
-    color: #fff;
-    animation: fade-in 1s ease-in;
-    animation-delay: 0.5s;
-    animation-fill-mode: both;
-    padding-bottom: 3rem;
-    -webkit-text-stroke: 0.5px #000;
-  }
-
-  &__heading {
-    margin: 0.5rem 0 0;
-    font-size: 1.5rem;
-    font-weight: 700;
-    text-align: center;
-    color: #fff;
-    animation: fade-in 1s ease-in;
-    animation-delay: 0.2s;
-    animation-fill-mode: both;
-    padding-bottom: 15px;
-    -webkit-text-stroke: 0.5px #000;
-  }
-
-  &__list {
-    display: grid;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    gap: 1.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    list-style: none;
-  }
-
-  &__item {
-    padding: 1.5rem;
-    font-size: 1.1rem;
-    text-align: left;
-    color: #252020;
-    background: #f9f9f9;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgb(0 0 0 / 4%);
-    transition:
-      transform 0.2s ease,
-      box-shadow 0.2s ease;
-
-    &:hover {
-      box-shadow: 0 6px 12px #000;
-      transform: translateY(-3px);
-    }
-  }
-
-  &__error {
-    margin: 1rem 0;
-    padding: 1rem;
-    font-size: 1.2rem;
-    text-align: center;
-    color: #b00020;
-    background: #ffeaea;
-    border-radius: 8px;
-  }
-
-  &__loading {
-    padding: 1rem;
-    font-size: 1.2rem;
-    text-align: center;
-    color: #07c;
-    animation: pulse 1.5s infinite;
-  }
-}
-
-.databox {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  z-index: 1500;
-  gap: 3rem;
-}
-
-.bgvideo {
+.main {
   position: absolute;
-  top: 4rem;
+  top: 0;
   left: 0;
-  z-index: -1;
-  width: 100%;
-  height: 120vh;
-  object-fit: cover;
+
+  &__bgvideo {
+    position: relative;
+    width: 100%;
+    height: 120vh;
+    object-fit: cover;
+  }
 }
 
 .swipebar {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 2rem;
   width: 100%;
   text-align: center;
   animation: fade-in 1s ease-in;
   animation-delay: 0.2s;
   animation-fill-mode: both;
 
-  &__container {
-    position: relative;
-    z-index: 1;
-    margin: 0 auto;
-    overflow: hidden;
+  @include mixins.laptop {
+    left: 35rem;
   }
 
   &__wrapper {
     display: flex;
     flex-wrap: nowrap;
-    z-index: 10;
     overflow-x: auto;
     scroll-behavior: smooth;
 
@@ -160,27 +54,38 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
     width: 100%;
-    padding: 2rem 1.5rem;
-    text-align: center;
-    background: transparent;
-    box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
+    box-shadow: colors.$backhround-tretiary;
     flex-shrink: 0;
 
+    @include mixins.laptop {
+      align-items: start;
+    }
+
     h2 {
-      font-size: 35px;
+      font-size: 4rem;
       font-weight: 700;
       text-align: left;
       text-transform: uppercase;
-      color: #fff;
-      -webkit-text-stroke: 2px #000;
+      -webkit-text-stroke: 0.1rem colors.$secondary;
+
+      @include mixins.laptop {
+        font-size: 7rem;
+        font-weight: 900;
+      }
     }
   }
 
   &__line {
     display: block;
     line-height: 1.2;
+  }
+
+  &__link {
+    @include mixins.laptop {
+      display: flex;
+      margin-left: 1.5rem;
+    }
   }
 
   &__buttons {
@@ -191,17 +96,22 @@
   &__button {
     display: inline-block;
     position: relative;
-    padding: 0 15px;
-    font-size: 15px;
+    padding: 0 1.5rem;
+    font-size: 1.5rem;
     font-weight: 600;
-    line-height: 35px;
+    line-height: 3.5rem;
     text-transform: uppercase;
-    color: #fff;
     background: transparent;
-    border: 2px solid #fff;
-    border-radius: 6px;
+    border: 0.2rem solid colors.$primary;
+    border-radius: 0.6rem;
     overflow: hidden;
     transition: all 0.3s ease-out;
+
+    @include mixins.laptop {
+      font-size: 2.5rem;
+      font-weight: 600;
+      line-height: 6rem;
+    }
 
     &::before {
       position: absolute;
@@ -210,8 +120,7 @@
       z-index: -1;
       width: 100%;
       height: 100%;
-      color: #fff;
-      background: #252525;
+      background: colors.$secondary;
       transition: all 0.5s ease-out;
       content: attr(data-hover);
       transform: translate(-100%, 0);
@@ -222,92 +131,102 @@
     }
 
     &:hover {
-      background: #252525;
-      border-color: #252525;
+      background: colors.$secondary;
+      border-color: colors.$secondary;
     }
   }
 }
 
-@media (width >= 1028px) {
-  .bgvideo {
-    top: 0;
-  }
+.meals {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+  background-color: colors.$background;
+  gap: 1rem;
 
-  .databox {
-    gap: 5rem;
-  }
-
-  .meals {
+  @include mixins.laptop {
     flex-direction: row;
-    justify-content: space-around;
     position: relative;
     width: 80%;
-    border-radius: 0 16px 16px 0;
-    margin-left: -1rem;
+    border-radius: 0 1.6rem 1.6rem 0;
+  }
 
-    &__welcome {
+  &__welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 2rem;
+
+    @include mixins.laptop {
       align-items: flex-start;
+      padding-top: 5rem;
     }
+  }
 
-    &__list {
-      min-width: 40%;
-    }
+  &__heading {
+    font-size: 2.5rem;
+    font-weight: 600;
+    text-align: center;
+    animation: fade-in 1s ease-in;
+    padding-bottom: 1rem;
 
-    &__heading {
-      margin: 0.5rem 0 0;
-      font-size: 2rem;
+    @include mixins.laptop {
+      font-size: 3rem;
       font-weight: 900;
       text-align: left;
-      padding-bottom: 15px;
+      padding-bottom: 1.5rem;
     }
+  }
 
-    &__description {
+  &__description {
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: justify;
+    hyphens: auto;
+    animation: fade-in 1s ease-in;
+    animation-delay: 0.5s;
+    animation-fill-mode: both;
+    margin-bottom: 1.5rem;
+
+    @include mixins.laptop {
       max-width: 90%;
-      margin: 1rem 0 0;
-      font-size: 1rem;
-      font-weight: 900;
-      text-align: justify;
     }
   }
 
-  .swipebar {
-    max-width: 100%;
-    padding-left: 15rem;
-    padding-top: 10rem;
+  &__list {
+    display: grid;
+    align-items: center;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 
-    &__slide {
-      align-items: start;
-
-      h2 {
-        font-size: 70px;
-        font-weight: 900;
-        text-transform: uppercase;
-        color: #fff;
-        -webkit-text-stroke: 2px #000;
-      }
-    }
-
-    &__button {
-      font-size: 25px;
-      font-weight: 600;
-      line-height: 58px;
-    }
-
-    &__buttons {
-      font-size: 25px;
-      font-weight: 600;
-      line-height: 58px;
+    @include mixins.laptop {
+      min-width: 35rem;
     }
   }
+}
 
-  .carrot {
+.databox {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 15rem;
+
+  @include mixins.laptop {
+    gap: 35rem;
+  }
+}
+
+.carrot {
+  @include mixins.laptop {
     position: fixed;
     top: 20vh;
     right: 2rem;
-    z-index: 1000;
+    z-index: 1;
     width: 400px;
     height: 400px;
-    background: url("/images/carrots.png") no-repeat center/contain;
+    background: url('/images/carrots.png') no-repeat center/contain;
     opacity: 0;
     transition: opacity 0.5s ease;
     pointer-events: none;
@@ -315,11 +234,5 @@
     &__show {
       opacity: 1;
     }
-  }
-}
-
-@media (width >= 1086px) {
-  .meals {
-    margin-left: -5rem;
   }
 }

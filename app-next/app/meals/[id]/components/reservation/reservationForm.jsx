@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import styles from "./page.module.scss";
-import { useState, useContext } from "react";
-import { ReservationSubmit } from "./ReservationSubmit";
-import { AuthContext } from "@/app/components/header/components/AuthContext";
+import styles from '../review/page.module.scss';
+
+import { useState, useContext } from 'react';
+import { ReservationSubmit } from './ReservationSubmit';
+import { AuthContext } from '@/app/components/header/components/AuthContext';
 
 export default function ReservationForm({ availableSlots, data, completeAction, closeForm }) {
   const [reservationStatus, setReservationStatus] = useState(null);
@@ -15,25 +16,25 @@ export default function ReservationForm({ availableSlots, data, completeAction, 
     const formData = new FormData(e.target);
 
     const reservation = {
-      number_of_guests: formData.get("guests"),
+      number_of_guests: formData.get('guests'),
       meal_id: meal.id,
-      created_date: new Date().toISOString().slice(0, 19).replace("T", " "),
-      contact_phonenumber: formData.get("phone"),
-      contact_name: formData.get("fullName"),
-      contact_email: formData.get("email"),
+      created_date: new Date().toISOString().slice(0, 19).replace('T', ' '),
+      contact_phonenumber: formData.get('phone'),
+      contact_name: formData.get('fullName'),
+      contact_email: formData.get('email'),
       user: user.user.id,
     };
 
     const result = await ReservationSubmit(reservation);
 
     if (result.success) {
-      setReservationStatus({ type: "success", message: "Reservation successful!" });
+      setReservationStatus({ type: 'success', message: 'Reservation successful!' });
       completeAction();
       setTimeout(() => {
         closeForm();
       }, 2000);
     } else {
-      setReservationStatus({ type: "error", message: `Reservation failed: ${result.error}` });
+      setReservationStatus({ type: 'error', message: `Reservation failed: ${result.error}` });
     }
   };
 
@@ -41,13 +42,22 @@ export default function ReservationForm({ availableSlots, data, completeAction, 
     <div>
       <h2 className={styles.modal__title}>Reserve this meal</h2>
 
-      {reservationStatus?.type === "success" ? (
-        <div className={`${styles.modal__status} ${styles.success}`}>{reservationStatus.message}</div>
+      {reservationStatus?.type === 'success' ? (
+        <div className={`${styles.modal__status} ${styles.success}`}>
+          {reservationStatus.message}
+        </div>
       ) : (
         <form className={styles.modal__form} onSubmit={handleSubmit}>
           <label className={styles.modal__label}>
             Full Name:
-            <input className={styles.modal__text} type="text" name="fullName" placeholder="Your Full Name" minLength="4" required />
+            <input
+              className={styles.modal__text}
+              type="text"
+              name="fullName"
+              placeholder="Your Full Name"
+              minLength="4"
+              required
+            />
           </label>
 
           <label className={styles.modal__label}>
@@ -58,7 +68,7 @@ export default function ReservationForm({ availableSlots, data, completeAction, 
               <select name="guests" required>
                 {[...Array(Number(availableSlots))].map((_, i) => (
                   <option key={i + 1} value={i + 1}>
-                    {i + 1} {i + 1 === 1 ? "guest" : "guests"}
+                    {i + 1} {i + 1 === 1 ? 'guest' : 'guests'}
                   </option>
                 ))}
               </select>
@@ -67,12 +77,26 @@ export default function ReservationForm({ availableSlots, data, completeAction, 
 
           <label className={styles.modal__label}>
             E-mail:
-            <input className={styles.modal__text} type="email" name="email" placeholder="example@gmail.com" minLength="4" required />
+            <input
+              className={styles.modal__text}
+              type="email"
+              name="email"
+              placeholder="example@gmail.com"
+              minLength="4"
+              required
+            />
           </label>
 
           <label className={styles.modal__label}>
             Phone Number:
-            <input className={styles.modal__text} type="text" name="phone" placeholder="+45 12345678" minLength="8" required />
+            <input
+              className={styles.modal__text}
+              type="text"
+              name="phone"
+              placeholder="+45 12345678"
+              minLength="8"
+              required
+            />
           </label>
 
           <button className={styles.modal__button} type="submit">
@@ -81,7 +105,9 @@ export default function ReservationForm({ availableSlots, data, completeAction, 
         </form>
       )}
 
-      {reservationStatus?.type === "error" && <div className={`${styles.modal__status} ${styles.error}`}>{reservationStatus.message}</div>}
+      {reservationStatus?.type === 'error' && (
+        <div className={`${styles.modal__status} ${styles.error}`}>{reservationStatus.message}</div>
+      )}
     </div>
   );
 }

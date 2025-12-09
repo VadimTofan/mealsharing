@@ -1,15 +1,15 @@
-export default async function reviewSubmit(reviewData) {
+export async function reviewSubmit(reviewData) {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_DB_ACCESS}/api/reviews`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(reviewData),
     });
 
     if (!response.ok) {
-      throw new Error("Review request failed");
+      throw new Error('Review request failed');
     }
 
     const data = await response.json();

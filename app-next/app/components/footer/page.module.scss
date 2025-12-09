@@ -1,3 +1,6 @@
+@use 'styles/mixins';
+@use 'styles/colors';
+
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -12,105 +15,63 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  bottom: -2.7rem;
+  width: 100%;
   padding: 1rem;
-  color: #fff;
-  background: transparent;
-  background-color: rgb(0 0 0 / 50%);
+  color: colors.$white;
+  background-color: colors.$background;
   animation: fade-in 1s ease-in;
-  animation-delay: 0.1s;
-  animation-fill-mode: both;
+
+  @include mixins.tablet {
+    flex-direction: row;
+    justify-content: space-between;
+    padding-inline: 10rem;
+  }
 
   &__socials {
     display: flex;
     flex-direction: column;
-    align-items: center;
-  }
+    text-align: center;
+    gap: 1rem;
 
-  &__heading {
-    font-size: 1.2rem;
-    color: #f0f0f0;
+    @include mixins.tablet {
+      text-align: start;
+    }
   }
 
   &__links {
     display: grid;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     text-align: left;
     gap: 1rem;
-    grid-template-columns: repeat(2, auto);
-    list-style: none;
-    padding-top: 1rem;
-  }
+    grid-template-columns: repeat(3, auto);
 
-  &__image {
-    padding-right: 8px;
-    vertical-align: middle;
-    width: 30px;
-  }
-
-  &__link {
-    display: inline-flex;
-    align-items: center;
-    font-size: 1rem;
-    text-decoration: none;
-    color: #fff;
-    transition: color 0.3s ease;
-    animation: fade-in 1s ease-in;
-    animation-fill-mode: both;
-
-    &:nth-child(1) {
-      animation-delay: 0.1s;
-    }
-
-    &:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    &:nth-child(3) {
-      animation-delay: 0.25s;
-    }
-
-    &:nth-child(4) {
-      animation-delay: 0.3s;
-    }
-
-    &:nth-child(5) {
-      animation-delay: 0.35s;
-    }
-
-    &:hover {
-      color: #4fc3f7;
-    }
-  }
-
-  &__map {
-    display: none;
-  }
-
-  @media (width >= 840px) {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 5rem;
-    text-align: left;
-
-    &__socials {
-      align-items: flex-start;
-    }
-
-    &__links {
+    @include mixins.tablet {
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
     }
+  }
 
-    &__map {
+  &__image {
+    vertical-align: middle;
+    width: 3rem;
+    margin-right: 0.8rem;
+  }
+
+  &__map {
+    display: none;
+
+    @include mixins.laptop {
       display: block;
       margin-top: 0;
-      width: 100px;
+      width: 10rem;
 
       &:hover {
         transform: scale(1.05);
+        transition: transform 0.3s ease-in;
       }
     }
   }

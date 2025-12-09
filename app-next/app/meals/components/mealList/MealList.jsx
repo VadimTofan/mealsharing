@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import styles from "./page.module.scss";
-import { useEffect, useState, useContext } from "react";
-import { AuthContext } from "@/app/components/header/components/AuthContext";
-import Meal from "../meal/Meal.jsx";
-import useReservationData from "@/app/orders/components/FetchReservationData";
+import styles from './page.module.scss';
+import { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '@/app/components/header/components/AuthContext';
+import { Meal } from '../meal/Meal.jsx';
+import useReservationData from '@/app/orders/components/FetchReservationData';
 
 export default function MealList(description) {
   const [meals, setMeals] = useState(null);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [sortOption, setSortOption] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortOption, setSortOption] = useState('');
   const { user } = useContext(AuthContext);
 
   const { mealIds } = useReservationData(user?.id);
@@ -19,14 +19,14 @@ export default function MealList(description) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let query = "";
+        let query = '';
 
         if (searchTerm) query += `title=${encodeURIComponent(searchTerm)}&`;
         if (sortOption) query += `sortKey=${sortOption}&`;
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_DB_ACCESS}/api/meals?${query}`);
         if (!response.ok) {
-          throw new Error("Failed to fetch meals");
+          throw new Error('Failed to fetch meals');
         }
 
         const data = await response.json();
@@ -44,7 +44,16 @@ export default function MealList(description) {
   if (meals === null) return <div className={styles.meals__loading}>Loading...</div>;
 
   const mealsValidation = () => {
-    if (meals && meals.length > 1) return meals.map((meal, index) => <Meal key={meal.id} meal={meal} description={description} index={index} userdata={userData} />);
+    if (meals && meals.length > 1)
+      return meals.map((meal, index) => (
+        <Meal
+          key={meal.id}
+          meal={meal}
+          description={description}
+          index={index}
+          userdata={userData}
+        />
+      ));
     if (meals.length === 0) return <li className={styles.meals__item}>No meals found.</li>;
     if (meals) return <Meal key={meals.id} meal={meals} description={description} />;
   };
@@ -53,8 +62,18 @@ export default function MealList(description) {
     <div className={styles.meals}>
       <div className={styles.meals__box}>
         <form className={styles.meals__filter} onSubmit={(e) => e.preventDefault()}>
-          <input className={styles.meals__input} type="text" placeholder="Search meals..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-          <select className={styles.meals__select} value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
+          <input
+            className={styles.meals__input}
+            type="text"
+            placeholder="Search meals..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <select
+            className={styles.meals__select}
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+          >
             <option value="">Sort by</option>
             <option value="price_asc">Price: Low → High</option>
             <option value="price_desc">Price: High → Low</option>
