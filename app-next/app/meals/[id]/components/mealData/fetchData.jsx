@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback } from 'react';
 
 export function FetchMeal(id) {
-  const [state, setState] = useState({ meal: null, error: null, isLoading: true });
-  const { meal, error, isLoading } = state;
+  const [state, setState] = useState({ meal: null, hasEerror: null, isLoading: true });
+  const { meal, hasError, isLoading } = state;
 
   const fetchMealData = useCallback(async () => {
     setState((prev) => ({ ...prev, isLoading: true }));
@@ -14,8 +14,8 @@ export function FetchMeal(id) {
 
       const data = await response.json();
       setState((prev) => ({ ...prev, meal: data }));
-    } catch (err) {
-      setState((prev) => ({ ...prev, error: err.message }));
+    } catch (error) {
+      setState((prev) => ({ ...prev, hasError: error.message }));
     } finally {
       setState((prev) => ({ ...prev, isLoading: false }));
     }
@@ -26,5 +26,5 @@ export function FetchMeal(id) {
     fetchMealData();
   }, [fetchMealData, id]);
 
-  return { meal, error, isLoading, refreshMeal: fetchMealData };
+  return { meal, hasError, isLoading, refreshMeals: fetchMealData };
 }

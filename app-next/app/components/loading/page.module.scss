@@ -18,12 +18,8 @@
 .loading {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  height: 53rem;
-
-  @include mixins.laptop {
-    height: 20rem;
-  }
+  position: relative;
+  top: 105%;
 
   &__letter {
     font-size: clamp(3rem, 5vh, 5rem);

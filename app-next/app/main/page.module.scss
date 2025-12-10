@@ -11,10 +11,16 @@
   }
 }
 
+.databox {
+  min-height: 80vh;
+}
+
 .main {
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 40%;
 
   &__bgvideo {
     position: relative;
@@ -55,7 +61,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    box-shadow: colors.$backhround-tretiary;
+    box-shadow: colors.$background-tretiary;
     flex-shrink: 0;
 
     @include mixins.laptop {

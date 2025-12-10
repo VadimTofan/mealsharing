@@ -32,9 +32,18 @@ export function MainMeals() {
     fetchData();
   }, []);
 
-  if (loading) return <Loading />;
-  if (error) return <Error error={error} />;
-
+  if (loading)
+    return (
+      <div className={styles.main}>
+        <Loading />
+      </div>
+    );
+  if (error)
+    return (
+      <div className={styles.main}>
+        <Error error={error} />
+      </div>
+    );
   return (
     <div className={`${styles.meals} contentcard`}>
       <div className={styles.meals__welcome}>

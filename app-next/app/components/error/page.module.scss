@@ -18,12 +18,8 @@
 .error {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  height: 53rem;
-
-  @include mixins.laptop {
-    height: 20rem;
-  }
+  position: relative;
+  top: 100%;
 
   &__text {
     padding: 1rem;

@@ -40,7 +40,7 @@ export function Reviews({ id }) {
 
   return (
     <div className={styles.reviews}>
-      <h2 className={styles.reviews__heading}>Recent Reviews</h2>
+      <h2 className={styles.reviews__title}>Recent Reviews</h2>
       <div className={styles.reviews__feedback}>
         <ul className={styles.reviews__list}>{reviewVaildation(reviews)}</ul>
       </div>

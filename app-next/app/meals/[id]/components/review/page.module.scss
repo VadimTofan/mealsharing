@@ -131,6 +131,7 @@
   }
 
   &__star {
+    font-size: 1.1rem;
     color: colors.$error-secondary;
     transition: color 0.2s ease;
 
@@ -156,6 +157,10 @@
       background 0.3s ease,
       transform 0.1s ease;
 
+    @include mixins.tablet {
+      max-width: 50%;
+    }
+
     &:hover {
       background: colors.$button-focus;
     }
@@ -172,29 +177,28 @@
 }
 
 .reviews {
-  &__heading {
-    font-size: 1.5rem;
+  &__title {
+    font-size: 3rem;
     font-weight: 700;
     text-align: center;
-    color: #fff;
     padding-bottom: 0.5rem;
-    -webkit-text-stroke: 0.5px #000;
+
+    @include mixins.tablet {
+      font-size: 4rem;
+    }
   }
 
   &__list {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0;
-    padding: 0;
     gap: 1rem;
-    list-style: none;
   }
 
   &__feedback {
-    max-height: 250px;
+    height: 33rem;
     padding: 1rem;
-    box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
+    box-shadow: 0 0.4rem 1.2rem colors.$background-tretiary;
     overflow-y: auto;
 
     &::-webkit-scrollbar {
@@ -204,88 +208,62 @@
 }
 
 .review {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   width: 100%;
   padding: 1rem;
-  background-color: rgb(0 0 0 / 40%);
-  border: 1px solid #ccc;
+  background-color: colors.$background-secondary;
+  border: 0.1rem solid colors.$primary;
   border-radius: 0.75rem;
-  box-shadow: 0 5px 6px rgb(3 2 2 / 8%);
+  box-shadow: 0 0.5rem 0.6rem colors.$background-tretiary;
   transition: transform 0.2s ease;
 
   &:hover {
-    transform: translateY(-2px);
+    transform: translateY(-0.2rem);
   }
 
   &__title {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     font-weight: 600;
-    color: #fff;
-    padding-bottom: 0.5rem;
   }
 
   &__description {
-    font-size: 0.95rem;
-    color: #fff;
-    padding-bottom: 0.5rem;
+    font-size: 1.1rem;
   }
 
   &__date {
-    font-size: 0.8rem;
-    color: #fff;
+    font-size: 1rem;
   }
 
   &__button {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
+    padding: 1rem;
+    font-size: 1.4rem;
     font-weight: 600;
-    color: #fff;
-    background-color: #28a745;
+    color: colors.$primary;
+    background-color: colors.$green;
     border: none;
-    border-radius: 8px;
+    border-radius: 0.8rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition:
+      background 0.3s ease,
+      transform 0.1s ease;
+
+    @include mixins.tablet {
+      max-width: 50%;
+    }
 
     &:hover {
-      background-color: #1c7c31;
-    }
-  }
-}
-
-@media (width >= 768px) {
-  .modal {
-    &__content {
-      max-width: 500px;
-      padding: 2rem;
+      background-color: colors.$green-secondary;
     }
 
-    &__title {
-      font-size: 1.75rem;
+    &:active {
+      transform: scale(0.98);
     }
 
-    &__rating {
-      font-size: 2rem;
-    }
-  }
-
-  .reviews {
-    &__feedback {
-      max-height: 300px;
-    }
-  }
-
-  .review {
-    max-width: 350px;
-
-    &__title {
-      font-size: 1.2rem;
-    }
-
-    &__description {
-      font-size: 1rem;
-    }
-
-    &__date {
-      font-size: 0.85rem;
+    &:disabled {
+      background-color: colors.$button-disabled;
+      cursor: not-allowed;
     }
   }
 }

@@ -6,15 +6,14 @@ import { useState, useContext } from 'react';
 import { ReservationSubmit } from './ReservationSubmit';
 import { AuthContext } from '@/app/components/header/components/AuthContext';
 
-export default function ReservationForm({ availableSlots, data, completeAction, closeForm }) {
+export function ReservationForm({ slots, meal, closeForm, reservationUpdate }) {
   const [reservationStatus, setReservationStatus] = useState(null);
   const user = useContext(AuthContext);
-  const meal = data;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
 
+    const formData = new FormData(e.target);
     const reservation = {
       number_of_guests: formData.get('guests'),
       meal_id: meal.id,
@@ -29,7 +28,7 @@ export default function ReservationForm({ availableSlots, data, completeAction, 
 
     if (result.success) {
       setReservationStatus({ type: 'success', message: 'Reservation successful!' });
-      completeAction();
+      reservationUpdate(reservation.number_of_guests);
       setTimeout(() => {
         closeForm();
       }, 2000);
@@ -62,11 +61,11 @@ export default function ReservationForm({ availableSlots, data, completeAction, 
 
           <label className={styles.modal__label}>
             Reservation:
-            {!availableSlots ? (
+            {!slots ? (
               <p className={styles.modal__status}>Sold out!</p>
             ) : (
               <select name="guests" required>
-                {[...Array(Number(availableSlots))].map((_, i) => (
+                {[...Array(Number(slots))].map((_, i) => (
                   <option key={i + 1} value={i + 1}>
                     {i + 1} {i + 1 === 1 ? 'guest' : 'guests'}
                   </option>

@@ -12,14 +12,16 @@ export function ReviewRender({ review }) {
     <div className={styles.review}>
       <h2 className={styles.review__title}>{review.title}</h2>
       <p className={styles.review__description}>{review.description}</p>
-      {Array.from({ length: 5 }, (_, i) => i + 1).map((star) => (
-        <span
-          key={star}
-          className={`${styles.modal__star} ${star <= review.stars ? styles.modal__selected : ''}`}
-        >
-          ★
-        </span>
-      ))}
+      <div>
+        {Array.from({ length: 5 }, (_, i) => i + 1).map((star) => (
+          <span
+            key={star}
+            className={`${styles.modal__star} ${star <= review.stars ? styles.modal__selected : ''}`}
+          >
+            ★
+          </span>
+        ))}
+      </div>
       <p className={styles.review__date}>Added on: {formattedDate}</p>
     </div>
   );

@@ -4,14 +4,13 @@ import styles from '../review/page.module.scss';
 
 import { useState } from 'react';
 
-import ReservationForm from './ReservationForm';
+import { ReservationForm } from './ReservfationForm';
 
-export function Reservation({ availableSlots, data, completeAction }) {
+export function Reservation({ slots, reservationUpdate, meal }) {
   const [modalOpen, setModalOpen] = useState(null);
 
   const openForm = (formName) => setModalOpen(formName);
   const closeForm = () => setModalOpen(null);
-
   return (
     <>
       <button className={styles.modal__button} onClick={() => openForm('reservation')}>
@@ -25,10 +24,10 @@ export function Reservation({ availableSlots, data, completeAction }) {
               &times;
             </span>
             <ReservationForm
-              availableSlots={availableSlots}
-              data={data}
-              completeAction={completeAction}
+              slots={slots}
+              meal={meal}
               closeForm={closeForm}
+              reservationUpdate={reservationUpdate}
             />
           </div>
         </div>
