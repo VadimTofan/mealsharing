@@ -12,7 +12,15 @@
 }
 
 .databox {
+  display: flex;
+  flex-direction: column;
+  position: relative;
   min-height: 80vh;
+  gap: 15rem;
+
+  @include mixins.laptop {
+    gap: 35rem;
+  }
 }
 
 .main {
@@ -70,7 +78,7 @@
 
     h2 {
       font-size: 4rem;
-      font-weight: 700;
+      font-weight: 600;
       text-align: left;
       text-transform: uppercase;
       -webkit-text-stroke: 0.1rem colors.$secondary;
@@ -189,8 +197,6 @@
   &__description {
     font-size: 1.5rem;
     font-weight: 600;
-    text-align: justify;
-    hyphens: auto;
     animation: fade-in 1s ease-in;
     animation-delay: 0.5s;
     animation-fill-mode: both;
@@ -210,17 +216,6 @@
     @include mixins.laptop {
       min-width: 35rem;
     }
-  }
-}
-
-.databox {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  gap: 15rem;
-
-  @include mixins.laptop {
-    gap: 35rem;
   }
 }
 

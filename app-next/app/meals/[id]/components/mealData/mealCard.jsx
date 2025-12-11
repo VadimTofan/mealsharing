@@ -5,42 +5,55 @@ import { useState, useEffect } from 'react';
 import { Review } from '../review/Review';
 import { Reviews } from '../review/Reviews';
 import { Reservation } from '../reservation/Reservation';
-import { Loading } from '@/app/components/loading/Loading';
-import { Error } from '@/app/components/error/Error';
+import { LoadingComponent } from '@/app/components/loading/Loading';
+import { ErrorComponent } from '@/app/components/error/Error';
+
 export function MealCard({ mealData }) {
-  const [state, setState] = useState(0);
+  const [state, setState] = useState({ slots: null, reviews: null, visitors: 0 });
   const { meal, hasError, isLoading } = mealData;
+  const { slots, reviews, visitors } = state;
+
+  const max = meal?.max_reservations ?? 0;
+  const total = meal?.total_guests ?? 0;
+
+  const availableSlots = max - total;
 
   useEffect(() => {
-    setState(meal?.max_reservations - meal?.total_guests);
-  }, [meal?.max_reservations, meal?.total_guests]);
+    setState((prev) => ({ ...prev, slots: availableSlots }));
+  }, [availableSlots]);
 
   const reservationUpdate = (guests) => {
-    setState(meal?.max_reservations - meal?.total_guests - guests);
+    const reserved = Number(visitors) + Number(guests);
+    setState((prev) => ({ ...prev, visitors: reserved }));
+    const updatedSlots = max - total - reserved;
+
+    setState((prev) => ({
+      ...prev,
+      slots: updatedSlots,
+    }));
+    guests = 0;
   };
 
   const mealInfo = [
     { label: 'Location', value: meal?.location },
-    { label: 'Reservations Left', value: state },
+    { label: 'Reservations Left', value: slots ?? 0 },
     { label: 'Price', value: meal?.price },
   ];
 
-  const [reviews, setReviews] = useState(0);
-
   const refreshReviews = () => {
-    setReviews((prev) => prev + 1);
+    setState((prev) => ({ ...prev, reviews: prev + 1 }));
   };
 
   if (isLoading)
     return (
       <div className={styles.contentcard}>
-        <Loading />
+        <LoadingComponent />
       </div>
     );
   if (hasError)
     return (
       <div className={styles.contentcard}>
-        <Loading error={hasError} />
+        <ErrorComponent error={hasError} />
       </div>
     );
   return (
@@ -63,7 +76,7 @@ export function MealCard({ mealData }) {
         </div>
 
         <div className={styles.meal__res}>
-          <Reservation meal={meal} slots={state} reservationUpdate={reservationUpdate} />
+          <Reservation meal={meal} slots={slots} reservationUpdate={reservationUpdate} />
           <Review id={meal?.id} refreshReviews={refreshReviews} />
         </div>
       </div>

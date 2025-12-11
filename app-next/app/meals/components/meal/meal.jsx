@@ -2,7 +2,7 @@ import styles from './page.module.scss';
 
 import { useRouter, usePathname } from 'next/navigation';
 
-import CancelReservation from '@/app/orders/components/CancelReservation';
+import { CancelReservation } from '@/app/orders/components/CancelReservation';
 
 export function Meal({ meal, description, userdata }) {
   const router = useRouter();
@@ -19,7 +19,7 @@ export function Meal({ meal, description, userdata }) {
 
   function getReservationClass(reservations) {
     if (reservations >= 15) return styles.meal__reservation;
-    if (reservations > 5) return styles.meal__reservationTwo;
+    if (reservations > 5 && reservations < 15) return styles.meal__reservationTwo;
     return styles.meal__reservationThree;
   }
 

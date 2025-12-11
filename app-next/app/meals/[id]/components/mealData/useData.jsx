@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 
-export function FetchMeal(id) {
+export function useMeal(id) {
   const [state, setState] = useState({ meal: null, hasEerror: null, isLoading: true });
   const { meal, hasError, isLoading } = state;
 

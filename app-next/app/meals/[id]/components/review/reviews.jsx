@@ -5,15 +5,15 @@ import styles from './page.module.scss';
 import { useState, useEffect } from 'react';
 
 import { ReviewRender } from './ReviewRender';
-import { Error } from '@/app/components/error/Error';
-import { Loading } from '@/app/components/loading/Loading';
+import { ErrorComponent } from '@/app/components/error/Error';
+import { LoadingComponent } from '@/app/components/loading/Loading';
 
 export function Reviews({ id }) {
   const [reviews, setReviews] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const useData = async () => {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_DB_ACCESS}/api/reviews/${id}`);
         if (!response.ok) throw new Error('Review request failed');
@@ -24,12 +24,12 @@ export function Reviews({ id }) {
         setError(err.message);
       }
     };
-    fetchData();
+    useData();
   }, [id]);
 
-  if (error) return <Error error={error} />;
+  if (error) return <ErrorComponent error={error} />;
 
-  if (!reviews) return <Loading />;
+  if (!reviews) return <LoadingComponent />;
 
   const reviewVaildation = () => {
     if (reviews && reviews.length > 1)

@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from 'react';
 
-export default function useReservationData(userId) {
+export function useReservationData(userId) {
   const [mealIds, setMealIds] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -14,8 +14,10 @@ export default function useReservationData(userId) {
 
       if (showLoading) setIsLoading(true);
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_DB_ACCESS}/api/reservationsbyuser/${userId}`);
-        if (!response.ok) throw new Error("Failed to fetch reservations");
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_DB_ACCESS}/api/reservationsbyuser/${userId}`
+        );
+        if (!response.ok) throw new Error('Failed to fetch reservations');
 
         const data = await response.json();
         setMealIds(data);

@@ -1,6 +1,6 @@
 import styles from './page.module.scss';
 
-export function Loading({ loading = 'Loading...' }) {
+export function LoadingComponent({ loading = 'Loading...' }) {
   const letters = loading.split('');
   return (
     <div className={styles.loading}>

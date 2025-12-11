@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-export default function useMealsData(ids) {
+export function useMealsData(ids) {
   const [meals, setMeals] = useState(null);
   const [error, setError] = useState(null);
 
@@ -11,9 +11,11 @@ export default function useMealsData(ids) {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_DB_ACCESS}/api/selectedmeals/${ids}`);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_DB_ACCESS}/api/selectedmeals/${ids}`
+        );
 
-        if (!response.ok) throw new Error("Failed to fetch meals");
+        if (!response.ok) throw new Error('Failed to use meals');
 
         const data = await response.json();
         setMeals(data);
@@ -21,7 +23,6 @@ export default function useMealsData(ids) {
         setError(err.message);
       }
     };
-
     fetchData();
   }, [ids]);
 

@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 
-import { FetchMeal } from './components/mealdata/FetchData';
+import { useMeal } from './components/mealdata/useData';
 import { MealCard } from './components/mealdata/MealCard';
 
 export default function MealsId({ params }) {
   const { id } = React.use(params);
-  const meal = FetchMeal(id);
+  const meal = useMeal(id);
 
   return <MealCard mealData={meal} />;
 }

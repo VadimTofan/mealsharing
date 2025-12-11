@@ -1,3 +1,6 @@
+@use 'styles/colors';
+@use 'styles/mixins';
+
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -10,15 +13,14 @@
 
 .meal {
   width: 100%;
-  height: 100px;
+  height: 10rem;
   min-width: 50%;
-  border: 1px solid #000;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px #000;
+  border: 1px solid colors.$secondary;
+  border-radius: 0.8rem;
+  box-shadow: 0 0.2rem 0.8rem colors.$secondary;
   cursor: pointer;
-  background-position: center;
-  background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
 
   &:hover {
     scale: 1.01;
@@ -28,22 +30,23 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 5px;
+    padding: 0.5rem;
+
+    @include mixins.tablet {
+      justify-content: space-between;
+      padding-inline: 0.8rem;
+      padding-top: 0.8rem;
+    }
   }
 
-  &__title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #fff;
-    -webkit-text-stroke: 0.5px #000;
-  }
-
-  &__price {
-    font-size: 1.5rem;
-    font-weight: 700;
-    text-align: end;
-    color: #fff;
-    -webkit-text-stroke: 0.5px #000;
+  &__title,
+  &__price,
+  &__star,
+  &__location,
+  &__reservation,
+  &__reservationTwo,
+  &__reservationThree {
+    font-size: 2rem;
   }
 
   &__content {
@@ -51,18 +54,25 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    position: relative;
-    padding: 5px;
-    border-radius: 8px;
-    background-position: center;
+    padding-inline: 0.8rem;
+    padding-bottom: 1.5rem;
+    border-radius: 0.8rem;
+
+    @include mixins.tablet {
+      flex-direction: column;
+      justify-content: flex-start;
+      height: 92%;
+    }
   }
 
   &__description {
-    min-width: 50%;
-    padding: 10px;
-    font-size: 18px;
-    text-align: justify;
-    color: #fff;
+    padding: 1rem;
+    font-size: 1.6rem;
+
+    @include mixins.tablet {
+      padding: 0;
+      padding-top: 1rem;
+    }
   }
 
   &__about {
@@ -74,57 +84,77 @@
 
   &__card {
     position: relative;
-    padding: 5px;
-    background-color: rgb(0 0 0 / 50%);
-    border-radius: 8px;
+    background-color: colors.$background-secondary;
+    border-radius: 0.8rem;
     animation: fade-in 1s ease-in;
     animation-delay: 0.2s;
     animation-fill-mode: both;
 
-    &:nth-child(1) {
-      animation-delay: 0s;
-    }
-
-    &:nth-child(4) {
-      animation-delay: 0.2s;
-    }
-
-    &:nth-child(8) {
-      animation-delay: 0.4s;
+    @include mixins.tablet {
+      max-width: 37.5rem;
+      padding: 0.5rem;
+      transition:
+        height 0.3s ease,
+        opacity 0.3s ease;
     }
   }
 
   &__ribbon {
     display: none;
+
+    @include mixins.tablet {
+      display: inline;
+      position: absolute;
+      top: 6rem;
+      left: 23rem;
+      z-index: 1;
+      width: 30rem;
+      height: 20rem;
+      background-image: url('/images/ribbon.png');
+      background-size: cover;
+      pointer-events: none;
+      transform: rotate(45deg);
+      transform-origin: top right;
+    }
   }
 
   &__isReserved {
-    padding: 10px;
-    font-size: 20px;
-    color: #b9f754;
+    padding: 1rem;
+    font-size: 2rem;
+    color: colors.$loading;
+
+    @include mixins.tablet {
+      display: none;
+    }
   }
 
   &__buttons {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 1rem;
     text-align: left;
+
+    @include mixins.tablet {
+      display: flex;
+      flex-direction: row;
+      gap: 3%;
+      text-align: left;
+    }
   }
 
   &__button {
     min-width: 100%;
-    padding: 0 15px;
-    font-size: 15px;
+    padding-inline: 1.5rem;
+    font-size: 1.5rem;
     font-weight: 600;
-    line-height: 35px;
+    line-height: 3.5rem;
     text-align: center;
-    color: #fff;
-    background-color: rgb(0 0 0 / 50%);
-    border: 2px solid #fff;
-    border-radius: 6px;
+    color: colors.$primary;
+    background-color: colors.$background-secondary;
+    border: 0.2rem solid colors.$primary;
+    border-radius: 0.6rem;
     cursor: pointer;
     transition: all 0.3s ease-out;
-    -webkit-text-stroke: 0.5px #000;
 
     &::before {
       position: absolute;
@@ -132,7 +162,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      color: #fff;
+      color: colors.$primary;
       background: transparent;
       transition: all 0.5s ease-out;
       content: attr(data-hover);
@@ -145,9 +175,9 @@
     }
 
     &:hover {
-      color: #fff;
-      background: #252525;
-      border-color: #252525;
+      color: colors.$secondary;
+      background: colors.$primary;
+      border-color: colors.$secondary;
     }
   }
 
@@ -155,36 +185,26 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10px;
-    gap: 10px;
+    padding: 0 1rem;
+    gap: 1rem;
   }
 
-  &__reservation {
-    padding: 10px;
-    font-size: 20px;
-    color: #fff;
+  &__reservation,
+  &__reservationTwo,
+  &__reservationThree {
+    padding: 1rem;
 
     &Two {
-      padding: 10px;
-      font-size: 20px;
-      color: #e3f09b;
+      color: colors.$loading;
     }
 
     &Three {
-      padding: 10px;
-      font-size: 20px;
-      color: #f75454;
+      color: colors.$error;
     }
   }
 
-  &__star {
-    font-size: 1.5rem;
-    color: lightgray;
-    transition: color 0.2s ease;
-  }
-
   &__selected {
-    color: gold;
+    color: colors.$loading;
   }
 
   &__locationbox {
@@ -193,64 +213,7 @@
     align-items: center;
   }
 
-  &__location {
-    font-size: 20px;
-    color: #fff;
-  }
-
   &__pin {
-    width: 25px;
-  }
-}
-
-@media (width >= 768px) {
-  .meal {
-    &__content {
-      flex-direction: column;
-      justify-content: flex-start;
-      height: 92%;
-    }
-
-    &__buttons {
-      display: flex;
-      flex-direction: row;
-      gap: 3%;
-      text-align: left;
-    }
-
-    &__card {
-      position: relative;
-      height: auto;
-      max-width: 375px;
-      padding: 0.5rem;
-      transition:
-        height 0.3s ease,
-        opacity 0.3s ease;
-    }
-
-    &__isReserved {
-      display: none;
-    }
-
-    &__ribbon {
-      display: inline;
-      position: absolute;
-      top: 60px;
-      left: 60%;
-      z-index: 1;
-      width: 300px;
-      height: 200px;
-      background-image: url('/images/ribbon.png');
-      background-size: cover;
-      pointer-events: none;
-      transform: rotate(45deg);
-      transform-origin: top right;
-    }
-
-    &__header {
-      justify-content: space-between;
-      height: 8%;
-      padding: 5px;
-    }
+    width: 2.5rem;
   }
 }

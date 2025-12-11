@@ -90,8 +90,9 @@
   &__link a,
   &__button {
     font-size: clamp(2rem, 2vh, 7rem);
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
+    color: colors.$primary;
     background: none;
     border: none;
     animation: fade-in 1s ease-in;

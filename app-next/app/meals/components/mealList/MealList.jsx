@@ -4,9 +4,11 @@ import styles from './page.module.scss';
 import { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '@/app/components/header/components/AuthContext';
 import { Meal } from '../meal/Meal.jsx';
-import useReservationData from '@/app/orders/components/FetchReservationData';
+import { useReservationData } from '@/app/orders/components/useReservationData';
+import { ErrorComponent } from '@/app/components/error/Error';
+import { LoadingComponent } from '@/app/components/loading/Loading';
 
-export default function MealList(description) {
+export function MealList(description) {
   const [meals, setMeals] = useState(null);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -17,7 +19,7 @@ export default function MealList(description) {
   const userData = mealIds?.map((meal) => meal.meal_id) || [];
 
   useEffect(() => {
-    const fetchData = async () => {
+    const useData = async () => {
       try {
         let query = '';
 
@@ -26,7 +28,7 @@ export default function MealList(description) {
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_DB_ACCESS}/api/meals?${query}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch meals');
+          throw new Error('Failed to use meals');
         }
 
         const data = await response.json();
@@ -37,12 +39,11 @@ export default function MealList(description) {
       }
     };
 
-    fetchData();
+    useData();
   }, [searchTerm, sortOption]);
 
-  if (error) return <div className={styles.meals__error}>Error: {error}</div>;
-  if (meals === null) return <div className={styles.meals__loading}>Loading...</div>;
-
+  if (error) return <ErrorComponent error={error} />;
+  if (!meals) return <LoadingComponent />;
   const mealsValidation = () => {
     if (meals && meals.length > 1)
       return meals.map((meal, index) => (

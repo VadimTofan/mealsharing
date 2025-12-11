@@ -42,9 +42,7 @@ export function ReservationForm({ slots, meal, closeForm, reservationUpdate }) {
       <h2 className={styles.modal__title}>Reserve this meal</h2>
 
       {reservationStatus?.type === 'success' ? (
-        <div className={`${styles.modal__status} ${styles.success}`}>
-          {reservationStatus.message}
-        </div>
+        <div className={styles.modal__success}>{reservationStatus.message}</div>
       ) : (
         <form className={styles.modal__form} onSubmit={handleSubmit}>
           <label className={styles.modal__label}>
@@ -98,14 +96,14 @@ export function ReservationForm({ slots, meal, closeForm, reservationUpdate }) {
             />
           </label>
 
-          <button className={styles.modal__button} type="submit">
+          <button className={styles.modal__button} type="submit" style={{ maxWidth: '100%' }}>
             Submit
           </button>
         </form>
       )}
 
       {reservationStatus?.type === 'error' && (
-        <div className={`${styles.modal__status} ${styles.error}`}>{reservationStatus.message}</div>
+        <div className={styles.modal__error}>{reservationStatus.message}</div>
       )}
     </div>
   );

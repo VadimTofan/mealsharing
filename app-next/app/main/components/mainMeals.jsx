@@ -3,8 +3,8 @@
 import styles from '@/app/main/page.module.scss';
 import { useState, useEffect } from 'react';
 import { Meal } from '@/app/meals/components/meal/Meal';
-import { Loading } from '@/app/components/loading/loading';
-import { Error } from '@/app/components/error/Error';
+import { LoadingComponent } from '@/app/components/loading/loading';
+import { ErrorComponent } from '@/app/components/error/Error';
 
 export function MainMeals() {
   const [state, setState] = useState({
@@ -16,10 +16,10 @@ export function MainMeals() {
   const { meals, error, loading } = state;
 
   useEffect(() => {
-    const fetchData = async () => {
+    const useData = async () => {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_DB_ACCESS}/api/top-meals`);
-        if (!response.ok) throw new Error('Failed to fetch meals');
+        if (!response.ok) throw new Error('Failed to use meals');
         const data = await response.json();
         setState((prev) => ({ ...prev, meals: data }));
       } catch (err) {
@@ -29,19 +29,19 @@ export function MainMeals() {
       }
     };
 
-    fetchData();
+    useData();
   }, []);
 
   if (loading)
     return (
       <div className={styles.main}>
-        <Loading />
+        <LoadingComponent />
       </div>
     );
   if (error)
     return (
       <div className={styles.main}>
-        <Error error={error} />
+        <ErrorComponent error={error} />
       </div>
     );
   return (
@@ -62,7 +62,7 @@ export function MainMeals() {
         {meals.length > 0 ? (
           meals.map((meal) => <Meal key={meal.id} meal={meal} />)
         ) : (
-          <Error error={'No Meals Found'} />
+          <ErrorComponent error={'No Meals Found'} />
         )}
       </ul>
     </div>
