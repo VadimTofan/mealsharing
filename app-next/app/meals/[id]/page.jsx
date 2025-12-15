@@ -2,8 +2,8 @@
 
 import React from 'react';
 
-import { useMeal } from './components/mealdata/useMeal';
-import { MealCard } from './components/mealdata/MealCard';
+import { useMeal } from './components/mealData/useMeal';
+import { MealCard } from './components/mealData/MealCard';
 import { LoadingComponent } from '@/app/components/loading/Loading';
 import { ErrorComponent } from '@/app/components/error/Error';
 
