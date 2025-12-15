@@ -67,10 +67,9 @@
 
   &__description {
     padding: 1rem;
-    font-size: 1.6rem;
+    font-size: 1.7rem;
 
     @include mixins.tablet {
-      padding: 0;
       padding-top: 1rem;
     }
   }
@@ -145,7 +144,7 @@
   &__button {
     min-width: 100%;
     padding-inline: 1.5rem;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 600;
     line-height: 3.5rem;
     text-align: center;

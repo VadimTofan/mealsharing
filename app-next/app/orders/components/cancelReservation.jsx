@@ -7,25 +7,23 @@ import { useReservationData } from './useReservationData';
 export function CancelReservation({ mealId }) {
   const { user } = useContext(AuthContext);
   const { mealIds, refreshReservations } = useReservationData(user?.id);
+  const [state, setState] = useState({ showConfirm: false, statusMessage: '', statusType: '' });
 
-  const [showConfirm, setShowConfirm] = useState(false);
-  const [statusMessage, setStatusMessage] = useState('');
-  const [statusType, setStatusType] = useState('');
+  const { showConfirm, statusMessage, statusType } = state;
 
   const handleCancel = () => {
-    setShowConfirm(true);
-    setStatusMessage('');
-    setStatusType('');
+    setState((prev) => ({ ...prev, showConfirm: true }));
   };
 
   const confirmCancel = async () => {
     const reservation = mealIds?.find((item) => item.meal_id === mealId);
 
-    if (!reservation) {
-      setStatusMessage('No reservation found for this meal.');
-      setStatusType('error');
-      return;
-    }
+    if (!reservation)
+      return setState((prev) => ({
+        ...prev,
+        statusMessage: 'No reservation found for this meal.',
+        statusType: 'error',
+      }));
 
     try {
       const response = await fetch(
@@ -38,13 +36,15 @@ export function CancelReservation({ mealId }) {
 
       if (!response.ok) throw new Error('Could not delete reservation');
 
-      setStatusMessage('Reservation cancelled successfully!');
-      setStatusType('success');
+      setState((prev) => ({
+        ...prev,
+        statusMessage: 'Reservation cancelled successfully!',
+        statusType: 'success',
+      }));
+
       setTimeout(async () => {
         await refreshReservations();
-        setShowConfirm(false);
-        setStatusMessage('');
-        setStatusType('');
+        setState((prev) => ({ ...prev, showConfirm: false, statusMessage: '', statusType: '' }));
 
         setTimeout(() => {
           window.location.reload();
@@ -52,8 +52,11 @@ export function CancelReservation({ mealId }) {
       }, 2000);
     } catch (err) {
       console.error('Error cancelling reservation:', err.message);
-      setStatusMessage('Failed to cancel reservation. Please try again.');
-      setStatusType('error');
+      setState((prev) => ({
+        ...prev,
+        statusMessage: 'Failed to cancel reservation. Please try again.',
+        statusType: 'error',
+      }));
     }
   };
 
@@ -75,7 +78,10 @@ export function CancelReservation({ mealId }) {
                 <button onClick={confirmCancel} className={styles.modal__button}>
                   Yes, cancel
                 </button>
-                <button onClick={() => setShowConfirm(false)} className={styles.modal__button}>
+                <button
+                  onClick={() => setState((prev) => ({ ...prev, showConfirm: false }))}
+                  className={styles.modal__button}
+                >
                   No, go back
                 </button>
               </div>

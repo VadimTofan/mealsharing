@@ -5,6 +5,8 @@ import { AuthContext } from '@/app/components/header/components/AuthContext';
 import { useReservationData } from './components/useReservationData';
 import { useMealsData } from './components/useMealData';
 import { Meal } from '@/app/meals/components/meal/Meal';
+import { LoadingComponent } from '../components/loading/Loading';
+import { ErrorComponent } from '../components/error/Error';
 
 export default function Orders() {
   const { user } = useContext(AuthContext);
@@ -20,12 +22,12 @@ export default function Orders() {
     if (meals?.length === 0) return <li className={styles.orders__item}>No meals found.</li>;
   };
 
+  if (reservationsLoading) return <LoadingComponent />;
+
   return (
     <div className={styles.orders}>
       {user && <h2 className={styles.orders__title}>Your Reservations</h2>}
       {!user && <p className={styles.orders__text}>You have not logged in yet.</p>}
-      {reservationsLoading && <p className={styles.orders__loading}>Loading reservations...</p>}
-      {mealsError && <p className={styles.orders__error}>Error loading meals: {mealsError}</p>}
 
       {user &&
         (meals && meals.length > 0 ? (

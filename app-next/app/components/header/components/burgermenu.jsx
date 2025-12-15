@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { GoogleLogin } from '@react-oauth/google';
 import { AuthContext } from './AuthContext';
+import Image from 'next/image';
 
 export default function BurgerMenu() {
   const [state, setState] = useState({
@@ -105,7 +106,7 @@ export default function BurgerMenu() {
               </li>
 
               <li className={styles.header__profile} ref={profileMenuRef}>
-                <img
+                <Image
                   src={user.picture}
                   alt="Profile"
                   className={styles.header__image}
@@ -113,6 +114,8 @@ export default function BurgerMenu() {
                     setState((prev) => ({ ...prev, showProfileMenu: !prev.showProfileMenu }))
                   }
                   aria-haspopup="true"
+                  height={50}
+                  width={50}
                 />
                 {showProfileMenu && (
                   <div className={styles.header__dropdown}>

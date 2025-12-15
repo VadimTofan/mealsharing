@@ -1,49 +1,17 @@
 'use client';
 
 import styles from '@/app/main/page.module.scss';
-import { useState, useEffect } from 'react';
 import { Meal } from '@/app/meals/components/meal/Meal';
-import { LoadingComponent } from '@/app/components/loading/loading';
 import { ErrorComponent } from '@/app/components/error/Error';
+import { useEffect, useState } from 'react';
 
-export function MainMeals() {
-  const [state, setState] = useState({
-    meals: [],
-    error: null,
-    loading: true,
-  });
-
-  const { meals, error, loading } = state;
+export function MainMeals({ meals }) {
+  const [state, setState] = useState();
 
   useEffect(() => {
-    const useData = async () => {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_DB_ACCESS}/api/top-meals`);
-        if (!response.ok) throw new Error('Failed to use meals');
-        const data = await response.json();
-        setState((prev) => ({ ...prev, meals: data }));
-      } catch (err) {
-        setState((prev) => ({ ...prev, error: err.message }));
-      } finally {
-        setState((prev) => ({ ...prev, loading: false }));
-      }
-    };
-
-    useData();
-  }, []);
-
-  if (loading)
-    return (
-      <div className={styles.main}>
-        <LoadingComponent />
-      </div>
-    );
-  if (error)
-    return (
-      <div className={styles.main}>
-        <ErrorComponent error={error} />
-      </div>
-    );
+    setState(meals);
+  }, [meals]);
+  console.log(meals);
   return (
     <div className={`${styles.meals} contentcard`}>
       <div className={styles.meals__welcome}>
@@ -59,8 +27,8 @@ export function MainMeals() {
       </div>
 
       <ul className={styles.meals__list}>
-        {meals.length > 0 ? (
-          meals.map((meal) => <Meal key={meal.id} meal={meal} />)
+        {state?.length > 0 ? (
+          state.map((meal) => <Meal key={meal.id} meal={meal} />)
         ) : (
           <ErrorComponent error={'No Meals Found'} />
         )}

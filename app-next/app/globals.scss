@@ -3,10 +3,12 @@
 
 html,
 body {
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 98.65%;
   max-width: 100vw;
   font-size: 62.5%;
-  overflow-x: hidden;
 }
 
 body {
@@ -18,11 +20,11 @@ body {
   color: colors.$primary;
 
   @include mixins.tablet {
-    gap: 10rem;
+    gap: 5rem;
   }
 
   @include mixins.laptop {
-    gap: 15rem;
+    gap: 10rem;
   }
 }
 
@@ -33,7 +35,7 @@ body {
 }
 
 a {
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   text-decoration: none;
   color: inherit;
   cursor: pointer;
@@ -45,7 +47,7 @@ a {
 }
 
 p {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   line-height: 100%;
   letter-spacing: 1px;
   text-align: justify;

@@ -5,12 +5,10 @@ import { useState, useEffect } from 'react';
 import { Review } from '../review/Review';
 import { Reviews } from '../review/Reviews';
 import { Reservation } from '../reservation/Reservation';
-import { LoadingComponent } from '@/app/components/loading/Loading';
-import { ErrorComponent } from '@/app/components/error/Error';
 
 export function MealCard({ mealData }) {
   const [state, setState] = useState({ slots: null, reviews: null, visitors: 0 });
-  const { meal, hasError, isLoading } = mealData;
+  const { meal } = mealData;
   const { slots, reviews, visitors } = state;
 
   const max = meal?.max_reservations ?? 0;
@@ -44,18 +42,6 @@ export function MealCard({ mealData }) {
     setState((prev) => ({ ...prev, reviews: prev + 1 }));
   };
 
-  if (isLoading)
-    return (
-      <div className={styles.contentcard}>
-        <LoadingComponent />
-      </div>
-    );
-  if (hasError)
-    return (
-      <div className={styles.contentcard}>
-        <ErrorComponent error={hasError} />
-      </div>
-    );
   return (
     <div className={styles.contentcard}>
       <div className={styles.reviews__box}>

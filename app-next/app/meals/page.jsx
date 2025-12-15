@@ -12,7 +12,7 @@ export default function Meals() {
 
   useEffect(() => {
     const onScroll = () => {
-      setShowTortilla(window.scrollY > 100);
+      setShowTortilla(window.scrollY > 50);
     };
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
@@ -20,16 +20,17 @@ export default function Meals() {
 
   useEffect(() => {
     const onScroll = () => {
-      setShowBeans(window.scrollY > 400);
+      setShowBeans(window.scrollY > 700);
     };
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
   return (
     <>
-      <div className={`${styles.tortilla} ${showTortilla ? styles.tortilla__show : ''}`} />;
-      <div className={`${styles.beans} ${showBeans ? styles.beans__show : ''}`} />;
-      <MealList add="description" />;
+      {showTortilla ? <div className={`${styles.tortilla__show} ${styles.tortilla}`} /> : ''}
+      {showBeans ? <div className={`${styles.beans__show} ${styles.beans}`} /> : ''}
+      <MealList add="description" />
     </>
   );
 }

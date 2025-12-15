@@ -16,18 +16,19 @@
 }
 
 .error {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  top: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   &__text {
+    height: 5rem;
     padding: 1rem;
     font-size: clamp(1.5rem, 2.5vw, 3rem);
     text-align: center;
     color: colors.$error;
     background-color: colors.$error-secondary;
-    border-radius: 10px;
+    border-radius: 1rem;
     animation: pulse 1s infinite ease-in-out;
   }
 }

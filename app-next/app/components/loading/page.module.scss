@@ -16,10 +16,10 @@
 }
 
 .loading {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  top: 105%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   &__letter {
     font-size: clamp(3rem, 5vh, 5rem);

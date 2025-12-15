@@ -16,6 +16,7 @@
   flex-direction: column;
   position: relative;
   min-height: 80vh;
+  overflow: hidden;
   gap: 15rem;
 
   @include mixins.laptop {
@@ -42,10 +43,10 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  gap: 2rem;
   width: 100%;
   text-align: center;
   animation: fade-in 1s ease-in;
+  gap: 2rem;
   animation-delay: 0.2s;
   animation-fill-mode: both;
 
@@ -56,6 +57,7 @@
   &__wrapper {
     display: flex;
     flex-wrap: nowrap;
+    overflow: hidden;
     overflow-x: auto;
     scroll-behavior: smooth;
 
@@ -81,7 +83,7 @@
       font-weight: 600;
       text-align: left;
       text-transform: uppercase;
-      -webkit-text-stroke: 0.1rem colors.$secondary;
+      -webkit-text-stroke: 0.2rem colors.$secondary;
 
       @include mixins.laptop {
         font-size: 7rem;
@@ -111,7 +113,7 @@
     display: inline-block;
     position: relative;
     padding: 0 1.5rem;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 600;
     line-height: 3.5rem;
     text-transform: uppercase;
@@ -119,7 +121,7 @@
     border: 0.2rem solid colors.$primary;
     border-radius: 0.6rem;
     overflow: hidden;
-    transition: all 0.3s ease-out;
+    transition: all 1s ease-out;
 
     @include mixins.laptop {
       font-size: 2.5rem;
@@ -135,7 +137,7 @@
       width: 100%;
       height: 100%;
       background: colors.$secondary;
-      transition: all 0.5s ease-out;
+      transition: all 1s ease-out;
       content: attr(data-hover);
       transform: translate(-100%, 0);
     }
@@ -195,7 +197,7 @@
   }
 
   &__description {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 600;
     animation: fade-in 1s ease-in;
     animation-delay: 0.5s;
@@ -225,15 +227,16 @@
     top: 20vh;
     right: 2rem;
     z-index: 1;
-    width: 400px;
-    height: 400px;
+    width: 40rem;
+    height: 40rem;
     background: url('/images/carrots.png') no-repeat center/contain;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 1s ease;
     pointer-events: none;
 
     &__show {
       opacity: 1;
+      transition: opacity 1s ease;
     }
   }
 }

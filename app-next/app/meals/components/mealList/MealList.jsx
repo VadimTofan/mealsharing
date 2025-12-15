@@ -1,7 +1,7 @@
 'use client';
 
 import styles from './page.module.scss';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, use } from 'react';
 import { AuthContext } from '@/app/components/header/components/AuthContext';
 import { Meal } from '../meal/Meal.jsx';
 import { useReservationData } from '@/app/orders/components/useReservationData';
@@ -9,41 +9,38 @@ import { ErrorComponent } from '@/app/components/error/Error';
 import { LoadingComponent } from '@/app/components/loading/Loading';
 
 export function MealList(description) {
-  const [meals, setMeals] = useState(null);
-  const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [sortOption, setSortOption] = useState('');
+  const [state, setState] = useState({ meals: null, error: null, searchTerm: '', sortOption: '' });
+  const { meals, error, searchTerm, sortOption } = state;
   const { user } = useContext(AuthContext);
 
   const { mealIds } = useReservationData(user?.id);
   const userData = mealIds?.map((meal) => meal.meal_id) || [];
 
-  useEffect(() => {
-    const useData = async () => {
-      try {
-        let query = '';
+  const fetchData = async () => {
+    try {
+      let query = '';
 
-        if (searchTerm) query += `title=${encodeURIComponent(searchTerm)}&`;
-        if (sortOption) query += `sortKey=${sortOption}&`;
+      if (searchTerm) query += `title=${encodeURIComponent(searchTerm)}&`;
+      if (sortOption) query += `sortKey=${sortOption}&`;
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_DB_ACCESS}/api/meals?${query}`);
-        if (!response.ok) {
-          throw new Error('Failed to use meals');
-        }
-
-        const data = await response.json();
-
-        setMeals(data);
-      } catch (err) {
-        setError(err.message);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_DB_ACCESS}/api/meals?${query}`);
+      if (!response.ok) {
+        throw new Error('Failed to use meals');
       }
-    };
 
-    useData();
-  }, [searchTerm, sortOption]);
+      const data = await response.json();
 
-  if (error) return <ErrorComponent error={error} />;
+      setState((prev) => ({ ...prev, meals: data }));
+    } catch (err) {
+      setState((prev) => ({ ...prev, error: err.message }));
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  });
+
   if (!meals) return <LoadingComponent />;
+  if (error) return <ErrorComponent error={error} />;
   const mealsValidation = () => {
     if (meals && meals.length > 1)
       return meals.map((meal, index) => (
@@ -55,7 +52,12 @@ export function MealList(description) {
           userdata={userData}
         />
       ));
-    if (meals.length === 0) return <li className={styles.meals__item}>No meals found.</li>;
+    if (!meals.length)
+      return (
+        <div className={styles.meals__item}>
+          <p class={styles.meals__description}>No meals found.</p>
+        </div>
+      );
     if (meals) return <Meal key={meals.id} meal={meals} description={description} />;
   };
 
@@ -68,12 +70,12 @@ export function MealList(description) {
             type="text"
             placeholder="Search meals..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => setState((prev) => ({ ...prev, searchTerm: e.target.value }))}
           />
           <select
             className={styles.meals__select}
             value={sortOption}
-            onChange={(e) => setSortOption(e.target.value)}
+            onChange={(e) => setState((prev) => ({ ...prev, sortOptionTerm: e.target.value }))}
           >
             <option value="">Sort by</option>
             <option value="price_asc">Price: Low → High</option>

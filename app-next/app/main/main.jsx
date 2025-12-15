@@ -5,9 +5,12 @@ import { useEffect, useState } from 'react';
 
 import { SwipeBar } from './components/Swipebar';
 import { MainMeals } from './components/MainMeals';
-
+import { useMainMeals } from './components/useMainMeals';
+import { LoadingComponent } from '../components/loading/Loading';
+import { ErrorComponent } from '../components/error/Error';
 export function Main() {
   const [state, setState] = useState(false);
+  const { meals, error, loading } = useMainMeals();
 
   useEffect(() => {
     const handleScroll = () => setState(window.scrollY > 350);
@@ -15,11 +18,14 @@ export function Main() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  if (loading) return <LoadingComponent />;
+  if (error) return <ErrorComponent error={error} />;
+
   return (
-    <div className={styles.databox}>
-      <div className={`${styles.carrot} ${state && styles.carrot__show}`} />
+    <section className={styles.databox}>
+      {state && <div className={`${styles.carrot} ${styles.carrot__show}`} />}
       <SwipeBar />
-      <MainMeals />
-    </div>
+      <MainMeals meals={meals} />
+    </section>
   );
 }
