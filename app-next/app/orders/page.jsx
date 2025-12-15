@@ -11,7 +11,7 @@ export default function Orders() {
   const { user } = useContext(AuthContext);
   const { mealIds, isLoading: reservationsLoading } = useReservationData(user?.id);
   const ids = mealIds?.map((meal) => meal.meal_id) || [];
-  const { meals, error: mealsError } = useMealsData(ids);
+  const { meals } = useMealsData(ids);
 
   const mealsValidation = () => {
     if (meals && meals.length > 0)
