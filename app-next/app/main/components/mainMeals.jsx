@@ -1,7 +1,7 @@
 'use client';
 
 import styles from '@/app/main/page.module.scss';
-import { Meal } from '@/app/meals/components/meal/Meal';
+import { Meal } from '@/app/meals/components/meal/pff';
 import { ErrorComponent } from '@/app/components/error/Error';
 import { useEffect, useState } from 'react';
 
@@ -11,7 +11,7 @@ export function MainMeals({ meals }) {
   useEffect(() => {
     setState(meals);
   }, [meals]);
-  console.log(meals);
+
   return (
     <div className={`${styles.meals} contentcard`}>
       <div className={styles.meals__welcome}>

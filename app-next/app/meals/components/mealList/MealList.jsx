@@ -3,7 +3,7 @@
 import styles from './page.module.scss';
 import { useEffect, useState, useContext, use } from 'react';
 import { AuthContext } from '@/app/components/header/components/AuthContext';
-import { Meal } from '../meal/Meal.jsx';
+import { Meal } from '../meal/pff.jsx';
 import { useReservationData } from '@/app/orders/components/useReservationData';
 import { ErrorComponent } from '@/app/components/error/Error';
 import { LoadingComponent } from '@/app/components/loading/Loading';
