@@ -4,34 +4,29 @@ import * as db from "../database/database_client.js";
 export const reservationsRouter = express.Router();
 
 reservationsRouter.get("/api/reservations", async (request, response) => {
-  response.send(await db.getReservations());
+  response.status(200).send(await db.getReservations());
 });
 
 reservationsRouter.post("/api/reservations", async (request, response) => {
   const reservation = request.body;
-  const reservationError = reservationDataValidator(reservation);
-
-  if (reservationError) {
-    return response.status(400).send({ error: reservationError });
-  }
-
-  const mealId = reservation.meal_id;
   const guestsRequested = parseInt(reservation.number_of_guests, 10);
 
+  const reservationError = reservationDataValidator(reservation);
+  if (reservationError) return response.status(400).send({ error: reservationError });
+
+  const mealId = reservation.meal_id;
   try {
     const meal = await db.getMealDetailsWithAvailabilityById(mealId);
-    if (!meal) {
-      return response.status(404).send({ error: "Meal not found." });
-    }
+    if (!meal) return response.status(404).send({ error: "Meal not found." });
 
-    if (meal.available_reservations < guestsRequested) {
-      return response.status(400).send({ error: "Not enough available reservations." });
-    }
+    if (meal.available_reservations < guestsRequested) return response.status(400).send({ error: "Not enough available reservations." });
+
     await db.addReservation(createReservationObject(reservation));
 
     response.status(201).json({ message: "Reservation added successfully." });
   } catch (error) {
     console.error(error);
+
     response.status(500).send({ error: "Something went wrong." });
   }
 });
@@ -41,10 +36,9 @@ reservationsRouter.get("/api/reservations/:id", async (request, response) => {
   if (!id) return response.status(400).send({ error: `Id is mandatory` });
 
   const reservation = await db.getReservationById(id);
-
   if (!reservation.length) return response.status(404).send({ error: `There is no reservation with such ID` });
 
-  response.send(reservation);
+  response.status(200).send(reservation);
 });
 
 reservationsRouter.get("/api/reservationsbyuser/:id", async (request, response) => {
@@ -52,19 +46,18 @@ reservationsRouter.get("/api/reservationsbyuser/:id", async (request, response) 
   if (!id) return response.status(400).send({ error: `Id is mandatory` });
 
   const reservation = await db.getReservationsByUser(id);
-
   if (!reservation.length) return response.status(404).send({ error: `You have no reservations` });
-  response.send(reservation);
+
+  response.status(200).send(reservation);
 });
 
 reservationsRouter.put("/api/reservations/:id", async (request, response) => {
-  const id = Number(request.params.id);
   const reservation = request.body;
 
+  const id = Number(request.params.id);
   if (!id) return response.status(400).send({ error: `Id is mandatory` });
 
   const reservationError = reservationDataValidator(reservation);
-
   if (reservationError) return response.status(400).send({ error: reservationError });
 
   await db.updateReservationById(id, createReservationObject(reservation));
@@ -77,8 +70,7 @@ reservationsRouter.delete("/api/reservations/:id", async (request, response) => 
   if (!id) return response.status(400).send({ error: `Id is mandatory` });
 
   const isDeleted = await db.deleteReservationById(id);
-
-  if (isDeleted) return response.send({ message: "Reservation deleted successfully." });
+  if (isDeleted) return response.status(200).send({ message: "Reservation deleted successfully." });
 
   response.status(404).json({ error: "Reservation not found." });
 });

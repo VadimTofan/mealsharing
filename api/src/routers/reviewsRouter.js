@@ -4,7 +4,7 @@ import * as db from "../database/database_client.js";
 export const reviewsRouter = express.Router();
 
 reviewsRouter.get("/api/reviews", async (request, response) => {
-  response.send(await db.getReviews());
+  response.status(200).send(await db.getReviews());
 });
 
 reviewsRouter.post("/api/reviews", async (request, response) => {
@@ -23,20 +23,21 @@ reviewsRouter.get("/api/reviews/:id", async (request, response) => {
   if (!id) return response.status(400).send({ error: `Id is mandatory` });
 
   const review = await db.getReviewById(id);
-  const [reviewObj] = review;
   if (!review.length) return response.status(404).send({ error: `There is no review with such ID` });
-  if (review.length === 1) return response.send(reviewObj);
-  response.send(review);
+
+  const [reviewObj] = review;
+  if (review.length === 1) return response.status(200).send(reviewObj);
+
+  response.status(200).send(review);
 });
 
 reviewsRouter.put("/api/reviews/:id", async (request, response) => {
-  const id = Number(request.params.id);
   const review = request.body;
 
+  const id = Number(request.params.id);
   if (!id) return response.status(400).send({ error: `Id is mandatory` });
 
   const reviewError = reviewDataValidator(review);
-
   if (reviewError) return response.status(400).send({ error: reviewError });
 
   await db.updateReviewById(id, createReviewObject(review));
@@ -49,8 +50,7 @@ reviewsRouter.delete("/api/reviews/:id", async (request, response) => {
   if (!id) return response.status(400).send({ error: `Id is mandatory` });
 
   const isDeleted = await db.deleteReviewById(id);
-
-  if (isDeleted) return response.send({ message: "Review deleted successfully." });
+  if (isDeleted) return response.status(200).send({ message: "Review deleted successfully." });
 
   response.status(404).json({ error: "Review not found." });
 });

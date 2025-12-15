@@ -12,34 +12,33 @@ app.use(cors({ origin: "*", credentials: true }));
 
 app.use(express.json());
 app.get("/", (request, response) => {
-  response.send("Welcome to Meal Sharing");
+  response.status(200).send("Welcome to Meal Sharing");
 });
 
 app.get("/all-meals", async (request, response) => {
-  response.send(await db.getMeals());
+  response.status(200).send(await db.getMeals());
 });
 
 app.get("/future-meals", async (request, response) => {
-  response.send(await db.getFutureMeals());
+  response.status(200).send(await db.getFutureMeals());
 });
 
 app.get("/past-meals", async (request, response) => {
-  response.send(await db.getPastMeals());
+  response.status(200).send(await db.getPastMeals());
 });
 
 app.get("/first-meal", async (request, response) => {
   const meal = await db.getFirstMeal();
+  if (!meal) return response.status(404).send("There are no meals for your request!");
 
-  if (!meal) return response.send("There are no meals for your request!");
-
-  response.send(meal);
+  response.status(200).send(meal);
 });
 
 app.get("/last-meal", async (request, response) => {
   const meal = await db.getLastMeal();
-  if (!meal) return response.send("There are no meals for your request!");
+  if (!meal) return response.status(404).send("There are no meals for your request!");
 
-  response.send(meal);
+  response.status(200).send(meal);
 });
 
 app.use(mealsRouter);

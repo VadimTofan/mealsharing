@@ -5,32 +5,30 @@ export const mealsRouter = express.Router();
 
 mealsRouter.get("/api/selectedmeal/:id", async (request, response) => {
   const id = request.params.id;
-
-  if (!id) {
-    return response.status(400).send({ error: "Id is mandatory" });
-  }
+  if (!id) return response.status(400).send({ error: "Id is mandatory" });
 
   try {
     const meal = await db.getMealDetailsWithAvailabilityById(id);
-
     if (!meal) return response.status(404).send({ error: `There is no meal with such ID` });
 
-    response.send(meal);
+    response.status(200).send(meal);
   } catch (error) {
     console.error(error);
+
     response.status(500).send({ error: "Something went wrong" });
   }
 });
 
-mealsRouter.get("/api/top-meals", async (req, res) => {
+mealsRouter.get("/api/top-meals", async (request, response) => {
   try {
     const meals = await db.getTopMeals();
+    if (meals.length === 1) return response.status(200).send(meals[0]);
 
-    if (meals.length === 1) return res.send(meals[0]);
-    res.send(meals);
+    response.status(200).send(meals);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal server error" });
+
+    response.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -71,19 +69,20 @@ mealsRouter.get("/api/meals", async (request, response) => {
     }
 
     const meals = await db.getMealsFiltered(filters, sortBy, directBy);
-    if (meals.length === 1) return response.send(meals[0]);
+    if (meals.length === 1) return response.status(200).send(meals[0]);
 
-    response.send(meals);
+    response.status(200).send(meals);
   } catch (error) {
     console.error("Error in GET /api/meals:", error);
+
     response.status(500).send({ error: "Internal server error" });
   }
 });
 
 mealsRouter.post("/api/meals", async (request, response) => {
   const meal = request.body;
-  const mealError = validateMealData(meal);
 
+  const mealError = validateMealData(meal);
   if (mealError) return response.status(400).send({ error: mealError });
 
   await db.addMeal(createMealObject(meal));
@@ -96,35 +95,31 @@ mealsRouter.get("/api/selectedmeals/:ids", async (request, response) => {
   if (!ids) return response.status(400).send({ error: `Ids are mandatory` });
 
   const meals = await db.getMealsByIds(ids);
-
   if (!meals) return response.status(404).send({ error: `There are no meal with such ID` });
 
-  response.send(meals);
+  response.status(200).send(meals);
 });
 
 mealsRouter.get("/api/meals/:id", async (request, response) => {
   const ids = Number(request.query);
   if (!ids) return response.status(400).send({ error: `No meals here` });
 
-  const meal = await db.getMealByIds(ids);
-
+  const meal = await db.getMealById(ids);
   if (!meal) return response.status(404).send({ error: `There is no meal with such ID` });
 
-  response.send(meal);
+  response.status(200).send(meal);
 });
 
 mealsRouter.put("/api/meals/:id", async (request, response) => {
-  const id = Number(request.params.id);
   const meal = request.body;
 
+  const id = Number(request.params.id);
   if (!id) return response.status(400).send({ error: `Id is mandatory` });
 
   const mealError = validateMealData(meal);
-
   if (mealError) return response.status(400).send({ error: mealError });
 
   const newMeal = createMealObject(meal);
-
   await db.updateMealById(id, createMealObject(newMeal));
 
   response.status(201).send({ message: "Meal updated successfully." });
@@ -132,12 +127,10 @@ mealsRouter.put("/api/meals/:id", async (request, response) => {
 
 mealsRouter.delete("/api/meals/:id", async (request, response) => {
   const id = Number(request.params.id);
-
   if (!id) return response.status(400).send({ error: `Id is mandatory` });
 
   const isDeleted = await db.deleteMealById(id);
-
-  if (isDeleted) return response.send({ message: "Meal deleted successfully." });
+  if (isDeleted) return response.status(200).send({ message: "Meal deleted successfully." });
 
   response.status(404).send({ error: "Meal not found." });
 });
