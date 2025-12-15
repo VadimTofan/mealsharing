@@ -96,9 +96,11 @@
   }
 
   &__text,
-  &__description {
+  &__description,
+  &__select {
     padding: 0.5rem;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    color: colors.$secondary;
     border: 0.1rem solid colors.$hover;
     border-radius: 0.5rem;
     transition: border-color 0.2s ease;

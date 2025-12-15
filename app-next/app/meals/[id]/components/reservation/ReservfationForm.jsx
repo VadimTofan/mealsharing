@@ -62,7 +62,7 @@ export function ReservationForm({ slots, meal, closeForm, reservationUpdate }) {
             {!slots ? (
               <p className={styles.modal__status}>Sold out!</p>
             ) : (
-              <select name="guests" required>
+              <select className={styles.modal__select} name="guests" required>
                 {[...Array(Number(slots))].map((_, i) => (
                   <option key={i + 1} value={i + 1}>
                     {i + 1} {i + 1 === 1 ? 'guest' : 'guests'}
