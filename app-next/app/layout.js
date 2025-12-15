@@ -1,7 +1,7 @@
 import './globals.scss';
 
-import { Header } from './components/header/Header';
-import { Footer } from './components/footer/Footer';
+import { Header } from '@/app/components/header/Header';
+import { Footer } from '@/app/components/footer/Footer';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from '@/app/components/header/components/AuthContext';
 
