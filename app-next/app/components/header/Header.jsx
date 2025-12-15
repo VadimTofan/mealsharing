@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import BurgerMenu from './components/Burgermenu';
+import BurgerMenu from './components/BurgerMenu';
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
