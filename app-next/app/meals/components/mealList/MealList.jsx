@@ -16,28 +16,29 @@ export function MealList(description) {
   const { mealIds } = useReservationData(user?.id);
   const userData = mealIds?.map((meal) => meal.meal_id) || [];
 
-  const fetchData = async () => {
-    try {
-      let query = '';
-
-      if (searchTerm) query += `title=${encodeURIComponent(searchTerm)}&`;
-      if (sortOption) query += `sortKey=${sortOption}&`;
-
-      const response = await fetch(`${process.env.NEXT_PUBLIC_DB_ACCESS}/api/meals?${query}`);
-      if (!response.ok) {
-        throw new Error('Failed to use meals');
-      }
-
-      const data = await response.json();
-
-      setState((prev) => ({ ...prev, meals: data }));
-    } catch (err) {
-      setState((prev) => ({ ...prev, error: err.message }));
-    }
-  };
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let query = '';
+
+        if (searchTerm) query += `title=${encodeURIComponent(searchTerm)}&`;
+        if (sortOption) query += `sortKey=${sortOption}&`;
+
+        const response = await fetch(`${process.env.NEXT_PUBLIC_DB_ACCESS}/api/meals?${query}`);
+        if (!response.ok) {
+          throw new Error('Failed to use meals');
+        }
+
+        const data = await response.json();
+
+        setState((prev) => ({ ...prev, meals: data }));
+      } catch (err) {
+        setState((prev) => ({ ...prev, error: err.message }));
+      }
+    };
+
     fetchData();
-  });
+  }, [mealIds]);
 
   if (!meals) return <LoadingComponent />;
   if (error) return <ErrorComponent error={error} />;

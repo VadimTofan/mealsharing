@@ -12,27 +12,24 @@ export function useReservationData(userId) {
 
   const { mealIds, error, isLoading, hasFetchedOnce } = state;
 
-  const fetchReservationData = useCallback(
-    async (showLoading = true) => {
-      if (!userId) return;
-      if (showLoading) setState((prev) => ({ ...prev, isLoading: true }));
+  const fetchReservationData = useCallback(async () => {
+    if (!userId) return;
+    setState((prev) => ({ ...prev, isLoading: true }));
 
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_DB_ACCESS}/api/reservationsbyuser/${userId}`
-        );
-        if (!response.ok) throw new Error('Failed to fetch reservations');
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_DB_ACCESS}/api/reservationsbyuser/${userId}`
+      );
+      if (!response.ok) throw new Error('Failed to fetch reservations');
 
-        const data = await response.json();
-        setState((prev) => ({ ...prev, mealIds: data, error: null, hasFetchedOnce: true }));
-      } catch (err) {
-        setState((prev) => ({ ...prev, error: err.message }));
-      } finally {
-        if (showLoading) setState((prev) => ({ ...prev, isLoading: false }));
-      }
-    },
-    [userId]
-  );
+      const data = await response.json();
+      setState((prev) => ({ ...prev, mealIds: data, error: null, hasFetchedOnce: true }));
+    } catch (err) {
+      setState((prev) => ({ ...prev, error: err.message }));
+    } finally {
+      setState((prev) => ({ ...prev, isLoading: false }));
+    }
+  }, [userId]);
 
   useEffect(() => {
     fetchReservationData();
