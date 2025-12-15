@@ -1,7 +1,7 @@
 'use client';
 
 import styles from '@/app/main/page.module.scss';
-import { Meal } from '@/app/meals/components/meal/pff';
+import { Meal } from '@/app/meals/components/meal/Meal';
 import { ErrorComponent } from '@/app/components/error/Error';
 import { useEffect, useState } from 'react';
 

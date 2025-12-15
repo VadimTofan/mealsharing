@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { AuthContext } from '@/app/components/header/components/AuthContext';
 import { useReservationData } from './components/useReservationData';
 import { useMealsData } from './components/useMealData';
-import { Meal } from '@/app/meals/components/meal/pff';
+import { Meal } from '@/app/meals/components/meal/Meal';
 import { LoadingComponent } from '../components/loading/Loading';
 
 export default function Orders() {
