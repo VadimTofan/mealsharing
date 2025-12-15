@@ -51,6 +51,7 @@ export function ReservationForm({ slots, meal, closeForm, reservationUpdate }) {
               className={styles.modal__text}
               type="text"
               name="fullName"
+              autoComplete="name"
               placeholder="Your Full Name"
               minLength="4"
               required
@@ -78,6 +79,7 @@ export function ReservationForm({ slots, meal, closeForm, reservationUpdate }) {
               className={styles.modal__text}
               type="email"
               name="email"
+              autoComplete="email"
               placeholder="example@gmail.com"
               minLength="4"
               required
@@ -90,6 +92,7 @@ export function ReservationForm({ slots, meal, closeForm, reservationUpdate }) {
               className={styles.modal__text}
               type="text"
               name="phone"
+              autoComplete="tel"
               placeholder="+45 12345678"
               minLength="8"
               required
