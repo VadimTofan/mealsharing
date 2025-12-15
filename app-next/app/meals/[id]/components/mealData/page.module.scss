@@ -20,7 +20,6 @@
   background-color: colors.$background-secondary;
   border-radius: 1.6rem;
   gap: 1.5rem;
-  margin-block: 11rem 15rem;
 
   @include mixins.tablet {
     flex-direction: row-reverse;
@@ -28,7 +27,6 @@
     align-items: baseline;
     padding: 2rem;
     gap: 2rem;
-    margin-block: 5rem 11rem;
   }
 }
 
