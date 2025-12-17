@@ -80,14 +80,13 @@
     }
 
     h2 {
-      font-size: 4rem;
-      font-weight: 600;
+      font-size: 5rem;
       text-align: left;
       text-transform: uppercase;
-      -webkit-text-stroke: 0.2rem colors.$secondary;
+      -webkit-text-stroke: 0.1rem colors.$secondary;
 
       @include mixins.laptop {
-        font-size: 7rem;
+        font-size: 8rem;
         font-weight: 900;
       }
     }
@@ -173,7 +172,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
     margin-bottom: 2rem;
 
     @include mixins.laptop {
@@ -185,7 +183,6 @@
   &__heading {
     font-size: 2.5rem;
     font-weight: 600;
-    text-align: center;
     animation: fade-in 1s ease-in;
     padding-bottom: 1rem;
 
@@ -198,7 +195,6 @@
   }
 
   &__description {
-    font-size: 1.8rem;
     font-weight: 600;
     animation: fade-in 1s ease-in;
     animation-delay: 0.5s;
