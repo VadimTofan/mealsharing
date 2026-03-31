@@ -1,4 +1,5 @@
 'use client';
+
 import styles from './page.module.scss';
 
 import { useState, useEffect } from 'react';
@@ -13,7 +14,6 @@ export function MealCard({ mealData }) {
 
   const max = meal?.max_reservations ?? 0;
   const total = meal?.total_guests ?? 0;
-
   const availableSlots = max - total;
 
   useEffect(() => {
@@ -22,41 +22,39 @@ export function MealCard({ mealData }) {
 
   const reservationUpdate = (guests) => {
     const reserved = Number(visitors) + Number(guests);
-    setState((prev) => ({ ...prev, visitors: reserved }));
     const updatedSlots = max - total - reserved;
 
     setState((prev) => ({
       ...prev,
+      visitors: reserved,
       slots: updatedSlots,
     }));
-    guests = 0;
   };
 
   const mealInfo = [
     { label: 'Location', value: meal?.location },
-    { label: 'Reservations Left', value: slots ?? 0 },
-    { label: 'Price', value: meal?.price },
+    { label: 'Reservations left', value: slots ?? 0 },
+    { label: 'Price', value: `${meal?.price},-` },
   ];
 
   const refreshReviews = () => {
-    setState((prev) => ({ ...prev, reviews: prev + 1 }));
+    setState((prev) => ({ ...prev, reviews: prev.reviews + 1 || 1 }));
   };
 
   return (
-    <div className={styles.contentcard}>
-      <div className={styles.reviews__box}>
-        <Reviews id={meal?.id} key={reviews} />
-      </div>
-      <div className={styles.meal__box}>
+    <section className={styles.contentcard}>
+      <div className={`${styles.meal__box} surface-card`}>
         <div className={styles.meal}>
-          <h2 className={styles.meal__title}>{meal?.title}</h2>
+          <p className={styles.meal__eyebrow}>Meal details</p>
+          <h1 className={styles.meal__title}>{meal?.title}</h1>
           <p className={styles.meal__text}>{meal?.description}</p>
 
           <div className={styles.meal__info}>
-            {mealInfo.map((info, index) => (
-              <p className={styles.meal__text} key={index}>
-                {info.label}: {info.value}
-              </p>
+            {mealInfo.map((info) => (
+              <div className={styles.meal__metric} key={info.label}>
+                <span className={styles.meal__metricLabel}>{info.label}</span>
+                <span className={styles.meal__metricValue}>{info.value}</span>
+              </div>
             ))}
           </div>
         </div>
@@ -66,6 +64,10 @@ export function MealCard({ mealData }) {
           <Review id={meal?.id} refreshReviews={refreshReviews} />
         </div>
       </div>
-    </div>
+
+      <div className={`${styles.reviews__box} surface-card`}>
+        <Reviews id={meal?.id} key={reviews} />
+      </div>
+    </section>
   );
 }

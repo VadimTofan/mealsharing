@@ -1,6 +1,7 @@
 import styles from '../page.module.scss';
 
 import Link from 'next/link';
+import Image from 'next/image';
 
 const socialMedias = [
   {
@@ -32,14 +33,14 @@ const socialMedias = [
 
 export function SocialMedias() {
   return (
-    <div className={styles.footer__socials}>
-      <h3 className={styles.footer__heading}>Follow us on social media:</h3>
+    <nav className={styles.footer__socials} aria-label="Social media">
+      <h3 className={styles.footer__heading}>Keep in touch</h3>
       <ul className={styles.footer__links}>
         {socialMedias.map(({ img, link, name }) => (
           <SocialMedia key={name} img={img} link={link} name={name} />
         ))}
       </ul>
-    </div>
+    </nav>
   );
 }
 
@@ -53,7 +54,7 @@ export function SocialMedia({ img, link, name }) {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img src={img} alt={name} className={styles.footer__image} title={name} />
+        <Image src={img} alt="" className={styles.footer__image} title={name} width={32} height={32} />
         {name}
       </Link>
     </li>

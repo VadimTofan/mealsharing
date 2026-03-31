@@ -1,71 +1,42 @@
 'use client';
 
 import styles from '@/app/main/page.module.scss';
-import { useRef, useEffect } from 'react';
-import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export function SwipeBar() {
   const slides = [
-    { title: ['Eat Good!', 'Not Less.'] },
-    { title: ['We’re Real.', 'Not Machines.'] },
-    { title: ['Real Food.', 'Easy Choice.'] },
-    { title: ['You Are', 'What You Eat.'] },
+    { title: 'Hosted dinners', copy: 'Chef-led meals with character, not generic booking cards.' },
+    { title: 'Fast booking', copy: 'Reserve a seat, manage your plans, and skip the friction.' },
+    { title: 'Useful reviews', copy: 'See how past guests rated the food, host, and overall vibe.' },
+    { title: 'Local feel', copy: 'Find casual shared meals that feel closer to a dinner invite.' },
   ];
-
-  const wrapperRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    const wrapper = wrapperRef.current;
-    if (!wrapper) return;
-
-    const slideEls = wrapper.querySelectorAll(`.${styles.swipebar__slide}`);
-    if (!slideEls.length) return;
-
-    let currentIndex = 0;
-
-    const scrollToSlide = (idx) => {
-      const slideWidth = slideEls[0].offsetWidth;
-      wrapper.scrollTo({
-        left: idx * slideWidth,
-        behavior: 'smooth',
-      });
-    };
-
     const interval = setInterval(() => {
-      currentIndex = (currentIndex + 1) % slideEls.length;
-      scrollToSlide(currentIndex);
+      setActiveIndex((current) => (current + 1) % slides.length);
     }, 5000);
 
-    const handleResize = () => scrollToSlide(currentIndex);
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      clearInterval(interval);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+    return () => clearInterval(interval);
+  }, [slides.length]);
 
   return (
-    <div className={styles.swipebar}>
-      <div className={styles.swipebar__wrapper} ref={wrapperRef}>
+    <section className={styles.swipebar}>
+      <div className={styles.swipebar__heading}>
+        <p className={styles.swipebar__eyebrow}>Why it feels better</p>
+        <h2 className={styles.swipebar__title}>Built for real dinners, not sterile listings.</h2>
+      </div>
+      <div className={styles.swipebar__wrapper}>
         {slides.map((slide, idx) => (
-          <div className={styles.swipebar__slide} key={idx}>
-            <h2 className={styles.swipebar__heading}>
-              {slide.title.map((line, i) => (
-                <span key={i} className={styles.swipebar__line}>
-                  {line}
-                </span>
-              ))}
-            </h2>
-          </div>
+          <article
+            key={slide.title}
+            className={`${styles.swipebar__slide} ${idx === activeIndex ? styles.swipebar__slideActive : ''}`}
+          >
+            <h3 className={styles.swipebar__cardTitle}>{slide.title}</h3>
+            <p className={styles.swipebar__copy}>{slide.copy}</p>
+          </article>
         ))}
       </div>
-
-      <div className={styles.swipebar__link}>
-        <Link href="/meals" className={styles.swipebar__button}>
-          Reserve a meal now!
-        </Link>
-      </div>
-    </div>
+    </section>
   );
 }

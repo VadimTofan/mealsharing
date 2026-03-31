@@ -28,8 +28,8 @@ export default function Meals() {
 
   return (
     <>
-      {showTortilla ? <div className={`${styles.tortilla__show} ${styles.tortilla}`} /> : ''}
-      {showBeans ? <div className={`${styles.beans__show} ${styles.beans}`} /> : ''}
+      {showTortilla ? <div className={`${styles.tortilla__show} ${styles.tortilla}`} aria-hidden="true" /> : ''}
+      {showBeans ? <div className={`${styles.beans__show} ${styles.beans}`} aria-hidden="true" /> : ''}
       <MealList add="description" />
     </>
   );

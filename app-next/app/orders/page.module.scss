@@ -1,219 +1,64 @@
-@use '../../styles/colors';
-@use '../../styles/mixins';
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes pulse {
-  0% {
-    opacity: 0.4;
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0.4;
-  }
-}
+@use '../../styles/index' as *;
 
 .orders {
   display: flex;
-  flex-direction: column;
   justify-content: center;
 
-  @include mixins.tablet {
-    justify-self: center;
-    text-align: center;
+  &__panel {
+    display: grid;
+    width: 100%;
+    gap: 2rem;
+    padding: 2rem;
+
+    @include tablet {
+      padding: 2.8rem;
+    }
+  }
+
+  &__eyebrow {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.26rem;
+    text-transform: uppercase;
+    color: $hover;
   }
 
   &__title {
-    font-size: 3rem;
-    font-weight: 900;
-    text-align: center;
-    animation: fade-in 1s ease-in;
-    animation-delay: 0.2s;
-    animation-fill-mode: both;
-    padding-block: 3rem;
+    max-width: 52rem;
   }
 
   &__list {
     display: grid;
     gap: 1.6rem;
-    grid-template-columns: repeat(1, 1fr);
-
-    @include mixins.tablet {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    @include mixins.laptop {
-      grid-template-columns: repeat(3, 1fr);
-    }
+    grid-template-columns: repeat(auto-fit, minmax(29rem, 1fr));
   }
 
-  &__item {
-    width: 25%;
-    height: 20rem;
-    text-align: center;
-    color: colors.$primary;
-    background-color: colors.$background-secondary;
-    border: 0.1rem solid colors.$primary;
-    border-radius: 0.8rem;
+  &__button {
+    width: 100%;
+    min-height: 4.8rem;
+    padding: 1.2rem 1.6rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.12rem;
+    text-transform: uppercase;
+    color: $secondary;
+    background: $primary;
+    border: 0;
+    border-radius: 999rem;
+    cursor: pointer;
     transition:
-      transform 0.2s ease,
-      box-shadow 0.2s ease;
-    padding-top: 10rem;
+      transform 0.25s ease,
+      background-color 0.25s ease;
 
     &:hover {
-      box-shadow: 0 0.6rem 1.2rem colors.$secondary;
-      transform: translateY(-0.3rem);
+      background: $hover;
+      transform: translateY(-0.1rem);
     }
   }
 
+  &__item,
   &__text {
-    font-size: 1.8rem;
-    font-weight: 900;
-    text-align: center;
-    animation: fade-in 1s ease-in;
-    animation-delay: 0.2s;
-    animation-fill-mode: both;
-    padding-top: 1rem;
-
-    @include mixins.laptop {
-      font-size: 2rem;
-    }
-  }
-
-  &__button {
-    display: inline-block;
-    position: relative;
-    width: 100%;
-    padding: 0 1.5rem;
-    font-size: 1.8rem;
-    font-weight: 600;
-    line-height: 3.5rem;
-    color: colors.$primary;
-    background: transparent;
-    border: 0.2rem solid colors.$primary;
-    border-radius: 0.6rem;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 1s ease-out;
-
-    &::before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      width: 100%;
-      height: 100%;
-      background: colors.$secondary;
-      transition: all 0.5s ease-out;
-      content: attr(data-hover);
-      transform: translate(-100%, 0);
-    }
-
-    &:hover::before {
-      transform: translate(0, 0);
-    }
-
-    &:hover {
-      background: colors.$secondary;
-      border-color: colors.$secondary;
-    }
-  }
-}
-
-.modal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  z-index: 1;
-  padding: 1rem;
-  color: colors.$secondary;
-  background-color: colors.$background-secondary;
-  inset: 0;
-
-  &__content {
-    width: 100%;
-    max-width: 50rem;
-    padding: 1.5rem;
-    background-color: colors.$primary;
-    border-radius: 1.2rem;
-    box-shadow: 0 1.2rem 3.2rem colors.$background-secondary;
-    animation: fade-in 0.3s ease-out;
-  }
-
-  &__title {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-
-  &__buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-  }
-
-  &__button {
-    width: 35%;
-    padding: 0.6rem 1rem;
-    font-size: 1rem;
-    font-weight: 600;
-    color: colors.$primary;
-    background-color: colors.$background;
-    border: none;
-    border-radius: 0.6rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: colors.$background-secondary;
-    }
-
-    &:first-child {
-      background-color: colors.$error;
-
-      &:hover {
-        background-color: colors.$error-tretiary;
-      }
-    }
-  }
-
-  &__status {
-    padding: 2rem;
-    font-size: 1.8rem;
-    text-align: center;
-
-    &.success {
-      color: colors.$success;
-    }
-
-    &.error {
-      color: colors.$error;
-      animation: pulse 1s infinite ease-in-out;
-    }
-  }
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(-1rem);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
+    font-size: 1.7rem;
+    color: $text-muted;
   }
 }

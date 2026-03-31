@@ -1,239 +1,270 @@
-@use '../../styles/mixins';
-@use '../../styles/colors';
+@use '../../styles/index' as *;
 
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
+.home {
+  display: grid;
+  gap: 2.4rem;
 
-  to {
-    opacity: 1;
+  @include laptop {
+    gap: 3.2rem;
   }
 }
 
-.databox {
-  display: flex;
-  flex-direction: column;
+.hero {
+  display: grid;
   position: relative;
-  min-height: 80vh;
+  min-height: 64rem;
   overflow: hidden;
-  gap: 15rem;
+  padding: 2rem;
 
-  @include mixins.laptop {
-    gap: 35rem;
+  @include tablet {
+    padding: 3rem;
   }
-}
 
-.main {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 40%;
+  @include laptop {
+    min-height: 74rem;
+    padding: 4rem;
+  }
 
-  &__bgvideo {
-    position: relative;
+  &__video,
+  &__veil {
+    position: absolute;
+    inset: 0;
+  }
+
+  &__video {
     width: 100%;
-    height: 120vh;
+    height: 100%;
     object-fit: cover;
+  }
+
+  &__veil {
+    background:
+      linear-gradient(120deg, rgba(9, 13, 11, 0.9), rgba(9, 13, 11, 0.28) 58%),
+      linear-gradient(180deg, transparent, rgba(9, 13, 11, 0.42));
+  }
+
+  &__content {
+    display: grid;
+    align-content: end;
+    position: relative;
+    z-index: 1;
+    min-height: 56rem;
+    gap: 1.8rem;
+  }
+
+  &__eyebrow {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.3rem;
+    text-transform: uppercase;
+    color: $hover;
+  }
+
+  &__title {
+    max-width: 52rem;
+    font-size: clamp(4.2rem, 7vw, 7.2rem);
+  }
+
+  &__copy {
+    max-width: 58rem;
+    font-size: 1.8rem;
+    color: $text-muted;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  &__primary,
+  &__secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18rem;
+    padding: 1.3rem 2rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.12rem;
+    text-transform: uppercase;
+    border-radius: 999rem;
+    transition:
+      transform 0.25s ease,
+      background-color 0.25s ease,
+      color 0.25s ease;
+  }
+
+  &__primary {
+    color: $secondary;
+    background: $primary;
+  }
+
+  &__secondary {
+    color: $primary;
+    background: rgba(247, 240, 232, 0.06);
+    border: 0.1rem solid $border-soft;
+  }
+
+  &__primary:hover,
+  &__secondary:hover {
+    color: $secondary;
+    background: $hover;
+    transform: translateY(-0.2rem);
+  }
+
+  &__stats {
+    display: grid;
+    gap: 1rem;
+
+    @include tablet {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      max-width: 72rem;
+    }
+  }
+
+  &__stat {
+    display: grid;
+    gap: 0.5rem;
+    padding: 1.4rem 1.6rem;
+    background: rgba(247, 240, 232, 0.06);
+    border: 0.1rem solid $border-soft;
+    border-radius: 1.8rem;
+    backdrop-filter: blur(1.2rem);
+  }
+
+  &__value {
+    font-size: 2.4rem;
+    font-weight: 700;
+  }
+
+  &__label {
+    font-size: 1.3rem;
+    color: $text-muted;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
   }
 }
 
 .swipebar {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  top: 7rem;
-  width: 100%;
-  text-align: center;
-  animation: fade-in 1s ease-in;
-  gap: 2rem;
-  animation-delay: 0.2s;
-  animation-fill-mode: both;
+  display: grid;
+  gap: 1.6rem;
 
-  @include mixins.laptop {
-    left: 35rem;
+  &__heading {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  &__eyebrow {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.24rem;
+    text-transform: uppercase;
+    color: $hover;
+  }
+
+  &__title {
+    max-width: 62rem;
   }
 
   &__wrapper {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow: hidden;
-    overflow-x: auto;
-    scroll-behavior: smooth;
+    display: grid;
+    gap: 1.2rem;
 
-    &::-webkit-scrollbar {
-      display: none;
+    @include tablet {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include laptop {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 
   &__slide {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    box-shadow: colors.$background-tretiary;
-    flex-shrink: 0;
-
-    @include mixins.laptop {
-      align-items: start;
-    }
-
-    h2 {
-      font-size: 5rem;
-      text-align: left;
-      text-transform: uppercase;
-      -webkit-text-stroke: 0.1rem colors.$secondary;
-
-      @include mixins.laptop {
-        font-size: 8rem;
-        font-weight: 900;
-      }
-    }
+    display: grid;
+    gap: 1rem;
+    min-height: 18rem;
+    padding: 2rem;
+    background: rgba(247, 240, 232, 0.04);
+    border: 0.1rem solid $border-soft;
+    border-radius: 2rem;
+    box-shadow: 0 1.6rem 4rem $shadow-soft;
+    transition:
+      transform 0.25s ease,
+      border-color 0.25s ease,
+      background-color 0.25s ease;
   }
 
-  &__line {
-    display: block;
-    line-height: 1.2;
+  &__slideActive {
+    background: rgba(255, 176, 102, 0.08);
+    border-color: $border-strong;
+    transform: translateY(-0.2rem);
   }
 
-  &__link {
-    @include mixins.laptop {
-      display: flex;
-      margin-left: 1.5rem;
-    }
+  &__cardTitle {
+    font-size: 2.2rem;
   }
 
-  &__buttons {
-    margin-top: 1rem;
-    text-align: left;
-  }
-
-  &__button {
-    display: inline-block;
-    position: relative;
-    padding: 0 1.5rem;
-    font-size: 1.8rem;
-    font-weight: 600;
-    line-height: 3.5rem;
-    text-transform: uppercase;
-    background: transparent;
-    border: 0.2rem solid colors.$primary;
-    border-radius: 0.6rem;
-    overflow: hidden;
-    transition: all 1s ease-out;
-
-    @include mixins.laptop {
-      font-size: 2.5rem;
-      font-weight: 600;
-      line-height: 6rem;
-    }
-
-    &::before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      width: 100%;
-      height: 100%;
-      background: colors.$secondary;
-      transition: all 1s ease-out;
-      content: attr(data-hover);
-      transform: translate(-100%, 0);
-    }
-
-    &:hover::before {
-      transform: translate(0, 0);
-    }
-
-    &:hover {
-      background: colors.$secondary;
-      border-color: colors.$secondary;
-    }
+  &__copy {
+    color: $text-muted;
   }
 }
 
 .meals {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 1.5rem;
-  background-color: colors.$background;
-  gap: 1rem;
+  display: grid;
+  gap: 2rem;
+  padding: 2rem;
 
-  @include mixins.laptop {
-    flex-direction: row;
-    position: relative;
-    width: 80%;
-    border-radius: 0 1.6rem 1.6rem 0;
+  @include laptop {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    padding: 3rem;
   }
 
   &__welcome {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 2rem;
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+  }
 
-    @include mixins.laptop {
-      align-items: flex-start;
-      padding-top: 5rem;
-    }
+  &__eyebrow {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.24rem;
+    text-transform: uppercase;
+    color: $hover;
   }
 
   &__heading {
-    font-size: 2.5rem;
-    font-weight: 600;
-    animation: fade-in 1s ease-in;
-    padding-bottom: 1rem;
-
-    @include mixins.laptop {
-      font-size: 3rem;
-      font-weight: 900;
-      text-align: left;
-      padding-bottom: 1.5rem;
-    }
+    max-width: 44rem;
   }
 
   &__description {
-    font-weight: 600;
-    animation: fade-in 1s ease-in;
-    animation-delay: 0.5s;
-    animation-fill-mode: both;
-    margin-bottom: 1.5rem;
-
-    @include mixins.laptop {
-      max-width: 90%;
-    }
+    max-width: 48rem;
+    color: $text-muted;
   }
 
   &__list {
     display: grid;
-    align-items: center;
     gap: 1.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-
-    @include mixins.laptop {
-      min-width: 35rem;
-    }
+    grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
   }
 }
 
 .carrot {
-  @include mixins.laptop {
+  @include laptop {
     position: fixed;
-    top: 20vh;
-    right: 2rem;
-    z-index: 1;
-    width: 40rem;
-    height: 40rem;
+    top: 22vh;
+    right: 0;
+    z-index: -1;
+    width: 32rem;
+    height: 32rem;
     background: url('/images/carrots.png') no-repeat center/contain;
     opacity: 0;
     transition: opacity 1s ease;
     pointer-events: none;
 
     &__show {
-      opacity: 1;
-      transition: opacity 1s ease;
+      opacity: 0.45;
     }
   }
 }

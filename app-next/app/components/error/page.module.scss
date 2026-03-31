@@ -1,5 +1,4 @@
-@use '../../../styles/mixins';
-@use '../../../styles/colors';
+@use '../../../styles/index' as *;
 
 @keyframes pulse {
   0% {
@@ -16,19 +15,19 @@
 }
 
 .error {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  min-height: 24rem;
 
   &__text {
-    height: 5rem;
-    padding: 1rem;
+    max-width: min(90vw, 48rem);
+    padding: 1.6rem 2rem;
     font-size: clamp(1.5rem, 2.5vw, 3rem);
     text-align: center;
-    color: colors.$error;
-    background-color: colors.$error-secondary;
-    border-radius: 1rem;
+    color: $error;
+    background-color: $error-secondary;
+    border: 0.1rem solid rgba(255, 123, 97, 0.2);
+    border-radius: 1.6rem;
     animation: pulse 1s infinite ease-in-out;
   }
 }

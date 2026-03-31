@@ -13,16 +13,16 @@ export function Review({ id, refreshReviews }) {
 
   return (
     <>
-      <button className={styles.review__button} onClick={() => openForm('review')}>
+      <button type="button" className={styles.review__button} onClick={() => openForm('review')}>
         Add review
       </button>
 
       {state === 'review' && (
         <div className={styles.modal} id="review" style={{ display: 'flex' }}>
           <div className={styles.modal__content}>
-            <span className={styles.modal__close} onClick={closeForm}>
+            <button type="button" className={styles.modal__close} onClick={closeForm}>
               &times;
-            </span>
+            </button>
             <ReviewForm id={id} closeForm={closeForm} refreshReviews={refreshReviews} />
           </div>
         </div>

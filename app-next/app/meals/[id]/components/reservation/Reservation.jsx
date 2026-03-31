@@ -13,16 +13,16 @@ export function Reservation({ slots, reservationUpdate, meal }) {
   const closeForm = () => setModalOpen(null);
   return (
     <>
-      <button className={styles.modal__button} onClick={() => openForm('reservation')}>
+      <button type="button" className={styles.modal__button} onClick={() => openForm('reservation')}>
         Reserve
       </button>
 
       {modalOpen === 'reservation' && (
         <div className={styles.modal} id="reservation">
           <div className={styles.modal__content}>
-            <span className={styles.modal__close} onClick={closeForm}>
+            <button type="button" className={styles.modal__close} onClick={closeForm}>
               &times;
-            </span>
+            </button>
             <ReservationForm
               slots={slots}
               meal={meal}

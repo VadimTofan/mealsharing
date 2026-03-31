@@ -1,5 +1,4 @@
-@use '../../../styles/colors';
-@use '../../../styles/mixins';
+@use '../../../styles/index' as *;
 
 @keyframes pulse {
   0% {
@@ -16,15 +15,13 @@
 }
 
 .loading {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  min-height: 32rem;
 
   &__letter {
     font-size: clamp(3rem, 5vh, 5rem);
-    color: colors.$loading;
-    border: 0.5px colors.$secondary;
+    color: $loading;
     animation: pulse 1s infinite ease-in-out;
   }
 }

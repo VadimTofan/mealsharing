@@ -22,15 +22,19 @@ export function Header() {
 
   return (
     <header className={`${styles.header} ${isScrolled ? styles.header__scrolled : ''}`}>
-      <Link href="/">
+      <Link href="/" className={styles.header__brand} aria-label="Mealsharing home">
         <div className={styles.header__logo}>
           <Image
             src="/images/mainlogo.png"
-            alt="Mealsharing Logo"
+            alt="Mealsharing logo"
             className={styles.header__logoImage}
-            width={50}
-            height={50}
+            width={56}
+            height={56}
           />
+        </div>
+        <div className={styles.header__copy}>
+          <span className={styles.header__title}>Mealsharing</span>
+          <span className={styles.header__subtitle}>Hosted dinners with style</span>
         </div>
       </Link>
       <BurgerMenu />

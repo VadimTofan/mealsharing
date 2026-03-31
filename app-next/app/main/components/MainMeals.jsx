@@ -3,36 +3,27 @@
 import styles from '@/app/main/page.module.scss';
 import { Meal } from '@/app/meals/components/meal/Meal';
 import { ErrorComponent } from '@/app/components/error/Error';
-import { useEffect, useState } from 'react';
 
 export function MainMeals({ meals }) {
-  const [state, setState] = useState();
-
-  useEffect(() => {
-    setState(meals);
-  }, [meals]);
-
   return (
-    <div className={`${styles.meals} contentcard`}>
+    <section className={`${styles.meals} surface-card`}>
       <div className={styles.meals__welcome}>
-        <h2 className={styles.meals__heading}>Welcome to Meal Sharing</h2>
-        <h2 className={styles.meals__heading}>Eat Good, Meet Cool People, Repeat.</h2>
+        <p className={styles.meals__eyebrow}>Featured meals</p>
+        <h2 className={styles.meals__heading}>Reserve something that feels worth leaving home for.</h2>
         <p className={styles.meals__description}>
-          Looking for tasty home-cooked grub and new friends? Meal Sharing hooks you up with awesome
-          meals from locals who love to cook. No boring restaurants here, just real food, real
-          people, and good times. Reserve your spot, chow down, and drop a review to keep the good
-          vibes going. Simple, fun, and perfect for anyone who loves food and company. Jump in and
-          let’s make mealtime social again.
+          Mealsharing helps hosts present memorable dinners and gives guests a cleaner way to find,
+          compare, and book them. Start with a few hand-picked options below, then browse the full
+          collection when you are ready.
         </p>
       </div>
 
       <ul className={styles.meals__list}>
-        {state?.length > 0 ? (
-          state.map((meal) => <Meal key={meal.id} meal={meal} />)
+        {meals?.length > 0 ? (
+          meals.slice(0, 2).map((meal) => <Meal key={meal.id} meal={meal} />)
         ) : (
-          <ErrorComponent error={'No Meals Found'} />
+          <ErrorComponent error="No meals found" />
         )}
       </ul>
-    </div>
+    </section>
   );
 }

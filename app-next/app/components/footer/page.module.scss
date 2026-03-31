@@ -1,78 +1,91 @@
-@use '../../../styles/mixins';
-@use '../../../styles/colors';
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
+@use '../../../styles/index' as *;
 
 .footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  bottom: -2.7rem;
-  width: 100%;
-  padding: 1rem;
-  color: colors.$white;
-  background-color: colors.$background;
-  animation: fade-in 1s ease-in;
+  display: grid;
+  align-items: start;
+  width: min(100% - 3.2rem, 138rem);
+  margin: 0 auto 2.4rem;
+  padding: 2.4rem;
+  color: $primary;
+  background: linear-gradient(180deg, rgba(247, 240, 232, 0.05), rgba(247, 240, 232, 0.02));
+  border: 0.1rem solid $border-soft;
+  border-radius: 3rem;
+  box-shadow: 0 2rem 6rem $shadow-soft;
+  gap: 2.4rem;
+  backdrop-filter: blur(1.8rem);
 
-  @include mixins.tablet {
-    flex-direction: row;
-    justify-content: space-between;
-    padding-inline: 10rem;
+  @include tablet {
+    grid-template-columns: 1.4fr 1fr auto;
+    padding: 3rem;
+  }
+
+  &__intro {
+    display: grid;
+    gap: 1rem;
+  }
+
+  &__eyebrow {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.28rem;
+    text-transform: uppercase;
+    color: $hover;
+  }
+
+  &__title {
+    max-width: 32rem;
+  }
+
+  &__copy {
+    max-width: 42rem;
+    color: $text-muted;
   }
 
   &__socials {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    gap: 1rem;
+    display: grid;
+    gap: 1.2rem;
+  }
 
-    @include mixins.tablet {
-      text-align: start;
-    }
+  &__heading {
+    font-size: 1.4rem;
+    letter-spacing: 0.16rem;
+    text-transform: uppercase;
+    color: $text-faint;
   }
 
   &__links {
     display: grid;
-    justify-content: center;
-    align-items: center;
-    text-align: left;
-    gap: 1rem;
-    grid-template-columns: repeat(3, auto);
+    gap: 0.8rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 
-    @include mixins.tablet {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-    }
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.5rem;
+    color: $text-muted;
   }
 
   &__image {
-    vertical-align: middle;
-    width: 3rem;
-    margin-right: 0.8rem;
+    width: 2.4rem;
+    height: 2.4rem;
+    object-fit: contain;
+  }
+
+  &__maplink {
+    justify-self: start;
   }
 
   &__map {
-    display: none;
+    width: 9.6rem;
+    height: auto;
+    border-radius: 1.8rem;
+    box-shadow: 0 1.6rem 3rem $shadow-soft;
+    transition: transform 0.25s ease;
+  }
 
-    @include mixins.laptop {
-      display: block;
-      margin-top: 0;
-      width: 10rem;
-
-      &:hover {
-        transform: scale(1.05);
-        transition: transform 0.3s ease-in;
-      }
-    }
+  &__maplink:hover &__map {
+    transform: translateY(-0.2rem) scale(1.02);
   }
 }

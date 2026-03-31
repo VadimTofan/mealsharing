@@ -24,18 +24,25 @@ export default function Orders() {
   if (reservationsLoading) return <LoadingComponent />;
 
   return (
-    <div className={styles.orders}>
-      {user && <h2 className={styles.orders__title}>Your Reservations</h2>}
-      {!user && <p className={styles.orders__text}>You have not logged in yet.</p>}
+    <section className={styles.orders}>
+      <div className={`${styles.orders__panel} surface-card`}>
+        {user && (
+          <>
+            <p className={styles.orders__eyebrow}>Your plans</p>
+            <h1 className={styles.orders__title}>Reservations you already locked in.</h1>
+          </>
+        )}
+        {!user && <p className={styles.orders__text}>Log in to view and manage your reservations.</p>}
 
-      {user &&
-        (meals && meals.length > 0 ? (
-          <ul className={styles.orders__list}>{mealsValidation()}</ul>
-        ) : (
-          !reservationsLoading && (
-            <p className={styles.orders__text}>{user?.name}, you have no reservations yet.</p>
-          )
-        ))}
-    </div>
+        {user &&
+          (meals && meals.length > 0 ? (
+            <ul className={styles.orders__list}>{mealsValidation()}</ul>
+          ) : (
+            !reservationsLoading && (
+              <p className={styles.orders__text}>{user?.name}, you have no reservations yet.</p>
+            )
+          ))}
+      </div>
+    </section>
   );
 }

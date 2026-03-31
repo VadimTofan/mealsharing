@@ -2,6 +2,7 @@
 
 import styles from '../page.module.scss';
 import { useState, useContext, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { GoogleLogin } from '@react-oauth/google';
@@ -14,6 +15,7 @@ export default function BurgerMenu() {
     showLoginModal: false,
     showProfileMenu: false,
   });
+  const [isMounted, setIsMounted] = useState(false);
   const { menuOpen, showLoginModal, showProfileMenu } = state;
 
   const { user, setUser, setToken } = useContext(AuthContext);
@@ -41,6 +43,10 @@ export default function BurgerMenu() {
   }
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
     function handleClickOutside(event) {
       if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
         setState((prev) => ({ ...prev, showProfileMenu: false }));
@@ -61,6 +67,7 @@ export default function BurgerMenu() {
         onClick={toggleMenu}
         aria-label="Toggle menu"
         aria-expanded={menuOpen}
+        type="button"
       >
         <span className={styles.header__line}></span>
         <span className={styles.header__line}></span>
@@ -86,6 +93,7 @@ export default function BurgerMenu() {
             <li className={styles.header__link}>
               <button
                 className={styles.header__button}
+                type="button"
                 onClick={() =>
                   setState((prev) => ({
                     ...prev,
@@ -106,20 +114,27 @@ export default function BurgerMenu() {
               </li>
 
               <li className={styles.header__profile} ref={profileMenuRef}>
-                <Image
-                  src={user.picture}
-                  alt="Profile"
-                  className={styles.header__image}
+                <button
+                  type="button"
+                  className={styles.header__avatarButton}
                   onClick={() =>
                     setState((prev) => ({ ...prev, showProfileMenu: !prev.showProfileMenu }))
                   }
                   aria-haspopup="true"
-                  height={50}
-                  width={50}
-                />
+                  aria-expanded={showProfileMenu}
+                  aria-label="Toggle profile menu"
+                >
+                  <Image
+                    src={user.picture}
+                    alt="Profile"
+                    className={styles.header__image}
+                    height={50}
+                    width={50}
+                  />
+                </button>
                 {showProfileMenu && (
                   <div className={styles.header__dropdown}>
-                    <button onClick={handleLogout} className={styles.header__signout}>
+                    <button type="button" onClick={handleLogout} className={styles.header__signout}>
                       Sign out
                     </button>
                   </div>
@@ -129,23 +144,29 @@ export default function BurgerMenu() {
           )}
         </ul>
       </nav>
-      {showLoginModal && (
-        <div className={styles.header__modal}>
-          <div className={styles.header__modalContent}>
-            <h2 className={styles.header__login}>Sign in with Google</h2>
-            <GoogleLogin
-              onSuccess={handleLoginSuccess}
-              onError={() => console.warn('Login Failed')}
-            />
-            <button
-              className={styles.header__cancel}
-              onClick={() => setState((prev) => ({ ...prev, showLoginModal: false }))}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
+      {isMounted &&
+        showLoginModal &&
+        createPortal(
+          <div className={styles.header__modal}>
+            <div className={styles.header__modalContent}>
+              <h2 className={styles.header__login}>Sign in with Google</h2>
+              <div className={styles.header__google}>
+                <GoogleLogin
+                  onSuccess={handleLoginSuccess}
+                  onError={() => console.warn('Login Failed')}
+                />
+              </div>
+              <button
+                className={styles.header__cancel}
+                type="button"
+                onClick={() => setState((prev) => ({ ...prev, showLoginModal: false }))}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>,
+          document.body
+        )}
     </>
   );
 }
