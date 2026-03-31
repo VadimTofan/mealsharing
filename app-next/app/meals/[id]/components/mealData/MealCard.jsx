@@ -61,12 +61,14 @@ export function MealCard({ mealData }) {
 
         <div className={styles.meal__res}>
           <Reservation meal={meal} slots={slots} reservationUpdate={reservationUpdate} />
-          <Review id={meal?.id} refreshReviews={refreshReviews} />
         </div>
       </div>
 
       <div className={`${styles.reviews__box} surface-card`}>
         <Reviews id={meal?.id} key={reviews} />
+        <div className={styles.reviews__actions}>
+          <Review id={meal?.id} refreshReviews={refreshReviews} />
+        </div>
       </div>
     </section>
   );

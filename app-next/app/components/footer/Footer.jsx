@@ -27,8 +27,8 @@ export function Footer() {
           className={styles.footer__map}
           src="/images/googlemaps.png"
           alt="Open the location in Google Maps"
-          width={120}
-          height={120}
+          width={280}
+          height={280}
         />
       </Link>
     </footer>

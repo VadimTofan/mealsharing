@@ -40,7 +40,7 @@ export function Reviews({ id }) {
 
   return (
     <div className={styles.reviews}>
-      <h2 className={styles.reviews__title}>Recent Reviews</h2>
+      <p className={styles.reviews__eyebrow}>Guest feedback</p>
       <div className={styles.reviews__feedback}>
         <ul className={styles.reviews__list}>{reviewVaildation(reviews)}</ul>
       </div>

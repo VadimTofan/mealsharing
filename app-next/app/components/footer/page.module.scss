@@ -74,18 +74,34 @@
   }
 
   &__maplink {
-    justify-self: start;
+    display: none;
+
+    @include laptop {
+      display: inline-flex;
+      justify-self: end;
+      align-self: stretch;
+    }
   }
 
   &__map {
-    width: 9.6rem;
-    height: auto;
-    border-radius: 1.8rem;
-    box-shadow: 0 1.6rem 3rem $shadow-soft;
-    transition: transform 0.25s ease;
+    width: 24rem;
+    height: 100%;
+    min-height: 24rem;
+    object-fit: cover;
+    border-radius: 2.4rem;
+    box-shadow: 0 2rem 4rem $shadow-soft;
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+
+    @include laptop {
+      width: 28rem;
+      min-height: 100%;
+    }
   }
 
   &__maplink:hover &__map {
-    transform: translateY(-0.2rem) scale(1.02);
+    transform: translateY(-0.3rem) scale(1.02);
+    box-shadow: 0 2.4rem 4.8rem $shadow-strong;
   }
 }
