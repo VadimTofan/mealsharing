@@ -29,7 +29,6 @@ export default function Orders() {
         {user && (
           <>
             <p className={styles.orders__eyebrow}>Your plans</p>
-            <h1 className={styles.orders__title}>Reservations you already locked in.</h1>
           </>
         )}
         {!user && <p className={styles.orders__text}>Log in to view and manage your reservations.</p>}

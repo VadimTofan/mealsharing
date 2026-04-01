@@ -84,7 +84,7 @@ export function Meal({ meal, description = false, userdata }) {
 
         <div className={styles.meal__meta}>
           <p className={getReservationClass(meal.available_reservations)}>
-            {meal.available_reservations} seats left
+            Reservations left: {meal.available_reservations}
           </p>
           {reserved && <p className={styles.meal__isReserved}>Already reserved</p>}
         </div>

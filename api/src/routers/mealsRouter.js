@@ -22,7 +22,6 @@ mealsRouter.get("/api/selectedmeal/:id", async (request, response) => {
 mealsRouter.get("/api/top-meals", async (request, response) => {
   try {
     const meals = await db.getTopMeals();
-    if (meals.length === 1) return response.status(200).send(meals[0]);
 
     response.status(200).send(meals);
   } catch (error) {
@@ -69,7 +68,6 @@ mealsRouter.get("/api/meals", async (request, response) => {
     }
 
     const meals = await db.getMealsFiltered(filters, sortBy, directBy);
-    if (meals.length === 1) return response.status(200).send(meals[0]);
 
     response.status(200).send(meals);
   } catch (error) {

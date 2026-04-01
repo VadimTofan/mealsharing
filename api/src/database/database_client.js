@@ -125,11 +125,22 @@ export async function getMealDetailsWithAvailabilityById(mealId) {
 }
 
 export async function getTopMeals() {
+  const reservationsSubquery = dbClient("reservation")
+    .select("meal_id")
+    .sum("number_of_guests as total_guests")
+    .groupBy("meal_id")
+    .as("res_summary");
+
+  const reviewsSubquery = dbClient("review")
+    .select("meal_id")
+    .avg("stars as avg_stars")
+    .groupBy("meal_id")
+    .as("rev_summary");
+
   const meals = await dbClient("meal")
-    .leftJoin("review", "review.meal_id", "meal.id")
-    .leftJoin("reservation", "reservation.meal_id", "meal.id")
-    .groupBy("meal.id")
-    .havingRaw("meal.max_reservations - COALESCE(SUM(reservation.number_of_guests), 0) > 0")
+    .leftJoin(reservationsSubquery, "meal.id", "res_summary.meal_id")
+    .leftJoin(reviewsSubquery, "meal.id", "rev_summary.meal_id")
+    .whereRaw("meal.max_reservations - COALESCE(res_summary.total_guests, 0) > 0")
     .select(
       "meal.id",
       "meal.title",
@@ -139,8 +150,8 @@ export async function getTopMeals() {
       "meal.max_reservations",
       "meal.price",
       "meal.created_date",
-      dbClient.raw("AVG(review.stars) AS average_stars"),
-      dbClient.raw("COALESCE(SUM(reservation.number_of_guests), 0) AS reserved_guests")
+      dbClient.raw("COALESCE(rev_summary.avg_stars, 0) AS average_stars"),
+      dbClient.raw("meal.max_reservations - COALESCE(res_summary.total_guests, 0) AS available_reservations")
     )
     .orderBy("average_stars", "desc")
     .limit(3);
