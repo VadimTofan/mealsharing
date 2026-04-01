@@ -2,3 +2,11 @@ node_modules
 .env
 .next
 .env*
+AGENTS.md
+agents.md
+CLAUDE.md
+claude.md
+CODEX.md
+codex.md
+CURSOR.md
+cursor.md

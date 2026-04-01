@@ -48,7 +48,6 @@ export function MealList({ add }) {
       <div className={`${styles.meals__box} surface-card`}>
         <div className={styles.meals__intro}>
           <p className={styles.meals__eyebrow}>Discover meals</p>
-          <h1 className={styles.meals__title}>Browse what is cooking near you.</h1>
           <p className={styles.meals__description}>
             Search by title, sort by what matters, and explore dinners that feel more personal than
             another reservation app.
