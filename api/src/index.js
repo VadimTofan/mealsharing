@@ -45,7 +45,7 @@ app.use(mealsRouter);
 app.use(reservationsRouter);
 app.use(reviewsRouter);
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

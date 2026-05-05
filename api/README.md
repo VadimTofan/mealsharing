@@ -28,6 +28,32 @@ It also makes it possible to share temporary schema changes with others during P
 
 > Last tested: 2024-04-11
 
+### Deploying to Fly.io
+
+This API can also be deployed to Fly.io from the `api/` directory.
+
+Files prepared for Fly:
+
+- `fly.toml`
+- `Dockerfile`
+- `.dockerignore`
+
+Before your first deployment:
+
+1. Change the `app` value in `fly.toml` to your real Fly app name.
+2. Make sure your Fly app has a `DATABASE_URL` secret set.
+3. If your frontend is hosted separately, update CORS before production use. The current API allows all origins.
+
+Typical Fly commands from `api/`:
+
+```bash
+fly launch --no-deploy
+fly secrets set DATABASE_URL=your_database_url
+fly deploy
+```
+
+If you deploy through GitHub, keep `fly.toml` and `Dockerfile` in `api/` and point Fly or your GitHub workflow at that directory.
+
 ### Deploying a PostgreSQL database
 
 From your Render.com Dashboard page, click the tile called PostGreSQL.
