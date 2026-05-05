@@ -1,23 +1,27 @@
-# Change `app` to your real Fly app name before first deploy.
-app = "mealsharing-api"
-primary_region = "cdg"
+# fly.toml app configuration file generated for mealsharing-x1kmpa on 2026-05-05T19:09:53Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'mealsharing-x1kmpa'
+primary_region = 'cdg'
 
 [build]
-  dockerfile = "Dockerfile"
+  dockerfile = 'Dockerfile'
 
 [env]
-  NODE_ENV = "production"
-  PORT = "3001"
+  NODE_ENV = 'production'
+  PORT = '3001'
 
 [http_service]
   internal_port = 3001
   force_https = true
-  auto_stop_machines = "stop"
+  auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 0
-  processes = ["app"]
+  processes = ['app']
 
 [[vm]]
-  cpu_kind = "shared"
+  cpu_kind = 'shared'
   cpus = 1
   memory_mb = 512
