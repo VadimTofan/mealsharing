@@ -6,28 +6,18 @@ import Image from 'next/image';
 const socialMedias = [
   {
     img: '/images/linkedin.png',
-    link: 'https://www.linkedin.com/school/hackyourfuture-denmark/',
+    link: 'https://www.linkedin.com/in/vadim-tofan',
     name: 'LinkedIn',
   },
   {
-    img: '/images/instagram.png',
-    link: 'https://www.instagram.com/hackyourfuture.dk',
-    name: 'Instagram',
-  },
-  {
-    img: '/images/facebook.png',
-    link: 'https://www.facebook.com/hackyourfuturedenmark',
-    name: 'Facebook',
-  },
-  {
-    img: '/images/youtube.png',
-    link: 'https://www.youtube.com/@hackyourfuturedenmark8032',
-    name: 'YouTube',
-  },
-  {
     img: '/images/github.gif',
-    link: 'https://github.com/hackyourfuture-cph',
+    link: 'https://github.com/VadimTofan',
     name: 'GitHub',
+  },
+  {
+    img: '/images/mainlogo.png',
+    link: 'mailto:vad.tofan@gmail.com',
+    name: 'Email',
   },
 ];
 
